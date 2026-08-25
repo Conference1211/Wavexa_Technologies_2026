@@ -21,8 +21,8 @@ import {
 ========================================================= */
 
 const CONFERENCE = {
-  slug: "global-summit-nanoscience-nanotechnology",
-  title: "Global Summit on Nanoscience and Nanotechnology",
+  slug: "Technologies-summit-nanoscience-nanotechnology",
+  title: "Technologies Summit on Nanoscience and Nanotechnology",
   year: "2025",
   date: "Nov 24–25, 2025",
   edition: "Nanoscience & Nanotechnology",
@@ -52,12 +52,12 @@ function NanoscienceNanotechnology() {
     <>
       <Helmet>
         <title>
-          Global Summit on Nanoscience and Nanotechnology — PulseCon Global
+          Technologies Summit on Nanoscience and Nanotechnology — Wavexa Technologies
         </title>
 
         <meta
           name="description"
-          content="Explore the Global Summit on Nanoscience and Nanotechnology 2025, bringing together researchers, scientists, engineers and innovators to explore advances in nanoscience, nanomaterials, nanomedicine and emerging nanotechnologies."
+          content="Explore the Technologies Summit on Nanoscience and Nanotechnology 2025, bringing together researchers, scientists, engineers and innovators to explore advances in nanoscience, nanomaterials, nanomedicine and emerging nanotechnologies."
         />
       </Helmet>
 
@@ -68,9 +68,9 @@ function NanoscienceNanotechnology() {
       <div className="relative">
         <PageHero
           eyebrow={`Previous Conference · ${CONFERENCE.year}`}
-          title="Global Summit on"
+          title="Technologies Summit on"
           accent="Nanoscience & Nanotechnology."
-          body="A global scientific platform connecting researchers, scientists, engineers and innovators to exchange knowledge, explore advances in nanoscience and shape the future of nanotechnology."
+          body="A Technologies scientific platform connecting researchers, scientists, engineers and innovators to exchange knowledge, explore advances in nanoscience and shape the future of nanotechnology."
         />
 
         {/* HERO IMAGE */}
@@ -115,7 +115,7 @@ function NanoscienceNanotechnology() {
               </p>
 
               <p className="mt-1 text-sm font-medium text-white">
-                PulseCon Global · {CONFERENCE.year}
+                Wavexa Technologies · {CONFERENCE.year}
               </p>
             </div>
           </div>
@@ -183,7 +183,7 @@ function NanoscienceNanotechnology() {
 
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
-                    Global Community
+                    Technologies Community
                   </p>
 
                   <p className="mt-2 font-heading text-lg font-semibold">
@@ -206,7 +206,7 @@ function NanoscienceNanotechnology() {
             eyebrow="About The Conference"
             title="Connecting expertise."
             accent="Advancing nano innovation."
-            body="The Global Summit on Nanoscience and Nanotechnology brought together scientists, researchers, engineers and innovators to explore developments in nanoscience, advanced materials and emerging applications of nanotechnology."
+            body="The Technologies Summit on Nanoscience and Nanotechnology brought together scientists, researchers, engineers and innovators to explore developments in nanoscience, advanced materials and emerging applications of nanotechnology."
           />
 
           <Reveal delay={0.1}>
@@ -215,7 +215,7 @@ function NanoscienceNanotechnology() {
 
               <div className="relative">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
-                  A Global Scientific Platform
+                  A Technologies Scientific Platform
                 </p>
 
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
@@ -305,7 +305,7 @@ function NanoscienceNanotechnology() {
             <div className="relative overflow-hidden rounded-2xl border border-border/30">
               <img
                 src={CONFERENCE.image}
-                alt="Global Summit on Nanoscience and Nanotechnology"
+                alt="Technologies Summit on Nanoscience and Nanotechnology"
                 className="aspect-[16/11] w-full object-cover"
                 loading="lazy"
               />
@@ -314,11 +314,11 @@ function NanoscienceNanotechnology() {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">
-                  PulseCon Global · {CONFERENCE.year}
+                  Wavexa Technologies · {CONFERENCE.year}
                 </p>
 
                 <p className="mt-2 font-heading text-xl font-semibold text-white sm:text-2xl">
-                  Global Summit on Nanoscience and Nanotechnology
+                  Technologies Summit on Nanoscience and Nanotechnology
                 </p>
               </div>
             </div>
@@ -342,8 +342,8 @@ function NanoscienceNanotechnology() {
           <Heading
             eyebrow="The Journey Continues"
             title="Explore more"
-            accent="PulseCon memories."
-            body="Discover other previous PulseCon Global conferences and revisit the conversations, ideas and connections that continue to shape our global scientific community."
+            accent="Wavexa memories."
+            body="Discover other previous Wavexa Technologies conferences and revisit the conversations, ideas and connections that continue to shape our Technologies scientific community."
           />
 
           <Reveal delay={0.1}>
@@ -358,12 +358,12 @@ function NanoscienceNanotechnology() {
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
                   Discover more
                   <span className="block text-gradient">
-                    global editions.
+                    Technologies editions.
                   </span>
                 </h3>
 
                 <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-                  Explore previous PulseCon Global editions and discover the
+                  Explore previous Wavexa Technologies editions and discover the
                   knowledge, connections and experiences that shaped our
                   journey.
                 </p>

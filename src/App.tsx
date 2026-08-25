@@ -75,7 +75,7 @@ export default function App() {
           />
 
           <Route
-            path="/previous-conferences/global-summit-nanoscience-nanotechnology"
+            path="/previous-conferences/Technologies-summit-nanoscience-nanotechnology"
             element={<NanoscienceNanotechnology />}
           />
           <Route

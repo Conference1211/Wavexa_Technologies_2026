@@ -11,13 +11,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = React.useState<Theme>("dark");
 
   React.useEffect(() => {
-    const stored = window.localStorage.getItem("pulsecon-theme") as Theme | null;
+    const stored = window.localStorage.getItem("Wavexa-theme") as Theme | null;
     if (stored) setTheme(stored);
   }, []);
 
   React.useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
-    window.localStorage.setItem("pulsecon-theme", theme);
+    window.localStorage.setItem("Wavexa-theme", theme);
   }, [theme]);
 
   const value = React.useMemo(

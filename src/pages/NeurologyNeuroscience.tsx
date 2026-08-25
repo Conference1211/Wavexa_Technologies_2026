@@ -52,7 +52,7 @@ export default function NeurologyNeuroscience() {
     <>
       <Helmet>
         <title>
-          World Conference on Neurology and Neuroscience — PulseCon Global
+          World Conference on Neurology and Neuroscience — Wavexa Technologies
         </title>
 
         <meta
@@ -70,7 +70,7 @@ export default function NeurologyNeuroscience() {
           eyebrow={`Previous Conference · ${CONFERENCE.year}`}
           title="World Conference on"
           accent="Neurology & Neuroscience."
-          body="A global platform connecting neurologists, neuroscientists, researchers and healthcare professionals to exchange knowledge, explore advances in brain science and shape the future of neurological care."
+          body="A Technologies platform connecting neurologists, neuroscientists, researchers and healthcare professionals to exchange knowledge, explore advances in brain science and shape the future of neurological care."
         />
 
         {/* HERO IMAGE */}
@@ -114,7 +114,7 @@ export default function NeurologyNeuroscience() {
   </p>
 
   <p className="mt-1 text-sm font-medium text-white">
-    PulseCon Global · {CONFERENCE.year}
+    Wavexa Technologies · {CONFERENCE.year}
   </p>
 </div>
           </div>
@@ -179,7 +179,7 @@ export default function NeurologyNeuroscience() {
 
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
-                    Global Community
+                    Technologies Community
                   </p>
 
                   <p className="mt-2 font-heading text-lg font-semibold">
@@ -212,7 +212,7 @@ export default function NeurologyNeuroscience() {
 
               <div className="relative">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
-                  A Global Scientific Platform
+                  A Technologies Scientific Platform
                 </p>
 
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
@@ -314,7 +314,7 @@ export default function NeurologyNeuroscience() {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">
-                  PulseCon Global · {CONFERENCE.year}
+                  Wavexa Technologies · {CONFERENCE.year}
                 </p>
 
                 <p className="mt-2 font-heading text-xl font-semibold text-white sm:text-2xl">
@@ -343,8 +343,8 @@ export default function NeurologyNeuroscience() {
           <Heading
             eyebrow="The Journey Continues"
             title="Explore more"
-            accent="PulseCon memories."
-            body="Discover other previous PulseCon Global conferences and revisit the conversations, ideas and connections that continue to shape our global healthcare community."
+            accent="Wavexa memories."
+            body="Discover other previous Wavexa Technologies conferences and revisit the conversations, ideas and connections that continue to shape our Technologies healthcare community."
           />
 
           <Reveal delay={0.1}>
@@ -360,12 +360,12 @@ export default function NeurologyNeuroscience() {
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
                   Discover more
                   <span className="block text-gradient">
-                    global editions.
+                    Technologies editions.
                   </span>
                 </h3>
 
                 <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-                  Explore previous PulseCon Global editions and discover the
+                  Explore previous Wavexa Technologies editions and discover the
                   knowledge, connections and experiences that shaped our
                   journey.
                 </p>

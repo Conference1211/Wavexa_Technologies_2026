@@ -26,12 +26,12 @@ export default function Registration() {
   return (
     <>
       <Helmet>
-        <title>Registration & Passes — PulseCon Global 2026</title>
+        <title>Registration & Passes — Wavexa Technologies 2026</title>
         <meta
           name="description"
-          content="Digital, Delegate and Executive passes for PulseCon Global 2026 in Geneva. Group rates, scholarships, CME credits and visa support included."
+          content="Digital, Delegate and Executive passes for Wavexa Technologies 2026 in Geneva. Group rates, scholarships, CME credits and visa support included."
         />
-        <meta property="og:title" content="Registration & Passes — PulseCon Global 2026" />
+        <meta property="og:title" content="Registration & Passes — Wavexa Technologies 2026" />
         <meta property="og:description" content="Passes from €390. Early rate closes 30 June 2026." />
         <meta property="og:url" content="/registration" />
         <link rel="canonical" href="/registration" />

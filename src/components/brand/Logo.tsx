@@ -13,7 +13,7 @@ export function Logo({
         viewBox="0 0 48 48"
         className="h-9 w-9 shrink-0"
         role="img"
-        aria-label="PulseCon Global logo"
+        aria-label="Wavexa Technologies logo"
       >
         <defs>
           <linearGradient id="pc-grad" x1="0" y1="0" x2="1" y2="1">
@@ -53,9 +53,9 @@ export function Logo({
       </svg>
       {showWordmark ? (
         <span className="flex flex-col leading-none">
-          <span className="font-display text-[17px] font-bold tracking-tight">PulseCon</span>
+          <span className="font-display text-[17px] font-bold tracking-tight">Wavexa</span>
           <span className="text-[9px] font-medium uppercase tracking-[0.32em] text-muted-foreground">
-            Global
+            Technologies
           </span>
         </span>
       ) : null}

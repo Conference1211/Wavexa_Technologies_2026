@@ -1,4 +1,4 @@
-# PulseCon Global — Vite + React Router + Firebase
+# Wavexa Technologies — Vite + React Router + Firebase
 
 Migrated from TanStack Start to a standard **React 19 + Vite + TypeScript +
 React Router DOM + Tailwind CSS v4 + Framer Motion** SPA, ready for **Firebase

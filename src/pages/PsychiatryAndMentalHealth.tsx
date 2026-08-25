@@ -55,8 +55,8 @@ export default function PsychiatryAndMentalHealth() {
     <>
       <Helmet>
         <title>
-          International Conference on Psychiatry and Mental Health — PulseCon
-          Global
+          International Conference on Psychiatry and Mental Health — Wavexa
+          Technologies
         </title>
 
         <meta
@@ -74,7 +74,7 @@ export default function PsychiatryAndMentalHealth() {
           eyebrow={`Upcoming Conference · ${CONFERENCE.year}`}
           title="International Conference"
           accent="on Psychiatry & Mental Health."
-          body="A global platform bringing together psychiatrists, psychologists, researchers, clinicians and mental healthcare professionals to exchange knowledge, explore emerging approaches and advance the future of mental health."
+          body="A Technologies platform bringing together psychiatrists, psychologists, researchers, clinicians and mental healthcare professionals to exchange knowledge, explore emerging approaches and advance the future of mental health."
         />
 
         {/* HERO IMAGE */}
@@ -118,7 +118,7 @@ export default function PsychiatryAndMentalHealth() {
               </p>
 
               <p className="mt-1 text-sm font-medium text-white">
-                PulseCon Global · {CONFERENCE.year}
+                Wavexa Technologies · {CONFERENCE.year}
               </p>
             </div>
           </div>
@@ -180,7 +180,7 @@ export default function PsychiatryAndMentalHealth() {
 
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
-                    Global Community
+                    Technologies Community
                   </p>
 
                   <p className="mt-2 font-heading text-lg font-semibold">
@@ -212,7 +212,7 @@ export default function PsychiatryAndMentalHealth() {
 
               <div className="relative">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
-                  A Global Mental Health Platform
+                  A Technologies Mental Health Platform
                 </p>
 
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
@@ -236,7 +236,7 @@ export default function PsychiatryAndMentalHealth() {
                   <CheckCircle2 className="h-5 w-5 text-primary" />
 
                   <span className="text-sm font-medium">
-                    Advancing mental healthcare through global collaboration
+                    Advancing mental healthcare through Technologies collaboration
                   </span>
                 </div>
               </div>
@@ -314,7 +314,7 @@ export default function PsychiatryAndMentalHealth() {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">
-                  PulseCon Global · {CONFERENCE.year}
+                  Wavexa Technologies · {CONFERENCE.year}
                 </p>
 
                 <p className="mt-2 font-heading text-xl font-semibold text-white sm:text-2xl">
@@ -342,8 +342,8 @@ export default function PsychiatryAndMentalHealth() {
           <Heading
             eyebrow="The Journey Continues"
             title="Explore more"
-            accent="PulseCon Global events."
-            body="Discover other upcoming PulseCon Global conferences and explore the conversations, ideas and connections shaping the future of healthcare."
+            accent="Wavexa Technologies events."
+            body="Discover other upcoming Wavexa Technologies conferences and explore the conversations, ideas and connections shaping the future of healthcare."
           />
 
           <Reveal delay={0.1}>
@@ -358,12 +358,12 @@ export default function PsychiatryAndMentalHealth() {
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
                   Discover more
                   <span className="block text-gradient">
-                    global events.
+                    Technologies events.
                   </span>
                 </h3>
 
                 <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-                  Explore upcoming PulseCon Global editions and discover new
+                  Explore upcoming Wavexa Technologies editions and discover new
                   opportunities to learn, connect and shape the future of
                   healthcare.
                 </p>

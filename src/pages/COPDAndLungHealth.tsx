@@ -53,7 +53,7 @@ export default function COPDAndLungHealth() {
     <>
       <Helmet>
         <title>
-          International Conference on COPD and Lung Health — PulseCon Global
+          International Conference on COPD and Lung Health — Wavexa Technologies
         </title>
 
         <meta
@@ -71,7 +71,7 @@ export default function COPDAndLungHealth() {
           eyebrow={`Previous Conference · ${CONFERENCE.year}`}
           title="International Conference on"
           accent="COPD & Lung Health."
-          body="A global scientific platform connecting pulmonologists, respiratory specialists, researchers and healthcare professionals to explore advances in COPD, respiratory medicine, lung health and patient care."
+          body="A Technologies scientific platform connecting pulmonologists, respiratory specialists, researchers and healthcare professionals to explore advances in COPD, respiratory medicine, lung health and patient care."
         />
 
         {/* HERO IMAGE */}
@@ -117,7 +117,7 @@ export default function COPDAndLungHealth() {
               </p>
 
               <p className="mt-1 text-sm font-medium text-white">
-                PulseCon Global · {CONFERENCE.year}
+                Wavexa Technologies · {CONFERENCE.year}
               </p>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function COPDAndLungHealth() {
 
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
-                    Global Community
+                    Technologies Community
                   </p>
 
                   <p className="mt-2 font-heading text-lg font-semibold">
@@ -222,7 +222,7 @@ export default function COPDAndLungHealth() {
               <div className="relative">
 
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
-                  A Global Scientific Platform
+                  A Technologies Scientific Platform
                 </p>
 
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
@@ -338,7 +338,7 @@ export default function COPDAndLungHealth() {
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
 
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">
-                  PulseCon Global · {CONFERENCE.year}
+                  Wavexa Technologies · {CONFERENCE.year}
                 </p>
 
                 <p className="mt-2 font-heading text-xl font-semibold text-white sm:text-2xl">
@@ -373,8 +373,8 @@ export default function COPDAndLungHealth() {
           <Heading
             eyebrow="The Journey Continues"
             title="Explore more"
-            accent="PulseCon memories."
-            body="Discover other previous PulseCon Global conferences and revisit the conversations, ideas and connections that continue to shape our global healthcare community."
+            accent="Wavexa memories."
+            body="Discover other previous Wavexa Technologies conferences and revisit the conversations, ideas and connections that continue to shape our Technologies healthcare community."
           />
 
           <Reveal delay={0.1}>
@@ -392,12 +392,12 @@ export default function COPDAndLungHealth() {
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
                   Discover more
                   <span className="block text-gradient">
-                    global editions.
+                    Technologies editions.
                   </span>
                 </h3>
 
                 <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-                  Explore previous PulseCon Global editions and discover the
+                  Explore previous Wavexa Technologies editions and discover the
                   knowledge, connections and experiences that shaped our
                   journey.
                 </p>

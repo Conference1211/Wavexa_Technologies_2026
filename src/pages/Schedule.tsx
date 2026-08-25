@@ -14,12 +14,12 @@ export default function Schedule() {
   return (
     <>
       <Helmet>
-        <title>Schedule — PulseCon Global 2026, 12–15 October</title>
+        <title>Schedule — Wavexa Technologies 2026, 12–15 October</title>
         <meta
           name="description"
-          content="The full four-day PulseCon Global 2026 agenda: keynotes, deep dives, labs, the investor floor and evening programme in Geneva."
+          content="The full four-day Wavexa Technologies 2026 agenda: keynotes, deep dives, labs, the investor floor and evening programme in Geneva."
         />
-        <meta property="og:title" content="Schedule — PulseCon Global 2026" />
+        <meta property="og:title" content="Schedule — Wavexa Technologies 2026" />
         <meta
           property="og:description"
           content="Four days, six stages, one hundred sessions. See the full agenda."

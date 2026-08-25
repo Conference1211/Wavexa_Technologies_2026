@@ -32,18 +32,18 @@ export default function Home() {
   return (
     <>
       <Helmet>
-        <title>PulseCon Global 2026 — World Health Innovation Conference</title>
+        <title>Wavexa Technologies 2026 — World Health Innovation Conference</title>
         <meta
           name="description"
-          content="PulseCon Global 2026: four days in Geneva connecting healthcare, innovation, research and future medicine."
+          content="Wavexa Technologies 2026: four days in Geneva connecting healthcare, innovation, research and future medicine."
         />
-        <meta name="author" content="PulseCon Global" />
-        <meta property="og:site_name" content="PulseCon Global" />
+        <meta name="author" content="Wavexa Technologies" />
+        <meta property="og:site_name" content="Wavexa Technologies" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="PulseCon Global 2026 — World Health Innovation Conference" />
+        <meta property="og:title" content="Wavexa Technologies 2026 — World Health Innovation Conference" />
         <meta
           property="og:description"
-          content="PulseCon Global 2026: four days in Geneva connecting healthcare, innovation, research and future medicine."
+          content="Wavexa Technologies 2026: four days in Geneva connecting healthcare, innovation, research and future medicine."
         />
         <meta property="og:url" content="/" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -52,7 +52,7 @@ export default function Home() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "PulseCon Global 2026",
+            name: "Wavexa Technologies 2026",
             startDate: "2026-10-12",
             endDate: "2026-10-15",
             eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
@@ -85,7 +85,7 @@ export default function Home() {
         />
         <Reveal delay={0.1} className="mt-10">
           <ButtonLink to="/about" variant="outline">
-            More about PulseCon
+            More about Wavexa
           </ButtonLink>
         </Reveal>
       </Section>

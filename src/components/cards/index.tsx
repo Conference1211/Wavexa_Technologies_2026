@@ -15,7 +15,8 @@ export function SpeakerCard({
     country: string;
     track: string;
     initials: string;
-    bio: string;
+    image?: string;
+    bio: string;   
   };
   index?: number;
 }) {
@@ -24,16 +25,46 @@ export function SpeakerCard({
   return (
     <Card className="group p-0">
       <div className="relative aspect-[4/3.2] overflow-hidden">
-        <motion.div
-          className="absolute inset-0 [background-image:var(--gradient-brand)] opacity-90"
-          style={{ backgroundSize: "220% 220%", backgroundPosition: `${(index * 23) % 100}% 40%` }}
-          whileHover={{ scale: 1.06 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        />
-        <div className="absolute inset-0 bg-[oklch(0.16_0.026_252)]/35 mix-blend-multiply" />
-        <span className="absolute inset-0 grid place-items-center font-display text-6xl font-semibold text-primary-foreground/95">
-          {speaker.initials}
-        </span>
+        {speaker.image ? (
+  <motion.img
+    src={speaker.image}
+    alt={speaker.name}
+    className="
+      absolute
+      left-1/2
+      top-0
+      h-full
+      w-[115%]
+      max-w-none
+      -translate-x-1/2
+      object-cover
+      object-[center_20%]
+    "
+    whileHover={{
+      scale: 1.04,
+    }}
+    transition={{
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+  />
+) : (
+  <motion.div
+    className="absolute inset-0 [background-image:var(--gradient-brand)] opacity-90"
+    style={{
+      backgroundSize: "220% 220%",
+      backgroundPosition: `${(index * 23) % 100}% 40%`,
+    }}
+    whileHover={{ scale: 1.06 }}
+    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+  >
+    <span className="absolute inset-0 grid place-items-center font-display text-6xl font-semibold text-primary-foreground/95">
+      {speaker.initials}
+    </span>
+  </motion.div>
+)}
+
+<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
           <Badge tone="gold" className="glass-strong border-0">
             {speaker.track}

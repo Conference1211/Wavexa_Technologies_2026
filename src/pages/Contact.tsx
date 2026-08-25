@@ -15,15 +15,15 @@ export default function Contact() {
   return (
     <>
       <Helmet>
-        <title>Contact — PulseCon Global 2026</title>
+        <title>Contact — Wavexa Technologies 2026</title>
         <meta
           name="description"
-          content="Contact the PulseCon Global programme team about registration, speaking, sponsorship, press or accessibility in Geneva."
+          content="Contact the Wavexa Technologies programme team about registration, speaking, sponsorship, press or accessibility in Geneva."
         />
-        <meta property="og:title" content="Contact — PulseCon Global 2026" />
+        <meta property="og:title" content="Contact — Wavexa Technologies 2026" />
         <meta
           property="og:description"
-          content="Reach the PulseCon Global programme team in Geneva."
+          content="Reach the Wavexa Technologies programme team in Geneva."
         />
         <meta property="og:url" content="/contact" />
         <link rel="canonical" href="/contact" />

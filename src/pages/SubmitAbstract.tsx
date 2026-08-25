@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 import { PageHero } from "@/components/sections/Hero";
-import abstractVideo from "@/assets/abstract2.webm";
+import abstractVideo from "@/assets/abstract.webm";
 
 import {
   Section,
@@ -597,17 +597,17 @@ export default function SubmitAbstract() {
     <>
       <Helmet>
         <title>
-          Submit an Abstract — PulseCon Global 2026 Call for Papers
+          Submit an Abstract — Wavexa Technologies 2026 Call for Papers
         </title>
 
         <meta
           name="description"
-          content="Call for papers for PulseCon Global 2026 in Geneva: six research categories, double-blind review, CHF 45,000 in awards. Abstracts close 31 March 2026."
+          content="Call for papers for Wavexa Technologies 2026 in Geneva: six research categories, double-blind review, CHF 45,000 in awards. Abstracts close 31 March 2026."
         />
 
         <meta
           property="og:title"
-          content="Submit an Abstract — PulseCon Global 2026"
+          content="Submit an Abstract — Wavexa Technologies 2026"
         />
 
         <meta
@@ -629,7 +629,7 @@ export default function SubmitAbstract() {
 
         <meta
           name="twitter:title"
-          content="Submit an Abstract — PulseCon Global 2026"
+          content="Submit an Abstract — Wavexa Technologies 2026"
         />
 
         <link
@@ -647,7 +647,7 @@ export default function SubmitAbstract() {
           eyebrow="Call for papers"
           title="Present your research in"
           accent="Geneva"
-          body="PulseCon Global 2026 accepts original work across six research categories. Every abstract is reviewed double-blind by three independent reviewers, and accepted work is published with a citable DOI."
+          body="Wavexa Technologies 2026 accepts original work across six research categories. Every abstract is reviewed double-blind by three independent reviewers, and accepted work is published with a citable DOI."
         />
 
         {/* HERO VIDEO */}

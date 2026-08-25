@@ -15,12 +15,12 @@ import { CONFERENCE, STATS } from "@/constants/conference";
 
 const PILLARS = [
   {
-    title: "Global Healthcare Community",
-    body: "PulseCon Global brings together clinicians, researchers, healthcare professionals, innovators and institutions from across the world to exchange knowledge, share experiences and explore the ideas shaping the future of healthcare.",
+    title: "Technologies Healthcare Community",
+    body: "Wavexa Technologies brings together clinicians, researchers, healthcare professionals, innovators and institutions from across the world to exchange knowledge, share experiences and explore the ideas shaping the future of healthcare.",
   },
   {
     title: "Scientific Knowledge",
-    body: "Through expert-led sessions, research presentations and meaningful discussions, PulseCon Global creates a platform for scientific exchange, clinical insights and emerging developments across medicine and healthcare.",
+    body: "Through expert-led sessions, research presentations and meaningful discussions, Wavexa Technologies creates a platform for scientific exchange, clinical insights and emerging developments across medicine and healthcare.",
   },
   {
     title: "Innovation & Technology",
@@ -28,7 +28,7 @@ const PILLARS = [
   },
   {
     title: "Collaboration & Connection",
-    body: "PulseCon Global creates opportunities for professionals, institutions and innovators to connect across disciplines, exchange perspectives and build relationships that can continue beyond the conference.",
+    body: "Wavexa Technologies creates opportunities for professionals, institutions and innovators to connect across disciplines, exchange perspectives and build relationships that can continue beyond the conference.",
   },
 ];
 
@@ -60,13 +60,13 @@ export default function About() {
     <>
       <Helmet>
         <title>
-          About PulseCon Global — Connecting Healthcare, Innovation & Future
+          About Wavexa Technologies — Connecting Healthcare, Innovation & Future
           Medicine
         </title>
 
         <meta
           name="description"
-          content="Discover PulseCon Global, a global healthcare platform bringing together clinicians, researchers, healthcare professionals, innovators and institutions to exchange knowledge, explore innovation and shape the future of medicine."
+          content="Discover Wavexa Technologies, a Technologies healthcare platform bringing together clinicians, researchers, healthcare professionals, innovators and institutions to exchange knowledge, explore innovation and shape the future of medicine."
         />
       </Helmet>
 
@@ -74,7 +74,7 @@ export default function About() {
       {/* PAGE HERO */}
 <div className="relative">
   <PageHero
-    eyebrow="About PulseCon Global"
+    eyebrow="About Wavexa Technologies"
     title="Connecting healthcare."
     accent="Shaping what comes next."
     body={`${CONFERENCE.name} brings together healthcare professionals, researchers, clinicians, innovators and institutions to exchange knowledge, explore emerging developments and build meaningful connections that can help shape the future of medicine.`}
@@ -125,7 +125,7 @@ export default function About() {
             eyebrow="Our Mission"
             title="Bringing expertise."
             accent="Ideas. Innovation."
-            body="Our mission is to create a global platform where healthcare expertise, scientific knowledge and innovation come together. PulseCon Global connects the people and ideas driving progress in medicine, creating opportunities for learning, discussion and collaboration."
+            body="Our mission is to create a Technologies platform where healthcare expertise, scientific knowledge and innovation come together. Wavexa Technologies connects the people and ideas driving progress in medicine, creating opportunities for learning, discussion and collaboration."
           />
 
           <Reveal
@@ -153,14 +153,14 @@ export default function About() {
         </div>
       </Section>
 
-      {/* WHAT PULSECON BRINGS TOGETHER */}
+      {/* WHAT Wavexa BRINGS TOGETHER */}
       <Section veil>
         <Heading
-          eyebrow="What PulseCon Brings Together"
-          title="One global platform."
+          eyebrow="What Wavexa Brings Together"
+          title="One Technologies platform."
           accent="Many healthcare perspectives."
           align="center"
-          body="PulseCon Global brings together diverse voices from across healthcare, science, technology and innovation — creating a space where knowledge can be shared, perspectives can connect and new possibilities can emerge."
+          body="Wavexa Technologies brings together diverse voices from across healthcare, science, technology and innovation — creating a space where knowledge can be shared, perspectives can connect and new possibilities can emerge."
         />
 
         <Stagger className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -185,9 +185,9 @@ export default function About() {
         <Heading
           eyebrow="Our Purpose"
           title="More than a conference."
-          accent="A global healthcare conversation."
+          accent="A Technologies healthcare conversation."
           align="center"
-          body="PulseCon Global is built to encourage meaningful exchange — bringing together knowledge, experience and innovation to create conversations that can inspire new thinking and contribute to the future of healthcare."
+          body="Wavexa Technologies is built to encourage meaningful exchange — bringing together knowledge, experience and innovation to create conversations that can inspire new thinking and contribute to the future of healthcare."
         />
 
         <Stagger className="mt-14 grid gap-6 md:grid-cols-2">
@@ -216,7 +216,7 @@ export default function About() {
 
         <Reveal className="mt-14 text-center">
           <ButtonLink to="/registration" size="lg">
-            Join PulseCon Global
+            Join Wavexa Technologies
           </ButtonLink>
         </Reveal>
       </Section>

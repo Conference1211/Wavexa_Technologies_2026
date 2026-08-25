@@ -37,12 +37,12 @@ export default function Tracks() {
   return (
     <>
       <Helmet>
-        <title>Conference Tracks — PulseCon Global 2026</title>
+        <title>Conference Tracks — Wavexa Technologies 2026</title>
         <meta
           name="description"
           content="Six tracks and one hundred sessions: clinical AI, genomics, surgical robotics, longevity science, digital health systems and health policy."
         />
-        <meta property="og:title" content="Conference Tracks — PulseCon Global 2026" />
+        <meta property="og:title" content="Conference Tracks — Wavexa Technologies 2026" />
         <meta
           property="og:description"
           content="Six tracks, one hundred sessions across four days in Geneva."

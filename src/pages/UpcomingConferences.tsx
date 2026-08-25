@@ -145,11 +145,11 @@ export default function UpcomingConferences() {
   return (
     <>
       <Helmet>
-        <title>Upcoming Conferences — PulseCon Global</title>
+        <title>Upcoming Conferences — Wavexa Technologies</title>
 
         <meta
           name="description"
-          content="Explore upcoming PulseCon Global conferences, international healthcare events, webinars and opportunities to connect with healthcare professionals, researchers, clinicians and innovators."
+          content="Explore upcoming Wavexa Technologies conferences, international healthcare events, webinars and opportunities to connect with healthcare professionals, researchers, clinicians and innovators."
         />
       </Helmet>
 
@@ -161,7 +161,7 @@ export default function UpcomingConferences() {
         eyebrow="Upcoming Conferences"
         title="Where healthcare."
         accent="Meets what's next."
-        body="Explore upcoming PulseCon Global conferences and discover opportunities to connect, learn, collaborate and shape the future of healthcare."
+        body="Explore upcoming Wavexa Technologies conferences and discover opportunities to connect, learn, collaborate and shape the future of healthcare."
       />
 
       {/* =====================================================
@@ -174,7 +174,7 @@ export default function UpcomingConferences() {
           title="The next conversations."
           accent="Are already taking shape."
           align="center"
-          body="Explore upcoming PulseCon Global conferences bringing together healthcare professionals, researchers, clinicians, innovators and institutions from around the world."
+          body="Explore upcoming Wavexa Technologies conferences bringing together healthcare professionals, researchers, clinicians, innovators and institutions from around the world."
         />
 
         <Stagger className="mt-14 grid gap-7 md:grid-cols-2 xl:grid-cols-3">

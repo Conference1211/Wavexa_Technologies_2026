@@ -57,7 +57,7 @@ export default function Cardiology() {
     <>
       <Helmet>
         <title>
-          International Conference on Cardiology — PulseCon Global
+          International Conference on Cardiology — Wavexa Technologies
         </title>
 
         <meta
@@ -75,7 +75,7 @@ export default function Cardiology() {
           eyebrow={`Upcoming Conference · ${CONFERENCE.year}`}
           title="International Conference"
           accent="on Cardiology."
-          body="A global platform bringing together cardiologists, physicians, researchers, clinicians and cardiovascular healthcare professionals to exchange knowledge, explore emerging innovations and advance the future of cardiovascular medicine."
+          body="A Technologies platform bringing together cardiologists, physicians, researchers, clinicians and cardiovascular healthcare professionals to exchange knowledge, explore emerging innovations and advance the future of cardiovascular medicine."
         />
 
         {/* HERO IMAGE */}
@@ -120,7 +120,7 @@ export default function Cardiology() {
               </p>
 
               <p className="mt-1 text-sm font-medium text-white">
-                PulseCon Global · {CONFERENCE.year}
+                Wavexa Technologies · {CONFERENCE.year}
               </p>
             </div>
           </div>
@@ -182,7 +182,7 @@ export default function Cardiology() {
 
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-gold">
-                    Global Community
+                    Technologies Community
                   </p>
 
                   <p className="mt-2 font-heading text-lg font-semibold">
@@ -214,7 +214,7 @@ export default function Cardiology() {
 
               <div className="relative">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
-                  A Global Cardiology Platform
+                  A Technologies Cardiology Platform
                 </p>
 
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
@@ -238,7 +238,7 @@ export default function Cardiology() {
                   <CheckCircle2 className="h-5 w-5 text-primary" />
 
                   <span className="text-sm font-medium">
-                    Advancing cardiovascular healthcare through global
+                    Advancing cardiovascular healthcare through Technologies
                     collaboration
                   </span>
                 </div>
@@ -317,7 +317,7 @@ export default function Cardiology() {
 
               <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-gold">
-                  PulseCon Global · {CONFERENCE.year}
+                  Wavexa Technologies · {CONFERENCE.year}
                 </p>
 
                 <p className="mt-2 font-heading text-xl font-semibold text-white sm:text-2xl">
@@ -345,8 +345,8 @@ export default function Cardiology() {
           <Heading
             eyebrow="The Journey Continues"
             title="Explore more"
-            accent="PulseCon Global events."
-            body="Discover other upcoming PulseCon Global conferences and explore the conversations, ideas and connections shaping the future of healthcare."
+            accent="Wavexa Technologies events."
+            body="Discover other upcoming Wavexa Technologies conferences and explore the conversations, ideas and connections shaping the future of healthcare."
           />
 
           <Reveal delay={0.1}>
@@ -361,12 +361,12 @@ export default function Cardiology() {
                 <h3 className="mt-3 font-heading text-3xl font-semibold">
                   Discover more
                   <span className="block text-gradient">
-                    global events.
+                    Technologies events.
                   </span>
                 </h3>
 
                 <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-                  Explore upcoming PulseCon Global editions and discover new
+                  Explore upcoming Wavexa Technologies editions and discover new
                   opportunities to learn, connect and shape the future of
                   healthcare.
                 </p>

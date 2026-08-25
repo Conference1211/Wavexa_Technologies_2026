@@ -29,7 +29,7 @@ const CONFERENCE_LINKS = [
   {
     label: "Upcoming Conferences",
     to: "/conferences/upcoming",
-    description: "Explore upcoming PulseCon conferences and events.",
+    description: "Explore upcoming Wavexa conferences and events.",
   },
   {
     label: "Previous Conferences",
@@ -38,16 +38,13 @@ const CONFERENCE_LINKS = [
   },
 ] as const;
 
+
+
 const PROGRAMME_LINKS = [
   {
     label: "Speakers",
     to: "/speakers",
     description: "Meet healthcare experts and industry voices.",
-  },
-  {
-    label: "Tracks",
-    to: "/tracks",
-    description: "Explore conference themes and programme tracks.",
   },
   {
     label: "Schedule",
@@ -115,7 +112,6 @@ export function Navbar() {
 
   const isProgrammeActive =
     pathname.startsWith("/speakers") ||
-    pathname.startsWith("/tracks") ||
     pathname.startsWith("/schedule");
 
   return (
@@ -145,7 +141,7 @@ export function Navbar() {
           <Link
             to="/"
             className="shrink-0"
-            aria-label="PulseCon Global home"
+            aria-label="Wavexa Technologies home"
           >
             <Logo />
           </Link>
@@ -201,6 +197,122 @@ export function Navbar() {
                 />
               ) : null}
             </Link>
+
+            {/* TRACKS */}
+<Link
+  to="/tracks"
+  className={cn(
+    "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
+    pathname === "/tracks"
+      ? "text-foreground"
+      : "text-muted-foreground hover:text-foreground",
+  )}
+>
+  Tracks
+
+  {pathname === "/tracks" ? (
+    <motion.span
+      layoutId="nav-pill"
+      className="absolute inset-0 -z-10 rounded-full bg-muted/80"
+      transition={{
+        type: "spring",
+        stiffness: 340,
+        damping: 30,
+      }}
+    />
+  ) : null}
+</Link>
+
+{/* PROGRAMME DROPDOWN */}
+            <div
+              className="relative"
+              onMouseEnter={() => setProgrammeOpen(true)}
+              onMouseLeave={() => setProgrammeOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() =>
+                  setProgrammeOpen((value) => !value)
+                }
+                className={cn(
+                  "relative flex items-center gap-1 rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
+                  isProgrammeActive
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
+                aria-expanded={programmeOpen}
+                aria-haspopup="menu"
+              >
+                Programme
+
+                <ChevronDown
+                  className={cn(
+                    "h-3.5 w-3.5 transition-transform duration-300",
+                    programmeOpen && "rotate-180",
+                  )}
+                />
+
+                {isProgrammeActive ? (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="absolute inset-0 -z-10 rounded-full bg-muted/80"
+                    transition={{
+                      type: "spring",
+                      stiffness: 340,
+                      damping: 30,
+                    }}
+                  />
+                ) : null}
+              </button>
+
+              <AnimatePresence>
+                {programmeOpen ? (
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      y: 8,
+                      scale: 0.98,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      y: 8,
+                      scale: 0.98,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeOut",
+                    }}
+                    className="absolute left-1/2 top-full mt-3 w-80 -translate-x-1/2 rounded-3xl glass-strong p-2 shadow-[var(--shadow-lift)]"
+                  >
+                    {PROGRAMME_LINKS.map((item) => (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        className={cn(
+                          "group block rounded-2xl px-4 py-3.5 transition-colors",
+                          pathname === item.to
+                            ? "bg-muted/70"
+                            : "hover:bg-muted/60",
+                        )}
+                      >
+                        <div className="font-heading text-base font-semibold text-foreground">
+                          {item.label}
+                        </div>
+
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                          {item.description}
+                        </p>
+                      </Link>
+                    ))}
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </div>
 
             {/* CONFERENCES DROPDOWN */}
             <div
@@ -295,96 +407,7 @@ export function Navbar() {
 
             
 
-            {/* PROGRAMME DROPDOWN */}
-            <div
-              className="relative"
-              onMouseEnter={() => setProgrammeOpen(true)}
-              onMouseLeave={() => setProgrammeOpen(false)}
-            >
-              <button
-                type="button"
-                onClick={() =>
-                  setProgrammeOpen((value) => !value)
-                }
-                className={cn(
-                  "relative flex items-center gap-1 rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
-                  isProgrammeActive
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-                aria-expanded={programmeOpen}
-                aria-haspopup="menu"
-              >
-                Programme
-
-                <ChevronDown
-                  className={cn(
-                    "h-3.5 w-3.5 transition-transform duration-300",
-                    programmeOpen && "rotate-180",
-                  )}
-                />
-
-                {isProgrammeActive ? (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className="absolute inset-0 -z-10 rounded-full bg-muted/80"
-                    transition={{
-                      type: "spring",
-                      stiffness: 340,
-                      damping: 30,
-                    }}
-                  />
-                ) : null}
-              </button>
-
-              <AnimatePresence>
-                {programmeOpen ? (
-                  <motion.div
-                    initial={{
-                      opacity: 0,
-                      y: 8,
-                      scale: 0.98,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      scale: 1,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      y: 8,
-                      scale: 0.98,
-                    }}
-                    transition={{
-                      duration: 0.2,
-                      ease: "easeOut",
-                    }}
-                    className="absolute left-1/2 top-full mt-3 w-80 -translate-x-1/2 rounded-3xl glass-strong p-2 shadow-[var(--shadow-lift)]"
-                  >
-                    {PROGRAMME_LINKS.map((item) => (
-                      <Link
-                        key={item.to}
-                        to={item.to}
-                        className={cn(
-                          "group block rounded-2xl px-4 py-3.5 transition-colors",
-                          pathname === item.to
-                            ? "bg-muted/70"
-                            : "hover:bg-muted/60",
-                        )}
-                      >
-                        <div className="font-heading text-base font-semibold text-foreground">
-                          {item.label}
-                        </div>
-
-                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                          {item.description}
-                        </p>
-                      </Link>
-                    ))}
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
-            </div>
+            
 
             {/* SUBMIT ABSTRACT */}
             <Link
@@ -527,7 +550,85 @@ export function Navbar() {
               >
                 About
               </Link>
+              {/* MOBILE TRACKS */}
+<Link
+  to="/tracks"
+  className={cn(
+    "rounded-2xl px-4 py-3 font-heading text-xl transition-colors",
+    pathname === "/tracks"
+      ? "bg-muted/70 text-foreground"
+      : "text-foreground/80 hover:bg-muted/70 hover:text-foreground",
+  )}
+>
+  Tracks
+</Link>
 
+{/* MOBILE PROGRAMME */}
+              <div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setMobileProgrammeOpen(
+                      (value) => !value,
+                    )
+                  }
+                  className={cn(
+                    "flex w-full items-center justify-between rounded-2xl px-4 py-3 font-heading text-xl transition-colors",
+                    isProgrammeActive
+                      ? "bg-muted/70 text-foreground"
+                      : "text-foreground/80 hover:bg-muted/70 hover:text-foreground",
+                  )}
+                >
+                  <span>Programme</span>
+
+                  <ChevronDown
+                    className={cn(
+                      "h-5 w-5 transition-transform duration-300",
+                      mobileProgrammeOpen &&
+                        "rotate-180",
+                    )}
+                  />
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {mobileProgrammeOpen ? (
+                    <motion.div
+                      initial={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      animate={{
+                        height: "auto",
+                        opacity: 1,
+                      }}
+                      exit={{
+                        height: 0,
+                        opacity: 0,
+                      }}
+                      className="overflow-hidden"
+                    >
+                      <div className="ml-3 mt-1 grid gap-1 border-l border-border/60 pl-3">
+                        {PROGRAMME_LINKS.map(
+                          (item) => (
+                            <Link
+                              key={item.to}
+                              to={item.to}
+                              className={cn(
+                                "rounded-xl px-4 py-3 text-sm transition-colors",
+                                pathname === item.to
+                                  ? "bg-muted/70 text-foreground"
+                                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+                              )}
+                            >
+                              {item.label}
+                            </Link>
+                          ),
+                        )}
+                      </div>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+              </div>
               {/* MOBILE CONFERENCES */}
               <div>
                 <button
@@ -597,72 +698,7 @@ export function Navbar() {
 
              
 
-              {/* MOBILE PROGRAMME */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setMobileProgrammeOpen(
-                      (value) => !value,
-                    )
-                  }
-                  className={cn(
-                    "flex w-full items-center justify-between rounded-2xl px-4 py-3 font-heading text-xl transition-colors",
-                    isProgrammeActive
-                      ? "bg-muted/70 text-foreground"
-                      : "text-foreground/80 hover:bg-muted/70 hover:text-foreground",
-                  )}
-                >
-                  <span>Programme</span>
-
-                  <ChevronDown
-                    className={cn(
-                      "h-5 w-5 transition-transform duration-300",
-                      mobileProgrammeOpen &&
-                        "rotate-180",
-                    )}
-                  />
-                </button>
-
-                <AnimatePresence initial={false}>
-                  {mobileProgrammeOpen ? (
-                    <motion.div
-                      initial={{
-                        height: 0,
-                        opacity: 0,
-                      }}
-                      animate={{
-                        height: "auto",
-                        opacity: 1,
-                      }}
-                      exit={{
-                        height: 0,
-                        opacity: 0,
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <div className="ml-3 mt-1 grid gap-1 border-l border-border/60 pl-3">
-                        {PROGRAMME_LINKS.map(
-                          (item) => (
-                            <Link
-                              key={item.to}
-                              to={item.to}
-                              className={cn(
-                                "rounded-xl px-4 py-3 text-sm transition-colors",
-                                pathname === item.to
-                                  ? "bg-muted/70 text-foreground"
-                                  : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
-                              )}
-                            >
-                              {item.label}
-                            </Link>
-                          ),
-                        )}
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </div>
+              
 
               {/* SUBMIT ABSTRACT */}
               <Link

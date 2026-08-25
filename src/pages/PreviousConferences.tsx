@@ -52,8 +52,8 @@ const PREVIOUS_CONFERENCES = [
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=85",
   },
   {
-    slug: "global-summit-nanoscience-nanotechnology",
-    title: "Global Summit on Nanoscience and Nanotechnology",
+    slug: "Technologies-summit-nanoscience-nanotechnology",
+    title: "Technologies Summit on Nanoscience and Nanotechnology",
     year: "2025",
     date: "Nov 24–25, 2025",
     edition: "Nanoscience & Nanotechnology",
@@ -291,11 +291,11 @@ export default function PreviousConferences() {
   return (
     <>
       <Helmet>
-        <title>Previous Conferences — PulseCon Global</title>
+        <title>Previous Conferences — Wavexa Technologies</title>
 
         <meta
           name="description"
-          content="Explore previous PulseCon Global conferences, international destinations, medical and clinical specialties, and subject-focused healthcare conferences."
+          content="Explore previous Wavexa Technologies conferences, international destinations, medical and clinical specialties, and subject-focused healthcare conferences."
         />
       </Helmet>
 
@@ -308,13 +308,13 @@ export default function PreviousConferences() {
     eyebrow="Previous Conferences"
     title="Ideas that remain."
     accent="Connections that continue."
-    body="Explore previous PulseCon Global editions and revisit the conversations, knowledge and connections that continue to shape our global healthcare community."
+    body="Explore previous Wavexa Technologies editions and revisit the conversations, knowledge and connections that continue to shape our Technologies healthcare community."
   />
 
   {/* Previous Conferences Visual */}
   <img
     src={previousConferencesImage}
-    alt="Previous PulseCon Global conferences and healthcare events"
+    alt="Previous Wavexa Technologies conferences and healthcare events"
     className="
       pointer-events-none
       absolute
@@ -361,7 +361,7 @@ export default function PreviousConferences() {
           title="A look back."
           accent="Across the years."
           align="center"
-          body="Explore selected PulseCon Global conference editions and revisit the conversations, connections and ideas that shaped our journey."
+          body="Explore selected Wavexa Technologies conference editions and revisit the conversations, connections and ideas that shaped our journey."
         />
 
         <Stagger className="mt-14 grid gap-7 md:grid-cols-2 xl:grid-cols-3">
@@ -421,7 +421,7 @@ export default function PreviousConferences() {
     </p>
 
     <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-muted-foreground/70">
-      PulseCon Global · {conference.year}
+      Wavexa Technologies · {conference.year}
     </p>
   </div>
 
@@ -438,13 +438,13 @@ export default function PreviousConferences() {
       </Section>
 
       {/* =====================================================
-          GLOBAL CONFERENCE DIRECTORY
+          Technologies CONFERENCE DIRECTORY
       ===================================================== */}
 
       <Section veil>
         <Heading
-          eyebrow="Global Conference Directory"
-          title="Explore PulseCon Global."
+          eyebrow="Technologies Conference Directory"
+          title="Explore Wavexa Technologies."
           accent="Across healthcare & science."
           align="center"
           body="Discover conference destinations, medical specialties and subject areas connecting healthcare professionals, researchers and innovators around the world."
@@ -460,7 +460,7 @@ export default function PreviousConferences() {
               {/* HEADER */}
               <div className="border-b border-border/70 bg-muted/20 px-6 py-6">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-gold">
-                  Global Reach
+                  Technologies Reach
                 </p>
 
                 <h3 className="mt-2 font-heading text-2xl font-semibold">
@@ -536,7 +536,7 @@ export default function PreviousConferences() {
 
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Explore clinical specialties and medical disciplines
-                  represented across the global conference community.
+                  represented across the Technologies conference community.
                 </p>
               </div>
 
@@ -631,7 +631,7 @@ export default function PreviousConferences() {
       eyebrow="Looking Forward"
       title="The journey"
       accent="continues."
-      body="Every PulseCon edition creates new conversations, new connections and new possibilities. Explore upcoming PulseCon Global conferences and discover the next opportunities to connect, learn and shape the future of healthcare."
+      body="Every Wavexa edition creates new conversations, new connections and new possibilities. Explore upcoming Wavexa Technologies conferences and discover the next opportunities to connect, learn and shape the future of healthcare."
     />
 
     {/* RIGHT — UPCOMING CONFERENCES CARD */}
@@ -658,7 +658,7 @@ export default function PreviousConferences() {
 
           {/* DESCRIPTION */}
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
-            Explore upcoming PulseCon Global conferences, discover new
+            Explore upcoming Wavexa Technologies conferences, discover new
             opportunities and become part of the conversations shaping
             healthcare, innovation and future medicine.
           </p>

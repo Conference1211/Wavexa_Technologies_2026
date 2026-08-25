@@ -1,12 +1,17 @@
+import amaraImage from "@/assets/amara-okonkwo.png";
+import eliasImage from "@/assets/elias-vandermeer.png";
+import meilinImage from "@/assets/mei-lin-chen.png";
+import rafaelImage from "@/assets/rafael-duarte.png";
+import sanaImage from "@/assets/sana-al-rashid.png";
 export const CONFERENCE = {
-  name: "PulseCon Global",
+  name: "Wavexa Technologies",
   tagline: "Connecting Healthcare, Innovation & Future Medicine",
   edition: "2026 World Edition",
   dates: "12–15 October 2026",
   startISO: "2026-10-12T09:00:00Z",
   city: "Geneva, Switzerland",
   venue: "Palais Lumière Convention Centre",
-  email: "hello@pulsecon.global",
+  email: "hello@Wavexa.Technologies",
   phone: "+41 22 555 0184",
   address: "Quai Wilson 41, 1201 Geneva, Switzerland",
 };
@@ -71,6 +76,7 @@ export const SPEAKERS = [
     country: "Nigeria",
     track: "Genomics",
     initials: "AO",
+    image: amaraImage,
     bio: "Leads Africa's largest population genomics programme, sequencing 500,000 genomes to close the ancestry gap in precision medicine.",
   },
   {
@@ -80,6 +86,7 @@ export const SPEAKERS = [
     country: "Switzerland",
     track: "Clinical AI",
     initials: "EV",
+    image: eliasImage,
     bio: "Built the diagnostic model now triaging 40% of Swiss emergency radiology, with published non-inferiority to senior consultants.",
   },
   {
@@ -89,15 +96,17 @@ export const SPEAKERS = [
     country: "Singapore",
     track: "MedTech",
     initials: "MC",
+    image: meilinImage,
     bio: "Performed the first fully tele-operated hepatic resection across a 2,400 km link with sub-40ms latency.",
   },
   {
     name: "Dr. Rafael Duarte",
-    role: "Global Health Economist",
+    role: "Technologies Health Economist",
     org: "World Health Forum",
     country: "Brazil",
     track: "Policy",
     initials: "RD",
+    image: rafaelImage,
     bio: "Architect of the tiered-pricing framework that brought CAR-T therapy to six middle-income health systems.",
   },
   {
@@ -107,6 +116,7 @@ export const SPEAKERS = [
     country: "UAE",
     track: "Biotech",
     initials: "SA",
+    image: sanaImage,
     bio: "Taking a first-in-class senolytic into Phase III after a decade mapping cellular ageing pathways.",
   },
   {
@@ -312,7 +322,7 @@ export const SCHEDULE = [
         speaker: "Curated matchmaking",
         type: "Networking",
       },
-      { time: "19:00", title: "PulseCon Awards Night", speaker: "Grand Hall", type: "Social" },
+      { time: "19:00", title: "Wavexa Awards Night", speaker: "Grand Hall", type: "Social" },
     ],
   },
   {
@@ -389,7 +399,7 @@ export const TESTIMONIALS = [
   },
   {
     quote:
-      "We signed two hospital pilots in the corridor between sessions. PulseCon put the buyers, the regulators and the clinicians on the same floor.",
+      "We signed two hospital pilots in the corridor between sessions. Wavexa put the buyers, the regulators and the clinicians on the same floor.",
     name: "Tomás Rivera",
     role: "Co-founder, Corvus Labs",
   },
@@ -418,7 +428,7 @@ export const FAQS = [
   },
   {
     q: "Are CME credits available?",
-    a: "PulseCon Global 2026 is accredited for up to 26 European CME credits, transferable to AMA PRA Category 1 for delegates practising in the United States.",
+    a: "Wavexa Technologies 2026 is accredited for up to 26 European CME credits, transferable to AMA PRA Category 1 for delegates practising in the United States.",
   },
   {
     q: "Do you offer scholarships?",
@@ -536,7 +546,7 @@ export const ABSTRACT_CATEGORIES = [
   {
     title: "Policy, Equity & Access",
     icon: "Scale",
-    body: "Health economics, reimbursement, trial diversity and global access frameworks.",
+    body: "Health economics, reimbursement, trial diversity and Technologies access frameworks.",
   },
 ];
 
@@ -592,7 +602,7 @@ export const ABSTRACT_PROCESS = [
 export const ABSTRACT_BENEFITS = [
   {
     title: "Indexed Proceedings",
-    body: "Accepted abstracts are published with a citable DOI in the PulseCon proceedings.",
+    body: "Accepted abstracts are published with a citable DOI in the Wavexa proceedings.",
   },
   {
     title: "Presenter Rate",
@@ -620,7 +630,7 @@ export const ABSTRACT_AWARDS = [
     body: "For a first or second-year researcher presenting independent work.",
   },
   {
-    name: "Global Equity Award",
+    name: "Technologies Equity Award",
     value: "CHF 10,000",
     body: "Recognising research that widens access in low- and middle-income settings.",
   },

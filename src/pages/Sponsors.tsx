@@ -54,12 +54,12 @@ export default function Sponsors() {
   return (
     <>
       <Helmet>
-        <title>Sponsors & Partners — PulseCon Global 2026</title>
+        <title>Sponsors & Partners — Wavexa Technologies 2026</title>
         <meta
           name="description"
-          content="Diamond, Platinum, Gold and institutional partners behind PulseCon Global 2026, plus sponsorship packages for reaching 5,000 health decision-makers."
+          content="Diamond, Platinum, Gold and institutional partners behind Wavexa Technologies 2026, plus sponsorship packages for reaching 5,000 health decision-makers."
         />
-        <meta property="og:title" content="Sponsors & Partners — PulseCon Global 2026" />
+        <meta property="og:title" content="Sponsors & Partners — Wavexa Technologies 2026" />
         <meta
           property="og:description"
           content="Partner with the summit reaching 5,000 health decision-makers."
@@ -72,7 +72,7 @@ export default function Sponsors() {
         eyebrow="Sponsors"
         title="Partners who fund"
         accent="the difficult work"
-        body="Sponsorship at PulseCon buys presence, never programme influence. Session selection stays with the independent committee — which is exactly why delegates trust the floor."
+        body="Sponsorship at Wavexa buys presence, never programme influence. Session selection stays with the independent committee — which is exactly why delegates trust the floor."
       />
 
       <div className="relative overflow-hidden py-8 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
