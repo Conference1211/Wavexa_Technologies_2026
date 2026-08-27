@@ -1,66 +1,165 @@
 import { Helmet } from "@/components/Seo";
-import { Mail, MapPin, Phone, Clock } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { PageHero } from "@/components/sections/Hero";
-import { Section, Card, Reveal, Stagger, StaggerItem } from "@/components/ui-kit";
-import { ContactForm, Newsletter } from "@/components/forms";
-import { CONFERENCE } from "@/constants/conference";
-
-const DETAILS = [
-  { icon: Mail, title: "Email", body: CONFERENCE.email },
-  { icon: Phone, title: "Phone", body: CONFERENCE.phone },
-  { icon: Clock, title: "Hours", body: "Mon–Fri, 09:00–18:00 CET" },
-];
+import { Section, Card, Reveal } from "@/components/ui-kit";
+import { ContactForm } from "@/components/forms";
 
 export default function Contact() {
   return (
     <>
       <Helmet>
-        <title>Contact — Wavexa Technologies 2026</title>
+        <title>Contact — WebiConX</title>
+
         <meta
           name="description"
-          content="Contact the Wavexa Technologies programme team about registration, speaking, sponsorship, press or accessibility in Geneva."
+          content="Contact WebiConX for speaker invitations, partnership discussions, and platform inquiries."
         />
-        <meta property="og:title" content="Contact — Wavexa Technologies 2026" />
+
+        <meta property="og:title" content="Contact — WebiConX" />
+
         <meta
           property="og:description"
-          content="Reach the Wavexa Technologies programme team in Geneva."
+          content="Get in touch with WebiConX for speaker invitations, partnerships, and platform inquiries."
         />
+
         <meta property="og:url" content="/contact" />
+
         <link rel="canonical" href="/contact" />
       </Helmet>
 
+      {/* PAGE HERO */}
       <PageHero
         eyebrow="Contact"
-        title="Talk to the"
-        accent="programme team"
-        body="Registration, speaking proposals, sponsorship, press accreditation or accessibility requirements — one team, one working day."
+        title="Get in"
+        accent="touch"
+        body="Have a question, partnership idea, or conference inquiry? Our team is here to help."
       />
 
+      {/* CONTACT SECTION */}
       <Section className="pt-0">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            {DETAILS.map((d) => (
-              <StaggerItem key={d.title}>
-                <Card className="h-full p-6" lift={false}>
-                  <span className="grid h-11 w-11 place-items-center rounded-2xl bg-accent/12 text-accent">
-                    <d.icon className="h-5 w-5" />
-                  </span>
-                  <h2 className="mt-4 font-heading text-xl font-semibold">{d.title}</h2>
-                  <p className="mt-1.5 text-sm text-muted-foreground">{d.body}</p>
-                </Card>
-              </StaggerItem>
-            ))}
-          </Stagger>
-          <Reveal delay={0.1}>
-            <ContactForm />
-          </Reveal>
-        </div>
-      </Section>
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
 
-      <Section veil>
-        <Reveal>
-          <Newsletter />
-        </Reveal>
+          {/* LEFT SIDE */}
+          <Reveal>
+            <div className="space-y-6">
+
+              {/* REGISTERED OFFICE */}
+              <Card className="p-7" lift={false}>
+                <div className="flex items-start gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-accent/12 text-accent">
+                    <MapPin className="h-5 w-5" />
+                  </span>
+
+                  <div>
+                    <h2 className="font-heading text-xl font-semibold">
+                      🇮🇳 Registered Office
+                    </h2>
+
+                    <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                      <strong className="text-foreground">
+                        GVK Tech Innovations
+                      </strong>
+                      <br />
+                      50-2-83/3/1, TPT Colony
+                      <br />
+                      Seethammadhara, Satyam Junction
+                      <br />
+                      Visakhapatnam, Andhra Pradesh 530013
+                      <br />
+                      India
+                    </p>
+
+                    <div className="mt-5 space-y-3">
+
+                      {/* PHONE */}
+                      <a
+                        href="tel:+919491512215"
+                        className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
+                      >
+                        <Phone className="h-4 w-4 shrink-0 text-accent" />
+                        <span>Phone / WhatsApp: +91 9491512215</span>
+                      </a>
+
+                      {/* EMAIL */}
+                      <a
+                        href="mailto:contact@webiconx.com"
+                        className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
+                      >
+                        <Mail className="h-4 w-4 shrink-0 text-accent" />
+                        <span>contact@webiconx.com</span>
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* INTERNATIONAL COORDINATION */}
+              <Card className="p-7" lift={false}>
+                <div className="flex items-start gap-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-accent/12 text-accent">
+                    <Phone className="h-5 w-5" />
+                  </span>
+
+                  <div>
+                    <h2 className="font-heading text-xl font-semibold">
+                      International Coordination
+                    </h2>
+
+                    <div className="mt-4 space-y-3">
+
+                      {/* PHONE */}
+                      <a
+                        href="tel:+447915642089"
+                        className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
+                      >
+                        <Phone className="h-4 w-4 shrink-0 text-accent" />
+                        <span>Phone / WhatsApp: +44 791 564 2089</span>
+                      </a>
+
+                      {/* EMAIL */}
+                      <a
+                        href="mailto:contact@webiconx.com"
+                        className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent"
+                      >
+                        <Mail className="h-4 w-4 shrink-0 text-accent" />
+                        <span>contact@webiconx.com</span>
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+            </div>
+          </Reveal>
+
+          {/* RIGHT SIDE */}
+          <Reveal delay={0.1}>
+            <Card className="p-7 sm:p-9" lift={false}>
+
+              <div className="mb-7">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  Contact WebiConX
+                </p>
+
+                <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Let&apos;s start a conversation.
+                </h2>
+
+                <p className="mt-3 max-w-xl text-sm leading-7 text-muted-foreground">
+                  For speaker invitations, partnership discussions, or
+                  platform inquiries, please use the form below. Our team
+                  will respond within 2–3 business days.
+                </p>
+              </div>
+
+              <ContactForm />
+
+            </Card>
+          </Reveal>
+
+        </div>
       </Section>
     </>
   );

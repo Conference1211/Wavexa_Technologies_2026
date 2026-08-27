@@ -12,7 +12,7 @@ type LovableEvents = {
   ) => void;
 };
 
-declare Technologies {
+declare global  {
   interface Window {
     __lovableEvents?: LovableEvents;
     __lovableReportRuntimeError?: (payload: {

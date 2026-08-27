@@ -294,23 +294,82 @@ export function PageHero({
   body: string;
 }) {
   return (
-    <section className="relative overflow-hidden veil pt-40 pb-16 sm:pt-48 sm:pb-24">
+    <section
+      className="
+        relative
+        flex
+        h-[360px]
+        items-center
+        overflow-hidden
+        veil
+
+        sm:h-[400px]
+
+        lg:h-[600px]
+      "
+    >
       <Aurora />
+
       <FloatingShapes />
+
       <Particles className="opacity-60" />
-      <div aria-hidden className="noise pointer-events-none absolute inset-0" />
+
+      <div
+        aria-hidden
+        className="noise pointer-events-none absolute inset-0"
+      />
+
       <Container className="relative">
         <motion.div
-          initial={{ opacity: 0, y: 26, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          initial={{
+            opacity: 0,
+            y: 26,
+            filter: "blur(8px)",
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+          }}
+          transition={{
+            duration: 0.85,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="max-w-3xl"
         >
           <Badge>{eyebrow}</Badge>
-          <h1 className="mt-6 font-display text-[clamp(2.4rem,5.4vw,4.2rem)] leading-[1.02] font-semibold tracking-tight text-balance">
-            {title} {accent ? <span className="text-gradient italic">{accent}</span> : null}
+
+          <h1
+            className="
+              mt-6
+              font-display
+              text-[clamp(2.4rem,5.4vw,4.2rem)]
+              font-semibold
+              leading-[1.02]
+              tracking-tight
+              text-balance
+            "
+          >
+            {title}{" "}
+
+            {accent ? (
+              <span className="text-gradient italic">
+                {accent}
+              </span>
+            ) : null}
           </h1>
-          <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-muted-foreground">{body}</p>
+
+          <p
+            className="
+              mt-5
+              max-w-2xl
+              text-[17px]
+              leading-relaxed
+              text-muted-foreground
+            "
+          >
+            {body}
+          </p>
         </motion.div>
       </Container>
     </section>

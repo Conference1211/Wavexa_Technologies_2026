@@ -1,6 +1,7 @@
 import { Helmet } from "@/components/Seo";
 import { PageHero } from "@/components/sections/Hero";
 import aboutHealthcareVideo from "@/assets/about.webm";
+
 import {
   Section,
   Heading,
@@ -8,51 +9,18 @@ import {
   Reveal,
   Stagger,
   StaggerItem,
-  Counter,
   ButtonLink,
 } from "@/components/ui-kit";
-import { CONFERENCE, STATS } from "@/constants/conference";
 
-const PILLARS = [
-  {
-    title: "Technologies Healthcare Community",
-    body: "Wavexa Technologies brings together clinicians, researchers, healthcare professionals, innovators and institutions from across the world to exchange knowledge, share experiences and explore the ideas shaping the future of healthcare.",
-  },
-  {
-    title: "Scientific Knowledge",
-    body: "Through expert-led sessions, research presentations and meaningful discussions, Wavexa Technologies creates a platform for scientific exchange, clinical insights and emerging developments across medicine and healthcare.",
-  },
-  {
-    title: "Innovation & Technology",
-    body: "We explore the technologies, discoveries and new approaches transforming healthcare — from advances in clinical practice and medical research to digital health, artificial intelligence and emerging healthcare solutions.",
-  },
-  {
-    title: "Collaboration & Connection",
-    body: "Wavexa Technologies creates opportunities for professionals, institutions and innovators to connect across disciplines, exchange perspectives and build relationships that can continue beyond the conference.",
-  },
-];
-
-const VALUES = [
-  {
-    number: "01",
-    title: "Knowledge",
-    body: "We believe progress in healthcare begins with the open exchange of scientific knowledge, clinical experience, research and diverse perspectives.",
-  },
-  {
-    number: "02",
-    title: "Innovation",
-    body: "We spotlight emerging research, technologies and ideas that have the potential to improve healthcare delivery and shape the future of medicine.",
-  },
-  {
-    number: "03",
-    title: "Collaboration",
-    body: "We bring together different disciplines, experiences and perspectives to encourage meaningful connections, shared learning and new opportunities.",
-  },
-  {
-    number: "04",
-    title: "Impact",
-    body: "We aim to turn meaningful conversations, shared knowledge and new connections into ideas that can contribute to positive progress across healthcare and medicine.",
-  },
+const SCIENTIFIC_PROGRAM = [
+  "Keynote Presentations",
+  "Plenary Sessions",
+  "Scientific Paper Presentations",
+  "Poster Presentations",
+  "Expert Panel Discussions",
+  "Interactive Workshops",
+  "Young Researcher Forums",
+  "Networking Opportunities",
 ];
 
 export default function About() {
@@ -60,164 +28,340 @@ export default function About() {
     <>
       <Helmet>
         <title>
-          About Wavexa Technologies — Connecting Healthcare, Innovation & Future
-          Medicine
+          About the Conference | Global Summit on Diabetes, Cardiology &
+          Cardiometabolic Health 2026
         </title>
 
         <meta
           name="description"
-          content="Discover Wavexa Technologies, a Technologies healthcare platform bringing together clinicians, researchers, healthcare professionals, innovators and institutions to exchange knowledge, explore innovation and shape the future of medicine."
+          content="Learn about the Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026, a two-day global virtual conference taking place on December 2–3, 2026."
         />
       </Helmet>
 
-      {/* PAGE HERO */}
-      {/* PAGE HERO */}
-<div className="relative">
+      {/* =========================================================
+          HERO
+      ========================================================== */}
+
+     <div className="relative overflow-visible">
+        {/* HERO */}
+<div className="relative overflow-visible">
   <PageHero
-    eyebrow="About Wavexa Technologies"
-    title="Connecting healthcare."
-    accent="Shaping what comes next."
-    body={`${CONFERENCE.name} brings together healthcare professionals, researchers, clinicians, innovators and institutions to exchange knowledge, explore emerging developments and build meaningful connections that can help shape the future of medicine.`}
+    eyebrow="About the Conference"
+    title="Global Summit on Diabetes,"
+    accent="Cardiology & Cardiometabolic Health 2026"
+    body="Advancing Innovation and Integrated Care in Diabetes and Cardiometabolic Health."
   />
 
-  {/* About Healthcare Video */}
-  <video
-    src={aboutHealthcareVideo}
-    autoPlay
-    muted
-    loop
-    playsInline
+  {/* Healthcare Video */}
+  <Reveal
+    delay={0.3}
     className="
       pointer-events-none
       absolute
-      object-contain
+      z-10
 
-      right-0
-      bottom-[-140px]
-      w-[170px]
+      right-2
+      bottom-[-40px]
+      w-[125px]
 
-      sm:right-8
-      sm:bottom-[-100px]
-      sm:w-[210px]
+      sm:right-6
+      sm:bottom-[-30px]
+      sm:w-[180px]
 
       md:right-8
-      md:bottom-auto
       md:top-[68%]
+      md:bottom-auto
       md:w-[280px]
 
       lg:right-[8%]
       lg:top-[56%]
+      lg:bottom-auto
       lg:w-[540px]
 
       xl:right-[6%]
       xl:top-[57%]
+      xl:bottom-auto
       xl:w-[620px]
 
       -translate-y-1/2
     "
-  />
+  >
+    <video
+      src={aboutHealthcareVideo}
+      autoPlay
+      muted
+      loop
+      playsInline
+      aria-hidden="true"
+      className="h-auto w-full object-contain"
+    />
+  </Reveal>
 </div>
+      </div>
 
-      {/* OUR MISSION */}
+      {/* =========================================================
+          ABOUT THE CONFERENCE
+      ========================================================== */}
+
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <Heading
-            eyebrow="Our Mission"
-            title="Bringing expertise."
-            accent="Ideas. Innovation."
-            body="Our mission is to create a Technologies platform where healthcare expertise, scientific knowledge and innovation come together. Wavexa Technologies connects the people and ideas driving progress in medicine, creating opportunities for learning, discussion and collaboration."
-          />
+        <div className="mx-auto max-w-4xl">
+          <Reveal>
+            <Heading
+              eyebrow="About the Conference"
+              title="Advancing science."
+              accent="Improving healthcare."
+              align="center"
+            />
+          </Reveal>
 
-          <Reveal
-            delay={0.1}
-            className="grid gap-4 sm:grid-cols-2"
-          >
-            {STATS.map((stat) => (
-              <Card
-                key={stat.label}
-                className="p-6 transition-transform duration-300 hover:-translate-y-1"
-              >
-                <p className="font-numeric text-4xl font-bold text-gradient">
-                  <Counter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                  />
+          <Reveal delay={0.15} className="mt-10">
+            <Card className="p-7 sm:p-10">
+              <div className="space-y-5 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                <p>
+                  Wavexa Conferences proudly presents the{" "}
+                  <strong className="text-foreground">
+                    Global Summit on Diabetes, Cardiology & Cardiometabolic
+                    Health 2026
+                  </strong>
+                  , a premier international virtual conference dedicated to
+                  advancing scientific research, clinical excellence, and
+                  innovative healthcare solutions in the fields of diabetes,
+                  cardiovascular medicine, and cardiometabolic health.
                 </p>
 
-                <p className="mt-2 text-[11px] uppercase tracking-[0.24em] text-muted-foreground">
-                  {stat.label}
+                <p>
+                  Scheduled as a{" "}
+                  <strong className="text-foreground">
+                    two-day global webinar conference on December 2–3, 2026
+                  </strong>
+                  , the summit will bring together leading researchers,
+                  clinicians, cardiologists, diabetologists, endocrinologists,
+                  healthcare professionals, academic scientists, policymakers,
+                  industry experts, and healthcare innovators from around the
+                  world.
                 </p>
-              </Card>
-            ))}
+
+                <p>
+                  The conference will provide a platform to discuss the latest
+                  advancements, emerging technologies, and evidence-based
+                  practices that are transforming patient care and improving
+                  health outcomes.
+                </p>
+
+                <p>
+                  With the growing global burden of diabetes, cardiovascular
+                  diseases, obesity, hypertension, and metabolic disorders, the
+                  summit will encourage collaborative approaches integrating
+                  prevention, diagnosis, treatment, and digital health
+                  solutions.
+                </p>
+
+                <p>
+                  The conference theme,{" "}
+                  <strong className="text-foreground">
+                    “Advancing Innovation and Integrated Care in Diabetes and
+                    Cardiometabolic Health”
+                  </strong>
+                  , highlights the importance of cutting-edge research, digital
+                  health technologies, artificial intelligence, precision
+                  medicine, and patient-centered care.
+                </p>
+
+                <p>
+                  Participants will gain insights into diabetes management,
+                  preventive cardiology, cardiovascular risk reduction,
+                  obesity and metabolic health, digital therapeutics, remote
+                  patient monitoring, healthcare analytics, precision medicine,
+                  and emerging treatment strategies.
+                </p>
+              </div>
+            </Card>
           </Reveal>
         </div>
       </Section>
 
-      {/* WHAT Wavexa BRINGS TOGETHER */}
+      {/* =========================================================
+          CONFERENCE THEME
+      ========================================================== */}
+
       <Section veil>
-        <Heading
-          eyebrow="What Wavexa Brings Together"
-          title="One Technologies platform."
-          accent="Many healthcare perspectives."
-          align="center"
-          body="Wavexa Technologies brings together diverse voices from across healthcare, science, technology and innovation — creating a space where knowledge can be shared, perspectives can connect and new possibilities can emerge."
-        />
+        <Reveal>
+          <div className="mx-auto max-w-4xl">
+            <Card
+              className="
+                group
+                relative
+                overflow-hidden
+                p-8
+                text-center
+                transition-all
+                duration-500
+                hover:-translate-y-1
+                hover:shadow-xl
+                sm:p-10
+              "
+            >
+              {/* Animated Glow */}
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  left-1/2
+                  top-0
+                  h-32
+                  w-64
+                  -translate-x-1/2
+                  rounded-full
+                  bg-primary/10
+                  blur-3xl
+                  transition-all
+                  duration-700
+                  group-hover:scale-150
+                "
+              />
 
-        <Stagger className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {PILLARS.map((pillar) => (
-            <StaggerItem key={pillar.title}>
-              <Card className="h-full transition-transform duration-300 hover:-translate-y-1">
-                <h3 className="font-heading text-2xl font-semibold">
-                  {pillar.title}
-                </h3>
-
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {pillar.body}
+              <div className="relative">
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+                  Conference Theme
                 </p>
-              </Card>
-            </StaggerItem>
-          ))}
-        </Stagger>
+
+                <h2
+                  className="
+                    mt-4
+                    font-heading
+                    text-3xl
+                    font-semibold
+                    leading-tight
+                    transition-transform
+                    duration-500
+                    group-hover:scale-[1.01]
+                    sm:text-4xl
+                  "
+                >
+                  Advancing Innovation and Integrated Care in Diabetes and
+                  Cardiometabolic Health
+                </h2>
+
+                <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                  Exploring innovative research, emerging technologies,
+                  artificial intelligence, precision medicine, and integrated
+                  patient-centered approaches to cardiometabolic healthcare.
+                </p>
+              </div>
+            </Card>
+          </div>
+        </Reveal>
       </Section>
 
-      {/* OUR PURPOSE */}
-      <Section>
-        <Heading
-          eyebrow="Our Purpose"
-          title="More than a conference."
-          accent="A Technologies healthcare conversation."
-          align="center"
-          body="Wavexa Technologies is built to encourage meaningful exchange — bringing together knowledge, experience and innovation to create conversations that can inspire new thinking and contribute to the future of healthcare."
-        />
+      {/* =========================================================
+          SCIENTIFIC PROGRAM
+      ========================================================== */}
 
-        <Stagger className="mt-14 grid gap-6 md:grid-cols-2">
-          {VALUES.map((value) => (
-            <StaggerItem key={value.number}>
-              <Card className="h-full p-7 transition-transform duration-300 hover:-translate-y-1">
-                <div className="flex items-start gap-5">
-                  <span className="font-numeric text-sm tracking-[0.2em] text-gold">
-                    {value.number}
+      <Section>
+        <Reveal>
+          <Heading
+            eyebrow="Scientific Program"
+            title="Learn. Share."
+            accent="Connect."
+            align="center"
+            body="The summit will feature a diverse scientific program designed to encourage knowledge exchange, research presentation, expert discussion, and professional networking."
+          />
+        </Reveal>
+
+        <Stagger className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
+          {SCIENTIFIC_PROGRAM.map((item, index) => (
+            <StaggerItem key={item}>
+              <Card
+                className="
+                  group
+                  h-full
+                  p-5
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:shadow-lg
+                "
+              >
+                <div className="flex items-center gap-4">
+                  <span
+                    className="
+                      flex
+                      h-10
+                      w-10
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-full
+                      border
+                      border-border
+                      font-numeric
+                      text-xs
+                      tracking-[0.15em]
+                      text-gold
+                      transition-all
+                      duration-300
+                      group-hover:scale-110
+                      group-hover:border-primary/40
+                    "
+                  >
+                    {String(index + 1).padStart(2, "0")}
                   </span>
 
-                  <div>
-                    <h3 className="font-heading text-2xl font-semibold">
-                      {value.title}
-                    </h3>
-
-                    <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
-                      {value.body}
-                    </p>
-                  </div>
+                  <span className="text-sm font-medium text-foreground">
+                    {item}
+                  </span>
                 </div>
               </Card>
             </StaggerItem>
           ))}
         </Stagger>
+      </Section>
 
-        <Reveal className="mt-14 text-center">
-          <ButtonLink to="/registration" size="lg">
-            Join Wavexa Technologies
-          </ButtonLink>
+      {/* =========================================================
+          FINAL CONFERENCE INFORMATION
+      ========================================================== */}
+
+      <Section veil>
+        <Reveal>
+          <div className="mx-auto max-w-4xl text-center">
+            <Heading
+              eyebrow="Join Us"
+              title="A global platform for"
+              accent="knowledge, collaboration & innovation."
+              align="center"
+              body="The Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026 is committed to fostering scientific excellence, promoting interdisciplinary collaboration, and supporting innovative healthcare solutions that contribute to better patient outcomes and healthier communities worldwide."
+            />
+
+            <Reveal delay={0.2} className="mt-8">
+              <p className="mx-auto max-w-3xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                This virtual webinar conference provides a unique opportunity
+                for participants worldwide to engage with leading experts,
+                present their research, build professional networks, and
+                explore innovative solutions without geographical barriers.
+              </p>
+
+              <p className="mx-auto mt-5 max-w-3xl text-sm font-medium leading-relaxed text-foreground sm:text-base">
+                Join us as we unite global experts and healthcare leaders to
+                shape the future of diabetes care, cardiovascular medicine, and
+                cardiometabolic health.
+              </p>
+
+              <div className="mt-8">
+                <ButtonLink
+                  to="/registration"
+                  size="lg"
+                  className="
+                    transition-all
+                    duration-300
+                    hover:-translate-y-1
+                    hover:shadow-lg
+                  "
+                >
+                  Register for the Conference
+                </ButtonLink>
+              </div>
+            </Reveal>
+          </div>
         </Reveal>
       </Section>
     </>

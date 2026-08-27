@@ -62,10 +62,14 @@ console.error = (...args: unknown[]) => {
   originalConsoleError(...expanded);
 };
 
-if (typeof TechnologiesThis.addEventListener === "function") {
-  TechnologiesThis.addEventListener("error", (event) => record((event as ErrorEvent).error ?? event));
-  TechnologiesThis.addEventListener("unhandledrejection", (event) =>
-    record((event as PromiseRejectionEvent).reason),
+if (typeof window.addEventListener === "function") {
+  window.addEventListener("error", (event: ErrorEvent) =>
+    record(event.error ?? event)
+  );
+
+  window.addEventListener(
+    "unhandledrejection",
+    (event: PromiseRejectionEvent) => record(event.reason)
   );
 }
 
