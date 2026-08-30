@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Helmet } from "@/components/Seo";
 import { motion, AnimatePresence } from "framer-motion";
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -43,19 +44,280 @@ const field =
 
 function AbstractForm() {
   const [sent, setSent] = React.useState(false);
+  const [isSending, setIsSending] = React.useState(false);
+
   const [fileName, setFileName] = React.useState<string | null>(null);
+
+  const [countryCode, setCountryCode] = React.useState("+91");
+
+  const [abstractWordCount, setAbstractWordCount] =
+    React.useState(0);
+
+  const [errors, setErrors] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    abstract: "",
+    file: "",
+  });
+
+  /* =========================================================
+     VALIDATION FUNCTIONS
+  ========================================================= */
+
+  const validateName = (
+    value: string,
+    fieldName: string,
+    required = true,
+  ) => {
+    if (!value.trim()) {
+      return required ? `${fieldName} is required` : "";
+    }
+
+    // Only letters and spaces
+    if (!/^[A-Za-z]+(?:\s[A-Za-z]+)*$/.test(value)) {
+      return `${fieldName} should contain only letters and spaces`;
+    }
+
+    // Every word should start with capital letter
+    const words = value.split(" ");
+
+    const properName = words.every((word) =>
+      /^[A-Z][a-z]*$/.test(word),
+    );
+
+    if (!properName) {
+      return "Each word should start with a capital letter";
+    }
+
+    return "";
+  };
+
+  const validateEmail = (value: string) => {
+    if (!value.trim()) {
+      return "Email is required";
+    }
+
+    // Only lowercase letters, numbers, @ and .
+    if (!/^[a-z0-9@.]+$/.test(value)) {
+      return "Use only lowercase letters, numbers, @ and .";
+    }
+
+    // Proper email format
+    if (!/^[a-z0-9]+@[a-z0-9]+(?:\.[a-z0-9]+)+$/.test(value)) {
+      return "Please enter a valid email address";
+    }
+
+    return "";
+  };
+
+  const validatePhone = (value: string) => {
+    if (!value.trim()) {
+      return "Phone number is required";
+    }
+
+    if (!/^[0-9]+$/.test(value)) {
+      return "Phone number should contain only numbers";
+    }
+
+    if (value.length < 7 || value.length > 15) {
+      return "Phone number must contain 7–15 digits";
+    }
+
+    return "";
+  };
+
+  const validateAbstract = (value: string) => {
+    if (!value.trim()) {
+      return "Abstract is required";
+    }
+
+    const wordCount = value.trim().split(/\s+/).length;
+
+    if (wordCount > 400) {
+      return "Abstract must not exceed 400 words";
+    }
+
+    return "";
+  };
+
+  const validateFile = (file?: File) => {
+    if (!file) {
+      return "Please upload your abstract file";
+    }
+
+    const allowedExtensions = [
+      ".pdf",
+      ".doc",
+      ".docx",
+    ];
+
+    const fileNameLower = file.name.toLowerCase();
+
+    const validExtension = allowedExtensions.some((extension) =>
+      fileNameLower.endsWith(extension),
+    );
+
+    if (!validExtension) {
+      return "Only PDF, DOC or DOCX files are allowed";
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      return "File size must not exceed 5 MB";
+    }
+
+    return "";
+  };
+
+  /* =========================================================
+     FORM SUBMIT
+  ========================================================= */
+
+  const handleSubmit = (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+
+    const firstName = (
+      form.elements.namedItem(
+        "firstName",
+      ) as HTMLInputElement
+    ).value;
+
+    const lastName = (
+      form.elements.namedItem(
+        "lastName",
+      ) as HTMLInputElement
+    ).value;
+
+    const email = (
+      form.elements.namedItem(
+        "email",
+      ) as HTMLInputElement
+    ).value;
+
+    const phone = (
+      form.elements.namedItem(
+        "phone",
+      ) as HTMLInputElement
+    ).value;
+
+    const abstract = (
+      form.elements.namedItem(
+        "abstract",
+      ) as HTMLTextAreaElement
+    ).value;
+
+    const fileInput = (
+      form.elements.namedItem(
+        "file",
+      ) as HTMLInputElement
+    );
+
+    const file = fileInput.files?.[0];
+
+    const consent = (
+      form.elements.namedItem(
+        "consent",
+      ) as HTMLInputElement
+    ).checked;
+
+    const newErrors = {
+      firstName: validateName(
+        firstName,
+        "First Name",
+        true,
+      ),
+
+      lastName: validateName(
+        lastName,
+        "Last Name",
+        false,
+      ),
+
+      email: validateEmail(email),
+
+      phone: validatePhone(phone),
+
+      abstract: validateAbstract(abstract),
+
+      file: validateFile(file),
+    };
+
+    setErrors(newErrors);
+
+    /* ---------------------------------------------------------
+       CHECK CONSENT
+    --------------------------------------------------------- */
+
+    if (!consent) {
+      alert(
+        "Please confirm that the submitted work is unpublished and the information provided is accurate.",
+      );
+
+      return;
+    }
+
+    /* ---------------------------------------------------------
+       STOP IF VALIDATION FAILS
+    --------------------------------------------------------- */
+
+    if (
+      Object.values(newErrors).some(
+        (error) => error !== "",
+      )
+    ) {
+      return;
+    }
+
+    /* ---------------------------------------------------------
+       FORM IS VALID
+    --------------------------------------------------------- */
+
+    setIsSending(true);
+
+    /*
+      Replace this timeout later with your actual
+      backend / Firebase / API submission.
+    */
+
+    window.setTimeout(() => {
+      setIsSending(false);
+      setSent(true);
+
+      /*
+        Clear everything after 6 seconds
+      */
+
+      window.setTimeout(() => {
+        setSent(false);
+
+        form.reset();
+
+        setFileName(null);
+
+        setCountryCode("+91");
+
+        setAbstractWordCount(0);
+
+        setErrors({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          abstract: "",
+          file: "",
+        });
+      }, 6000);
+    }, 1000);
+  };
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-
-        setSent(true);
-
-        window.setTimeout(() => {
-          setSent(false);
-        }, 5000);
-      }}
+      onSubmit={handleSubmit}
       className="
         relative
         z-10
@@ -92,6 +354,7 @@ function AbstractForm() {
           </div>
 
           {/* ICON */}
+
           <div
             className="
               grid
@@ -134,26 +397,33 @@ function AbstractForm() {
           </span>
 
           <button
-            type="button"
-            className="
-              inline-flex
-              items-center
-              gap-2
-              rounded-lg
-              bg-primary
-              px-3
-              py-2
-              text-xs
-              font-semibold
-              text-primary-foreground
-              transition-transform
-              hover:-translate-y-0.5
-            "
-          >
-            Download
-
-            <Download className="h-3.5 w-3.5" />
-          </button>
+  type="button"
+  onClick={() => {
+    const link = document.createElement("a");
+    link.href = "/abstract-template.docx";
+    link.download = "Wavexa_Abstract_Submission_Template.docx";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }}
+  className="
+    inline-flex
+    items-center
+    gap-2
+    rounded-lg
+    bg-primary
+    px-3
+    py-2
+    text-xs
+    font-semibold
+    text-primary-foreground
+    transition-transform
+    hover:-translate-y-0.5
+  "
+>
+  Download
+  <Download className="h-3.5 w-3.5" />
+</button>
         </div>
 
         <p className="mt-4 text-right text-xs text-muted-foreground">
@@ -167,7 +437,10 @@ function AbstractForm() {
       ===================================================== */}
 
       <div className="grid gap-5 sm:grid-cols-2">
-        {/* TITLE */}
+
+        {/* =====================================================
+            TITLE
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
@@ -192,7 +465,9 @@ function AbstractForm() {
           </select>
         </label>
 
-        {/* FIRST NAME */}
+        {/* =====================================================
+            FIRST NAME
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
@@ -202,12 +477,53 @@ function AbstractForm() {
           <input
             required
             name="firstName"
-            placeholder="Your First Name"
-            className={field}
+            type="text"
+            placeholder="John"
+            autoComplete="given-name"
+            className={cn(
+              field,
+              errors.firstName &&
+                "border-destructive focus:border-destructive",
+            )}
+            onChange={(e) => {
+              let value = e.target.value;
+
+              // Remove numbers and special characters
+              value = value.replace(/[^A-Za-z\s]/g, "");
+
+              // Remove multiple spaces
+              value = value.replace(/\s+/g, " ");
+
+              // Capitalize first letter of every word
+              value = value
+                .toLowerCase()
+                .replace(/\b[a-z]/g, (letter) =>
+                  letter.toUpperCase(),
+                );
+
+              e.target.value = value;
+
+              setErrors((prev) => ({
+                ...prev,
+                firstName: validateName(
+                  value,
+                  "First Name",
+                  true,
+                ),
+              }));
+            }}
           />
+
+          {errors.firstName && (
+            <span className="text-xs text-destructive">
+              {errors.firstName}
+            </span>
+          )}
         </label>
 
-        {/* LAST NAME */}
+        {/* =====================================================
+            LAST NAME
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
@@ -216,12 +532,53 @@ function AbstractForm() {
 
           <input
             name="lastName"
-            placeholder="Your Last Name"
-            className={field}
+            type="text"
+            placeholder="Smith"
+            autoComplete="family-name"
+            className={cn(
+              field,
+              errors.lastName &&
+                "border-destructive focus:border-destructive",
+            )}
+            onChange={(e) => {
+              let value = e.target.value;
+
+              // Remove numbers and special characters
+              value = value.replace(/[^A-Za-z\s]/g, "");
+
+              // Remove multiple spaces
+              value = value.replace(/\s+/g, " ");
+
+              // Capitalize first letter of every word
+              value = value
+                .toLowerCase()
+                .replace(/\b[a-z]/g, (letter) =>
+                  letter.toUpperCase(),
+                );
+
+              e.target.value = value;
+
+              setErrors((prev) => ({
+                ...prev,
+                lastName: validateName(
+                  value,
+                  "Last Name",
+                  false,
+                ),
+              }));
+            }}
           />
+
+          {errors.lastName && (
+            <span className="text-xs text-destructive">
+              {errors.lastName}
+            </span>
+          )}
         </label>
 
-        {/* COUNTRY */}
+        {/* =====================================================
+            COUNTRY
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
@@ -250,11 +607,14 @@ function AbstractForm() {
           </select>
         </label>
 
-        {/* EMAIL */}
+        {/* =====================================================
+            EMAIL
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
-            Author's Email <span className="text-destructive">*</span>
+            Author's Email{" "}
+            <span className="text-destructive">*</span>
           </span>
 
           <input
@@ -262,31 +622,140 @@ function AbstractForm() {
             type="email"
             name="email"
             placeholder="your@email.com"
-            className={field}
+            autoComplete="email"
+            className={cn(
+              field,
+              errors.email &&
+                "border-destructive focus:border-destructive",
+            )}
+            onChange={(e) => {
+              let value =
+                e.target.value.toLowerCase();
+
+              // Remove invalid characters
+              value = value.replace(
+                /[^a-z0-9@.]/g,
+                "",
+              );
+
+              e.target.value = value;
+
+              setErrors((prev) => ({
+                ...prev,
+                email: validateEmail(value),
+              }));
+            }}
           />
+
+          {errors.email && (
+            <span className="text-xs text-destructive">
+              {errors.email}
+            </span>
+          )}
         </label>
 
-        {/* PHONE */}
+        {/* =====================================================
+            PHONE
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
-            Phone Number <span className="text-destructive">*</span>
+            Phone Number{" "}
+            <span className="text-destructive">*</span>
           </span>
 
-          <input
-            required
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            className={field}
-          />
+          <div className="flex gap-2">
+
+            {/* COUNTRY CODE */}
+
+            <select
+              value={countryCode}
+              onChange={(e) =>
+                setCountryCode(e.target.value)
+              }
+              className={cn(
+                field,
+                "w-[115px] shrink-0 cursor-pointer",
+              )}
+              aria-label="Country code"
+            >
+              <option value="+91">🇮🇳 +91</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+971">🇦🇪 +971</option>
+              <option value="+65">🇸🇬 +65</option>
+              <option value="+60">🇲🇾 +60</option>
+              <option value="+64">🇳🇿 +64</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+81">🇯🇵 +81</option>
+              <option value="+82">🇰🇷 +82</option>
+              <option value="+86">🇨🇳 +86</option>
+              <option value="+7">🇷🇺 +7</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+27">🇿🇦 +27</option>
+            </select>
+
+            {/* PHONE INPUT */}
+
+            <div className="flex-1">
+              <input
+                required
+                type="tel"
+                name="phone"
+                inputMode="numeric"
+                autoComplete="tel"
+                placeholder="Phone Number"
+                maxLength={15}
+                className={cn(
+                  field,
+                  "w-full",
+                  errors.phone &&
+                    "border-destructive focus:border-destructive",
+                )}
+                onChange={(e) => {
+                  let value =
+                    e.target.value;
+
+                  // Numbers only
+                  value = value.replace(
+                    /\D/g,
+                    "",
+                  );
+
+                  // Maximum 15 digits
+                  value = value.slice(0, 15);
+
+                  e.target.value = value;
+
+                  setErrors((prev) => ({
+                    ...prev,
+                    phone:
+                      validatePhone(value),
+                  }));
+                }}
+              />
+
+              {errors.phone && (
+                <span className="mt-1 block text-xs text-destructive">
+                  {errors.phone}
+                </span>
+              )}
+            </div>
+          </div>
         </label>
 
-        {/* ABSTRACT CATEGORY */}
+        {/* =====================================================
+            ABSTRACT CATEGORY
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
-            Abstract Category <span className="text-destructive">*</span>
+            Abstract Category{" "}
+            <span className="text-destructive">*</span>
           </span>
 
           <select
@@ -302,11 +771,14 @@ function AbstractForm() {
           </select>
         </label>
 
-        {/* TRACK */}
+        {/* =====================================================
+            TRACK
+        ===================================================== */}
 
         <label className="grid gap-2">
           <span className="text-xs font-semibold text-foreground">
-            Track Name <span className="text-destructive">*</span>
+            Track Name{" "}
+            <span className="text-destructive">*</span>
           </span>
 
           <select
@@ -320,14 +792,19 @@ function AbstractForm() {
             </option>
 
             {TRACKS.map((track) => (
-              <option key={track.title} value={track.title}>
+              <option
+                key={track.title}
+                value={track.title}
+              >
                 {track.title}
               </option>
             ))}
           </select>
         </label>
 
-        {/* POSTAL ADDRESS */}
+        {/* =====================================================
+            POSTAL ADDRESS
+        ===================================================== */}
 
         <label className="grid gap-2 sm:col-span-2">
           <span className="text-xs font-semibold text-foreground">
@@ -338,11 +815,16 @@ function AbstractForm() {
             name="address"
             rows={3}
             placeholder="Enter your complete postal address"
-            className={cn(field, "resize-none")}
+            className={cn(
+              field,
+              "resize-none",
+            )}
           />
         </label>
 
-        {/* ABSTRACT */}
+        {/* =====================================================
+            ABSTRACT
+        ===================================================== */}
 
         <label className="grid gap-2 sm:col-span-2">
           <span className="text-xs font-semibold text-foreground">
@@ -350,7 +832,9 @@ function AbstractForm() {
             <span className="text-muted-foreground">
               (Maximum 400 words)
             </span>{" "}
-            <span className="text-destructive">*</span>
+            <span className="text-destructive">
+              *
+            </span>
           </span>
 
           <textarea
@@ -358,8 +842,53 @@ function AbstractForm() {
             name="abstract"
             rows={7}
             placeholder="Background… Methods… Results… Conclusion…"
-            className={cn(field, "resize-none")}
+            className={cn(
+              field,
+              "resize-none",
+              errors.abstract &&
+                "border-destructive focus:border-destructive",
+            )}
+            onChange={(e) => {
+              const value =
+                e.target.value;
+
+              const count = value.trim()
+                ? value
+                    .trim()
+                    .split(/\s+/)
+                    .length
+                : 0;
+
+              setAbstractWordCount(count);
+
+              setErrors((prev) => ({
+                ...prev,
+                abstract:
+                  validateAbstract(value),
+              }));
+            }}
           />
+
+          <div className="flex items-center justify-between">
+            <div>
+              {errors.abstract && (
+                <span className="text-xs text-destructive">
+                  {errors.abstract}
+                </span>
+              )}
+            </div>
+
+            <span
+              className={cn(
+                "text-xs font-medium",
+                abstractWordCount > 400
+                  ? "text-destructive"
+                  : "text-muted-foreground",
+              )}
+            >
+              {abstractWordCount}/400 words
+            </span>
+          </div>
         </label>
 
         {/* =====================================================
@@ -369,7 +898,9 @@ function AbstractForm() {
         <div className="sm:col-span-2">
           <p className="mb-2 text-xs font-semibold text-foreground">
             Attach your file{" "}
-            <span className="text-destructive">*</span>
+            <span className="text-destructive">
+              *
+            </span>
           </p>
 
           <label
@@ -409,11 +940,13 @@ function AbstractForm() {
 
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-foreground">
-                {fileName ?? "Choose your abstract file"}
+                {fileName ??
+                  "Choose your abstract file"}
               </p>
 
               <p className="mt-1 text-xs text-muted-foreground">
-                PDF or DOCX • Maximum 5 MB • Anonymised file
+                PDF, DOC or DOCX • Maximum 5 MB •
+                Anonymised file
               </p>
             </div>
 
@@ -423,11 +956,28 @@ function AbstractForm() {
               name="file"
               accept=".pdf,.doc,.docx"
               className="hidden"
-              onChange={(e) =>
-                setFileName(e.target.files?.[0]?.name ?? null)
-              }
+              onChange={(e) => {
+                const file =
+                  e.target.files?.[0];
+
+                setFileName(
+                  file?.name ?? null,
+                );
+
+                setErrors((prev) => ({
+                  ...prev,
+                  file:
+                    validateFile(file),
+                }));
+              }}
             />
           </label>
+
+          {errors.file && (
+            <p className="mt-2 text-xs text-destructive">
+              {errors.file}
+            </p>
+          )}
         </div>
 
         {/* =====================================================
@@ -450,9 +1000,10 @@ function AbstractForm() {
           />
 
           <span>
-            I confirm that the submitted work is unpublished, the information
-            provided is accurate, and the submission complies with the
-            conference guidelines.
+            I confirm that the submitted work is
+            unpublished, the information provided is
+            accurate, and the submission complies with
+            the conference guidelines.
           </span>
         </label>
       </div>
@@ -462,35 +1013,162 @@ function AbstractForm() {
       ===================================================== */}
 
       <div className="mt-7 flex flex-wrap items-center gap-4">
-        <Button type="submit" size="lg">
-          Submit Abstract
 
-          <ArrowRight className="h-4 w-4" />
+        {/* SUBMIT BUTTON */}
+
+        <Button
+          type="submit"
+          size="lg"
+          disabled={isSending}
+          className="relative min-w-[190px] overflow-hidden"
+        >
+          <AnimatePresence mode="wait">
+            {isSending ? (
+              <motion.span
+                key="sending"
+                initial={{
+                  opacity: 0,
+                  y: 8,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -8,
+                }}
+                className="flex items-center gap-2"
+              >
+                <motion.span
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="
+                    h-4
+                    w-4
+                    rounded-full
+                    border-2
+                    border-current
+                    border-t-transparent
+                  "
+                />
+
+                Submitting...
+              </motion.span>
+            ) : (
+              <motion.span
+                key="submit"
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                }}
+                className="flex items-center gap-2"
+              >
+                Submit Abstract
+
+                <ArrowRight className="h-4 w-4" />
+              </motion.span>
+            )}
+          </AnimatePresence>
         </Button>
 
+        {/* =====================================================
+            SUCCESS MESSAGE
+        ===================================================== */}
+
         <AnimatePresence>
-          {sent ? (
-            <motion.span
+          {sent && (
+            <motion.div
               initial={{
                 opacity: 0,
-                x: -8,
+                x: -15,
+                scale: 0.95,
               }}
               animate={{
                 opacity: 1,
                 x: 0,
+                scale: 1,
               }}
               exit={{
                 opacity: 0,
+                y: -10,
+                scale: 0.95,
+              }}
+              transition={{
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
               }}
               className="flex items-center gap-2 text-sm text-accent"
             >
-              <CheckCircle2 className="h-4 w-4" />
+              {/* SUCCESS ICON */}
 
-              Submission received successfully.
-            </motion.span>
-          ) : null}
+              <motion.div
+                initial={{
+                  scale: 0,
+                  rotate: -45,
+                }}
+                animate={{
+                  scale: 1,
+                  rotate: 0,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 12,
+                }}
+              >
+                <CheckCircle2 className="h-5 w-5" />
+              </motion.div>
+
+              <span>
+                Submission received successfully.
+              </span>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
+
+      {/* =====================================================
+          SUCCESS PROGRESS BAR
+      ===================================================== */}
+
+      <AnimatePresence>
+        {sent && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              scaleX: 1,
+            }}
+            animate={{
+              opacity: 1,
+              scaleX: 0,
+            }}
+            exit={{
+              opacity: 0,
+            }}
+            transition={{
+              duration: 6,
+              ease: "linear",
+            }}
+            className="
+              mt-4
+              h-[2px]
+              w-full
+              origin-left
+              rounded-full
+              bg-accent
+            "
+          />
+        )}
+      </AnimatePresence>
     </form>
   );
 }
@@ -511,6 +1189,7 @@ function SubmissionInstructions() {
 
   return (
     <div className="lg:sticky lg:top-28">
+
       {/* =====================================================
           INSTRUCTIONS CARD
       ===================================================== */}
@@ -528,60 +1207,64 @@ function SubmissionInstructions() {
           sm:p-7
         "
       >
-        <Badge tone="gold">Submission Instructions</Badge>
+        <Badge tone="gold">
+          Submission Instructions
+        </Badge>
 
         <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-foreground">
           Before you submit
         </h2>
 
         <p className="mt-3 text-sm leading-relaxed text-foreground">
-          Please review these requirements carefully before completing the
-          submission form.
+          Please review these requirements carefully
+          before completing the submission form.
         </p>
 
         {/* INSTRUCTIONS */}
 
         <div className="mt-6 space-y-4">
-          {instructions.map((item, index) => (
-            <motion.div
-              key={item}
-              initial={{
-                opacity: 0,
-                x: 10,
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-              }}
-              viewport={{
-                once: true,
-              }}
-              transition={{
-                delay: index * 0.05,
-              }}
-              className="flex items-start gap-3"
-            >
-              <span
-                className="
-                  mt-0.5
-                  grid
-                  h-6
-                  w-6
-                  shrink-0
-                  place-items-center
-                  rounded-full
-                  bg-accent/10
-                  text-accent
-                "
+          {instructions.map(
+            (item, index) => (
+              <motion.div
+                key={item}
+                initial={{
+                  opacity: 0,
+                  x: 10,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  delay: index * 0.05,
+                }}
+                className="flex items-start gap-3"
               >
-                <CheckCircle2 className="h-4 w-4" />
-              </span>
+                <span
+                  className="
+                    mt-0.5
+                    grid
+                    h-6
+                    w-6
+                    shrink-0
+                    place-items-center
+                    rounded-full
+                    bg-accent/10
+                    text-accent
+                  "
+                >
+                  <CheckCircle2 className="h-4 w-4" />
+                </span>
 
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {item}
-              </p>
-            </motion.div>
-          ))}
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {item}
+                </p>
+              </motion.div>
+            ),
+          )}
         </div>
       </div>
     </div>
@@ -597,7 +1280,8 @@ export default function SubmitAbstract() {
     <>
       <Helmet>
         <title>
-          Submit an Abstract — Wavexa Technologies 2026 Call for Papers
+          Submit an Abstract — Wavexa Technologies 2026
+          Call for Papers
         </title>
 
         <meta
@@ -615,7 +1299,10 @@ export default function SubmitAbstract() {
           content="Present your research in Geneva. Structured abstracts of up to 400 words, reviewed double-blind."
         />
 
-        <meta property="og:type" content="website" />
+        <meta
+          property="og:type"
+          content="website"
+        />
 
         <meta
           property="og:url"
@@ -643,6 +1330,7 @@ export default function SubmitAbstract() {
       ===================================================== */}
 
       <div className="relative overflow-visible">
+
         <PageHero
           eyebrow="Call for papers"
           title="Present your research in"
@@ -697,6 +1385,7 @@ export default function SubmitAbstract() {
 
       <Section className="pt-16 lg:pt-20">
         <div className="grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+
           {/* LEFT — FORM */}
 
           <Reveal>
@@ -708,6 +1397,7 @@ export default function SubmitAbstract() {
           <Reveal delay={0.12}>
             <SubmissionInstructions />
           </Reveal>
+
         </div>
       </Section>
 

@@ -31,21 +31,25 @@ const CONFERENCE_LINKS = [
     to: "/conferences/upcoming",
     description: "Explore upcoming Wavexa conferences and events.",
   },
+  /*
   {
     label: "Previous Conferences",
     to: "/conferences/previous",
     description: "Explore our previous conferences and editions.",
   },
+  */
 ] as const;
 
 
 
 const PROGRAMME_LINKS = [
+  /*
   {
     label: "Speakers",
     to: "/speakers",
     description: "Meet healthcare experts and industry voices.",
   },
+  */
   {
     label: "Schedule",
     to: "/schedule",

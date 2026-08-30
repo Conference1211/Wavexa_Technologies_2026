@@ -184,44 +184,114 @@ export const SPEAKERS = [
   },
 ];
 
+
 export const TRACKS = [
   {
-    title: "Clinical AI & Diagnostics",
+    title: "Artificial Intelligence and Digital Health in Cardiometabolic Care",
     icon: "BrainCircuit",
-    sessions: 22,
-    body: "Model governance, ambient documentation, imaging triage and the evidence bar for autonomous diagnosis.",
+    sessions: 10,
+    body: "Artificial Intelligence (AI) and Digital Health are transforming the prevention, diagnosis, treatment, and management of cardiometabolic diseases. This track explores machine learning, predictive analytics, digital therapeutics, wearable technologies, remote patient monitoring, digital biomarkers, clinical decision support systems, healthcare automation, and data-driven approaches that are improving patient outcomes and reshaping modern healthcare delivery.",
   },
+
   {
-    title: "Genomics & Precision Medicine",
-    icon: "Dna",
-    sessions: 18,
-    body: "Population sequencing, polygenic risk, ancestry equity and germline editing in the clinic.",
+    title: "Diabetes Management and Emerging Therapies",
+    icon: "Activity",
+    sessions: 10,
+    body: "Diabetes remains a major global health challenge requiring innovative approaches to prevention, diagnosis, treatment, and long-term disease management. This track focuses on emerging therapies, next-generation insulin technologies, continuous glucose monitoring, precision medicine, digital diabetes care, personalized treatment strategies, and patient-centered care models designed to improve glycemic control and long-term clinical outcomes.",
   },
+
   {
-    title: "MedTech & Surgical Robotics",
-    icon: "Bot",
-    sessions: 16,
-    body: "Tele-surgery, haptics, implantables and device regulation across the world's major markets.",
-  },
-  {
-    title: "Longevity & Regenerative Science",
+    title: "Cardiovascular Disease and Preventive Cardiology",
     icon: "HeartPulse",
-    sessions: 14,
-    body: "Senolytics, organoids, tissue printing and what ageing biology can credibly promise.",
+    sessions: 10,
+    body: "This track explores the latest advances in cardiovascular disease prevention, early detection, risk assessment, and evidence-based treatment strategies. Topics include preventive cardiology, cardiovascular risk reduction, lifestyle interventions, cardiac rehabilitation, cardiometabolic risk management, innovative therapeutics, and integrated approaches aimed at improving heart health and reducing the global burden of cardiovascular disease.",
   },
+
   {
-    title: "Digital Health Systems",
-    icon: "Network",
-    sessions: 15,
-    body: "Interoperability, offline-first records, virtual wards and the economics of remote care.",
-  },
-  {
-    title: "Policy, Equity & Access",
+    title: "Obesity, Metabolic Health and Lifestyle Medicine",
     icon: "Scale",
-    sessions: 15,
-    body: "Pricing, reimbursement, trial diversity and getting frontier therapy beyond wealthy postcodes.",
+    sessions: 10,
+    body: "Obesity and metabolic disorders are closely associated with diabetes, cardiovascular disease, and several other chronic health conditions. This track examines evidence-based approaches in nutrition, physical activity, behavioral medicine, lifestyle interventions, weight management, metabolic health optimization, and emerging therapies designed to support sustainable weight reduction and improve long-term health outcomes.",
+  },
+
+  {
+    title: "Precision Medicine and Personalized Healthcare",
+    icon: "Dna",
+    sessions: 10,
+    body: "Precision medicine is enabling healthcare professionals to develop more individualized approaches to disease prevention, diagnosis, and treatment. This track explores genomics, biomarkers, pharmacogenomics, predictive diagnostics, artificial intelligence, clinical decision support, individualized therapies, and data-driven healthcare strategies that can improve treatment effectiveness and optimize outcomes for patients with complex chronic diseases.",
+  },
+
+  {
+    title: "Women's Cardiometabolic Health",
+    icon: "Heart",
+    sessions: 10,
+    body: "Women experience unique cardiometabolic health challenges throughout different stages of life. This track addresses cardiovascular disease, diabetes, gestational diabetes, polycystic ovary syndrome (PCOS), obesity, menopause-related metabolic changes, hormonal influences, lifestyle factors, and gender-specific risk assessment, with a focus on prevention, early intervention, personalized care, and improving long-term health outcomes for women.",
+  },
+
+  {
+    title: "Advances in Type 1 and Type 2 Diabetes Management",
+    icon: "Activity",
+    sessions: 10,
+    body: "This track highlights recent advances in the management of both Type 1 and Type 2 diabetes, covering innovative treatment strategies, insulin delivery technologies, continuous glucose monitoring, automated diabetes management, personalized treatment approaches, prevention of complications, patient education, and self-management strategies. The session aims to explore practical and emerging approaches for improving diabetes outcomes and quality of life.",
+  },
+
+  {
+    title: "Novel Antidiabetic Therapies and Drug Development",
+    icon: "FlaskConical",
+    sessions: 10,
+    body: "This track focuses on emerging pharmacological therapies and innovations in antidiabetic drug development. Topics include novel drug targets, GLP-1 receptor agonists, combination therapies, next-generation diabetes medications, innovative insulin formulations, clinical trials, drug discovery, mechanisms of action, safety considerations, and future therapeutic directions aimed at addressing unmet needs in diabetes treatment.",
+  },
+
+  {
+    title: "Insulin Innovations and Smart Insulin Technologies",
+    icon: "Syringe",
+    sessions: 10,
+    body: "Advances in insulin technology are creating new possibilities for more precise and personalized diabetes management. This track explores next-generation insulin formulations, glucose-responsive and smart insulin technologies, insulin pumps, automated insulin delivery, closed-loop systems, artificial pancreas technologies, continuous glucose monitoring integration, and innovative approaches designed to improve glycemic control while reducing the burden of diabetes management.",
+  },
+
+  {
+    title: "Early Detection and Risk Reduction Strategies",
+    icon: "SearchCheck",
+    sessions: 10,
+    body: "Early identification of cardiometabolic risk can play an important role in preventing disease progression and reducing long-term complications. This track explores innovative screening methods, predictive risk assessment, biomarkers, early diagnostic approaches, cardiovascular risk prediction, diabetes prevention, lifestyle interventions, population-based strategies, and preventive healthcare models designed to identify high-risk individuals and support timely intervention.",
+  },
+
+  {
+    title: "Hypertension and Heart Disease Management",
+    icon: "HeartPulse",
+    sessions: 10,
+    body: "Hypertension and heart disease remain major contributors to cardiovascular morbidity and mortality worldwide. This track examines advances in blood pressure management, coronary artery disease, heart failure, cardiovascular risk assessment, evidence-based pharmacological therapies, lifestyle interventions, preventive strategies, and integrated care models aimed at improving blood pressure control, reducing cardiovascular events, and promoting better long-term heart health.",
+  },
+
+  {
+    title: "Stem Cell Therapy",
+    icon: "Microscope",
+    sessions: 10,
+    body: "Stem cell research is opening new possibilities in regenerative medicine and the treatment of complex diseases. This track explores stem cell biology, beta-cell regeneration, cell-based therapies, pancreatic tissue regeneration, tissue engineering, biomaterials, regenerative approaches, translational research, and emerging clinical applications of stem cell therapy, with a focus on future opportunities and challenges in regenerative healthcare.",
+  },
+
+  {
+    title: "Diabetes & Metabolic Disorders",
+    icon: "Activity",
+    sessions: 10,
+    body: "This track covers current research and clinical advances in diabetes and metabolic disorders, including insulin resistance, glucose metabolism, metabolic syndrome, dyslipidemia, lipid metabolism, hormonal regulation, obesity-related metabolic conditions, and emerging therapeutic approaches. The session provides a platform for exploring new scientific insights, clinical strategies, and integrated approaches to improving metabolic health and reducing disease complications.",
+  },
+
+  {
+    title: "Cardiac Surgery",
+    icon: "HeartPulse",
+    sessions: 10,
+    body: "This track focuses on contemporary advances in cardiac surgery and innovative approaches to the treatment of cardiovascular conditions. Topics include coronary artery bypass surgery, valve repair and replacement, minimally invasive cardiac procedures, advanced surgical techniques, perioperative management, surgical outcomes, patient safety, recovery strategies, and emerging technologies that are improving the quality and effectiveness of modern cardiac surgical care.",
+  },
+
+  {
+    title: "Case Reports & Clinical Case Studies – Diabetes and Cardiology",
+    icon: "FileText",
+    sessions: 10,
+    body: "This track provides a platform for presenting unique, challenging, and clinically significant cases in diabetes and cardiology. Discussions may include diagnostic challenges, unusual presentations, treatment decisions, complications, novel interventions, multidisciplinary approaches, patient outcomes, and valuable clinical lessons, offering healthcare professionals an opportunity to share real-world experiences and insights that can contribute to improved patient care.",
   },
 ];
+
 
 export const SCHEDULE = [
   {
@@ -450,39 +520,116 @@ export const FAQS = [
 
 export const TICKETS = [
   {
-    name: "Digital",
-    price: 390,
-    tag: "Remote access",
-    perks: [
-      "Live HD stream of all stages",
-      "12-month session archive",
-      "Virtual matchmaking",
-      "Digital certificate",
+    name: "Early Bird Registration",
+    date: "On or Before Sep 09, 2025",
+    tag: "Academic",
+    featured: false,
+    color: "soft",
+    options: [
+      {
+        name: "Speaker Registration",
+        price: 599,
+      },
+      {
+        name: "Delegate Registration / Listener",
+        price: 449,
+      },
+      {
+        name: "Poster Presentation",
+        price: 649,
+      },
+      {
+        name: "Package A (Registration + 2 Nights Accommodation)",
+        price: 1099,
+      },
+      {
+        name: "Package B (Registration + 3 Nights Accommodation)",
+        price: 1199,
+      },
+      {
+        name: "Special Issue Publication",
+        price: 1599,
+      },
+      {
+        name: "Regular Issue Publication",
+        price: 1899,
+      },
     ],
   },
+
   {
-    name: "Delegate",
-    price: 1290,
-    tag: "Most popular",
+    name: "Normal Registration",
+    date: "On or Before Dec 09, 2025",
+    tag: "Academic",
+    featured: false,
+    color: "medium",
+    options: [
+      {
+        name: "Speaker Registration",
+        price: 612,
+      },
+      {
+        name: "Delegate Registration / Listener",
+        price: 549,
+      },
+      {
+        name: "Poster Presentation",
+        price: 749,
+      },
+      {
+        name: "Package A (Registration + 2 Nights Accommodation)",
+        price: 1199,
+      },
+      {
+        name: "Package B (Registration + 3 Nights Accommodation)",
+        price: 1299,
+      },
+      {
+        name: "Special Issue Publication",
+        price: 1699,
+      },
+      {
+        name: "Regular Issue Publication",
+        price: 1999,
+      },
+    ],
+  },
+
+  {
+    name: "Final Registration",
+    date: "On or Before Sep 07, 2026",
+    tag: "Academic",
     featured: true,
-    perks: [
-      "All four days on site",
-      "Every track, lab and workshop",
-      "Curated networking programme",
-      "Opening reception & lunches",
-      "26 CME credits",
-    ],
-  },
-  {
-    name: "Executive",
-    price: 2950,
-    tag: "Limited to 300",
-    perks: [
-      "Everything in Delegate",
-      "Investor floor & private summits",
-      "Gold Circle dinner seat",
-      "Speaker green-room access",
-      "Concierge scheduling",
+    color: "strong",
+    options: [
+      {
+        name: "Speaker Registration",
+        price: 669,
+      },
+      {
+        name: "Delegate Registration / Listener",
+        price: 649,
+      },
+      {
+        name: "Poster Presentation",
+        price: 849,
+      },
+      {
+        name: "Package A (Registration + 2 Nights Accommodation)",
+        price: 1299,
+      },
+      {
+        name: "Package B (Registration + 3 Nights Accommodation)",
+        price: 1399,
+      },
+      {
+        name: "Special Issue Publication",
+        price: 1799,
+      },
+      {
+        name: "Regular Issue Publication",
+        price: 2099,
+      },
     ],
   },
 ];

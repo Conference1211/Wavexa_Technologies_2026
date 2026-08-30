@@ -1,107 +1,454 @@
-import type * as React from "react";
+import * as React from "react";
 import { Helmet } from "@/components/Seo";
-import * as Icons from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { PageHero } from "@/components/sections/Hero";
-import {
-  Section,
-  Heading,
-  Card,
-  Stagger,
-  StaggerItem,
-  Badge,
-  ButtonLink,
-  Reveal,
-} from "@/components/ui-kit";
+import { Section, Heading, Card, Stagger, StaggerItem } from "@/components/ui-kit";
 import { TRACKS } from "@/constants/conference";
 
-const FORMATS = [
-  {
-    title: "Keynotes",
-    body: "45 minutes on the main stage, no slides of logos, one argument defended in public.",
-  },
-  {
-    title: "Deep Dives",
-    body: "90-minute technical sessions with the primary data on screen and the authors in the room.",
-  },
-  {
-    title: "Labs",
-    body: "Capped at 40 people, real equipment, real datasets, and someone who built it standing next to you.",
-  },
-  {
-    title: "Roundtables",
-    body: "Chatham House rule. Payers, regulators and founders working through a single decision.",
-  },
-];
-
 export default function Tracks() {
+  const [openTrack, setOpenTrack] = React.useState<number | null>(null);
+
+  const handleTrackClick = (index: number) => {
+    setOpenTrack((current) => (current === index ? null : index));
+  };
+
   return (
     <>
+      {/* =========================================================
+          SEO
+      ========================================================= */}
       <Helmet>
-        <title>Conference Tracks — Wavexa Technologies 2026</title>
+        <title>Scientific Sessions & Tracks — Wavexa Conferences</title>
+
         <meta
           name="description"
-          content="Six tracks and one hundred sessions: clinical AI, genomics, surgical robotics, longevity science, digital health systems and health policy."
+          content="Explore 15 scientific sessions and tracks covering diabetes, cardiology, cardiometabolic health, digital health, precision medicine, obesity, women's health, cardiac surgery and emerging therapies."
         />
-        <meta property="og:title" content="Conference Tracks — Wavexa Technologies 2026" />
+
+        <meta
+          property="og:title"
+          content="Scientific Sessions & Tracks — Wavexa Conferences"
+        />
+
         <meta
           property="og:description"
-          content="Six tracks, one hundred sessions across four days in Geneva."
+          content="Explore 15 scientific tracks focused on diabetes, cardiology, cardiometabolic health, digital health, precision medicine and emerging healthcare innovations."
         />
+
         <meta property="og:url" content="/tracks" />
+
         <link rel="canonical" href="/tracks" />
       </Helmet>
 
+      {/* =========================================================
+          HERO
+      ========================================================= */}
       <PageHero
-        eyebrow="Tracks"
-        title="Six tracks."
-        accent="One hundred sessions."
-        body="Tracks run in parallel across four days with no filler slots. Every session is recorded and released to delegates within 24 hours."
+        eyebrow="Scientific Sessions & Tracks"
+        title="Explore 15"
+        accent="Scientific Tracks."
+        body="Discover the latest research, clinical advancements, emerging therapies, and innovative approaches across diabetes, cardiology, cardiometabolic health, digital healthcare, precision medicine, obesity, women's health, cardiac surgery, and more."
       />
 
+      {/* =========================================================
+          SCIENTIFIC TRACKS
+      ========================================================= */}
       <Section className="pt-0">
-        <Stagger className="grid gap-6 md:grid-cols-2">
-          {TRACKS.map((t) => {
-            const C =
-              (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[
-                t.icon
-              ] ?? Icons.Sparkles;
-            return (
-              <StaggerItem key={t.title}>
-                <Card className="h-full">
-                  <div className="flex items-start justify-between gap-4">
-                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl [background-image:var(--gradient-brand)] text-primary-foreground">
-                      <C className="h-6 w-6" />
+        <div className="mx-auto max-w-4xl">
+
+          {/* SECTION HEADING */}
+          <Heading
+            eyebrow="Scientific Sessions & Tracks"
+            title="Explore Our"
+            accent="Scientific Tracks"
+            align="center"
+          />
+
+          <motion.p
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.3,
+            }}
+            transition={{
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              mx-auto
+              mt-5
+              max-w-2xl
+              text-center
+              text-[15px]
+              leading-relaxed
+              text-muted-foreground
+            "
+          >
+            Explore our scientific sessions below. Click on a track title
+            to view the detailed session information.
+          </motion.p>
+
+          {/* =========================================================
+              TRACK LIST
+          ========================================================= */}
+          <div
+            className="
+              mx-auto
+              mt-12
+              overflow-hidden
+              rounded-3xl
+              border
+              border-border/60
+              bg-background
+              shadow-sm
+            "
+          >
+            {TRACKS.map((track, index) => {
+              const isOpen = openTrack === index;
+
+              return (
+                <motion.div
+                  key={track.title}
+                  initial={{
+                    opacity: 0,
+                    y: 20,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                    amount: 0.15,
+                  }}
+                  transition={{
+                    duration: 0.45,
+                    delay: index * 0.03,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  className={`
+                    ${
+                      index !== TRACKS.length - 1
+                        ? "border-b border-border/60"
+                        : ""
+                    }
+                  `}
+                >
+                  {/* =================================================
+                      TRACK TITLE
+                  ================================================= */}
+                  <button
+                    type="button"
+                    onClick={() => handleTrackClick(index)}
+                    aria-expanded={isOpen}
+                    className="
+                      group
+                      flex
+                      w-full
+                      items-center
+                      gap-4
+                      px-5
+                      py-5
+                      text-left
+                      transition-all
+                      duration-300
+                      hover:bg-muted/40
+                      sm:px-7
+                      sm:py-6
+                    "
+                  >
+                    {/* NUMBER */}
+                    <span
+                      className={`
+                        flex
+                        h-10
+                        w-10
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-xl
+                        text-sm
+                        font-bold
+                        transition-all
+                        duration-300
+                        ${
+                          isOpen
+                            ? "bg-primary text-primary-foreground"
+                            : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                        }
+                      `}
+                    >
+                      {index + 1}
                     </span>
-                    <Badge tone="muted">{t.sessions} sessions</Badge>
-                  </div>
-                  <h2 className="mt-6 font-display text-2xl font-semibold tracking-tight text-balance">
-                    {t.title}
-                  </h2>
-                  <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{t.body}</p>
-                </Card>
-              </StaggerItem>
-            );
-          })}
-        </Stagger>
+
+                    {/* TITLE */}
+                    <span
+                      className={`
+                        flex-1
+                        font-heading
+                        text-base
+                        font-semibold
+                        leading-snug
+                        transition-colors
+                        duration-300
+                        sm:text-lg
+                        ${
+                          isOpen
+                            ? "text-primary"
+                            : "text-foreground group-hover:text-primary"
+                        }
+                      `}
+                    >
+                      Track {index + 1}: {track.title}
+                    </span>
+
+                    {/* ARROW */}
+                    <span
+                      className={`
+                        flex
+                        h-9
+                        w-9
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        transition-all
+                        duration-300
+                        ${
+                          isOpen
+                            ? "border-primary bg-primary/5 text-primary"
+                            : "border-border text-muted-foreground group-hover:border-primary group-hover:text-primary"
+                        }
+                      `}
+                    >
+                      <motion.span
+                        animate={{
+                          rotate: isOpen ? 180 : 0,
+                        }}
+                        transition={{
+                          duration: 0.25,
+                        }}
+                      >
+                        <ChevronDown className="h-5 w-5" />
+                      </motion.span>
+                    </span>
+                  </button>
+
+                  {/* =================================================
+                      DESCRIPTION
+                  ================================================= */}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{
+                          height: 0,
+                          opacity: 0,
+                        }}
+                        animate={{
+                          height: "auto",
+                          opacity: 1,
+                        }}
+                        exit={{
+                          height: 0,
+                          opacity: 0,
+                        }}
+                        transition={{
+                          height: {
+                            duration: 0.35,
+                            ease: [0.22, 1, 0.36, 1],
+                          },
+                          opacity: {
+                            duration: 0.25,
+                          },
+                        }}
+                        className="overflow-hidden"
+                      >
+                        <div
+                          className="
+                            px-5
+                            pb-7
+                            pl-[76px]
+                            pr-5
+                            sm:px-7
+                            sm:pb-8
+                            sm:pl-[88px]
+                          "
+                        >
+                          <motion.div
+                            initial={{
+                              opacity: 0,
+                              y: -8,
+                            }}
+                            animate={{
+                              opacity: 1,
+                              y: 0,
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              delay: 0.08,
+                            }}
+                            className="
+                              max-w-3xl
+                              border-l-2
+                              border-primary/30
+                              pl-5
+                              sm:pl-6
+                            "
+                          >
+                            <p
+                              className="
+                                text-[15px]
+                                leading-relaxed
+                                text-muted-foreground
+                                sm:text-base
+                              "
+                            >
+                              {track.body}
+                            </p>
+                          </motion.div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
       </Section>
 
+      {/* =========================================================
+          SCIENTIFIC PROGRAMME
+      ========================================================= */}
       <Section veil>
-        <Heading eyebrow="Session formats" title="Four ways" accent="to go deep" align="center" />
-        <Stagger className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {FORMATS.map((f) => (
-            <StaggerItem key={f.title}>
-              <Card className="h-full p-6">
-                <h3 className="font-heading text-2xl font-semibold">{f.title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
-              </Card>
-            </StaggerItem>
-          ))}
-        </Stagger>
-        <Reveal className="mt-12 text-center">
-          <ButtonLink to="/schedule" size="lg" variant="outline">
-            See the four-day schedule
-          </ButtonLink>
-        </Reveal>
+        <div className="mx-auto max-w-5xl">
+          <Heading
+            eyebrow="Scientific Programme"
+            title="Advancing"
+            accent="Cardiometabolic Health"
+            align="center"
+          />
+
+          <motion.p
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+              amount: 0.3,
+            }}
+            transition={{
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            className="
+              mx-auto
+              mt-5
+              max-w-3xl
+              text-center
+              text-[15px]
+              leading-relaxed
+              text-muted-foreground
+            "
+          >
+            The scientific programme brings together clinicians, researchers,
+            healthcare professionals, academics, and industry experts to share
+            the latest evidence, innovations, clinical experiences, and
+            emerging approaches in diabetes, cardiology, and cardiometabolic
+            health.
+          </motion.p>
+
+          {/* =========================================================
+              PROGRAMME HIGHLIGHTS
+          ========================================================= */}
+          <Stagger className="mx-auto mt-12 grid max-w-5xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Global Experts",
+                body: "Connect with clinicians, researchers and healthcare professionals from around the world.",
+              },
+              {
+                title: "Latest Research",
+                body: "Discover emerging research, clinical developments and innovative approaches in cardiometabolic health.",
+              },
+              {
+                title: "Emerging Innovations",
+                body: "Explore new technologies, therapies and strategies shaping the future of healthcare.",
+              },
+            ].map((item) => (
+              <StaggerItem key={item.title}>
+                <motion.div
+                  whileHover={{
+                    y: -6,
+                  }}
+                  transition={{
+                    duration: 0.25,
+                  }}
+                  className="h-full"
+                >
+                  <Card className="h-full p-6">
+                    <span
+                      className="
+                        grid
+                        h-12
+                        w-12
+                        place-items-center
+                        rounded-xl
+                        [background-image:var(--gradient-brand)]
+                        text-primary-foreground
+                      "
+                    >
+                      <span className="text-sm font-bold">
+                        {item.title === "Global Experts"
+                          ? "01"
+                          : item.title === "Latest Research"
+                            ? "02"
+                            : "03"}
+                      </span>
+                    </span>
+
+                    <h3
+                      className="
+                        mt-5
+                        font-heading
+                        text-xl
+                        font-semibold
+                        text-foreground
+                      "
+                    >
+                      {item.title}
+                    </h3>
+
+                    <p
+                      className="
+                        mt-2.5
+                        text-sm
+                        leading-relaxed
+                        text-muted-foreground
+                      "
+                    >
+                      {item.body}
+                    </p>
+                  </Card>
+                </motion.div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
       </Section>
     </>
   );
