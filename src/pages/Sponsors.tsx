@@ -48,7 +48,12 @@ const PACKAGES = [
   },
 ];
 
-const ALL_SPONSORS = SPONSOR_TIERS.flatMap((t) => t.names.map((name) => ({ name, tier: t.tier })));
+const ALL_SPONSORS = SPONSOR_TIERS.flatMap((t) =>
+  t.names.map((name: string) => ({
+    name,
+    tier: t.tier,
+  }))
+);
 
 export default function Sponsors() {
   return (

@@ -77,6 +77,7 @@ export function ScrollProgress() {
 export function Navbar() {
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState("home");
 
   const [conferenceOpen, setConferenceOpen] = React.useState(false);
   const [programmeOpen, setProgrammeOpen] = React.useState(false);
@@ -111,12 +112,60 @@ export function Navbar() {
     setMobileProgrammeOpen(false);
   }, [pathname]);
 
+  React.useEffect(() => {
+  if (pathname !== "/") {
+    setActiveSection("home");
+    return;
+  }
+
+  const sectionIds = [
+    "about",
+    "tracks",
+    "schedule",
+    "submit-abstract",
+    "contact",
+  ];
+
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY + 180;
+    let current = "home";
+
+    for (const id of sectionIds) {
+      const element = document.getElementById(id);
+
+      if (element && element.offsetTop <= scrollPosition) {
+        current = id;
+      }
+    }
+
+    setActiveSection(current);
+  };
+
+  handleScroll();
+
+  window.addEventListener("scroll", handleScroll, {
+    passive: true,
+  });
+
+  return () =>
+    window.removeEventListener("scroll", handleScroll);
+}, [pathname]);
+
   const isConferenceActive =
     pathname.startsWith("/conferences");
 
   const isProgrammeActive =
-    pathname.startsWith("/speakers") ||
-    pathname.startsWith("/schedule");
+  pathname.startsWith("/speakers") ||
+  pathname.startsWith("/schedule") ||
+  (pathname === "/" && activeSection === "schedule");
+
+  const isSubmitAbstractActive =
+  pathname === "/submit-abstract" ||
+  (pathname === "/" && activeSection === "submit-abstract");
+
+const isContactActive =
+  pathname === "/contact" ||
+  (pathname === "/" && activeSection === "contact");
 
   return (
     <>
@@ -145,9 +194,9 @@ export function Navbar() {
           <Link
             to="/"
             className="shrink-0"
-            aria-label="Wavexa Technologies home"
+            aria-label="Wavexa Conferences home"
           >
-            <Logo />
+            <Logo wordmark="Conferences" />
           </Link>
 
           {/* DESKTOP NAVIGATION */}
@@ -157,24 +206,24 @@ export function Navbar() {
               to="/"
               className={cn(
                 "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
-                pathname === "/"
+                pathname === "/" && activeSection === "home"
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >
               Home
 
-              {pathname === "/" ? (
-                <motion.span
-                  layoutId="nav-pill"
-                  className="absolute inset-0 -z-10 rounded-full bg-muted/80"
-                  transition={{
-                    type: "spring",
-                    stiffness: 340,
-                    damping: 30,
-                  }}
-                />
-              ) : null}
+              {pathname === "/" && activeSection === "home" ? (
+  <motion.span
+    layoutId="nav-pill"
+    className="absolute inset-0 -z-10 rounded-full bg-muted/80"
+    transition={{
+      type: "spring",
+      stiffness: 340,
+      damping: 30,
+    }}
+  />
+) : null}
             </Link>
 
             {/* ABOUT */}
@@ -182,24 +231,25 @@ export function Navbar() {
               to="/about"
               className={cn(
                 "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
-                pathname === "/about"
+                pathname === "/" && activeSection === "about"
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
               )}
             >
               About
 
-              {pathname === "/about" ? (
-                <motion.span
-                  layoutId="nav-pill"
-                  className="absolute inset-0 -z-10 rounded-full bg-muted/80"
-                  transition={{
-                    type: "spring",
-                    stiffness: 340,
-                    damping: 30,
-                  }}
-                />
-              ) : null}
+              {(pathname === "/about" ||
+  (pathname === "/" && activeSection === "about")) ? (
+  <motion.span
+    layoutId="nav-pill"
+    className="absolute inset-0 -z-10 rounded-full bg-muted/80"
+    transition={{
+      type: "spring",
+      stiffness: 340,
+      damping: 30,
+    }}
+  />
+) : null}
             </Link>
 
             {/* TRACKS */}
@@ -207,24 +257,26 @@ export function Navbar() {
   to="/tracks"
   className={cn(
     "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
-    pathname === "/tracks"
+    pathname === "/tracks" ||
+(pathname === "/" && activeSection === "tracks")
       ? "text-foreground"
       : "text-muted-foreground hover:text-foreground",
   )}
 >
   Tracks
 
-  {pathname === "/tracks" ? (
-    <motion.span
-      layoutId="nav-pill"
-      className="absolute inset-0 -z-10 rounded-full bg-muted/80"
-      transition={{
-        type: "spring",
-        stiffness: 340,
-        damping: 30,
-      }}
-    />
-  ) : null}
+  {pathname === "/tracks" ||
+activeSection === "tracks" ? (
+  <motion.span
+    layoutId="nav-pill"
+    className="absolute inset-0 -z-10 rounded-full bg-muted/80"
+    transition={{
+      type: "spring",
+      stiffness: 340,
+      damping: 30,
+    }}
+  />
+) : null}
 </Link>
 
 {/* PROGRAMME DROPDOWN */}
@@ -414,54 +466,56 @@ export function Navbar() {
             
 
             {/* SUBMIT ABSTRACT */}
-            <Link
-              to="/submit-abstract"
-              className={cn(
-                "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
-                pathname === "/submit-abstract"
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              Submit Abstract
+            {/* SUBMIT ABSTRACT */}
+<Link
+  to="/submit-abstract"
+  className={cn(
+    "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
+    isSubmitAbstractActive
+      ? "text-foreground"
+      : "text-muted-foreground hover:text-foreground",
+  )}
+>
+  Submit Abstract
 
-              {pathname === "/submit-abstract" ? (
-                <motion.span
-                  layoutId="nav-pill"
-                  className="absolute inset-0 -z-10 rounded-full bg-muted/80"
-                  transition={{
-                    type: "spring",
-                    stiffness: 340,
-                    damping: 30,
-                  }}
-                />
-              ) : null}
-            </Link>
+  {isSubmitAbstractActive ? (
+    <motion.span
+      layoutId="nav-pill"
+      className="absolute inset-0 -z-10 rounded-full bg-muted/80"
+      transition={{
+        type: "spring",
+        stiffness: 340,
+        damping: 30,
+      }}
+    />
+  ) : null}
+</Link>
 
             {/* CONTACT */}
-            <Link
-              to="/contact"
-              className={cn(
-                "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
-                pathname === "/contact"
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              Contact
+            {/* CONTACT */}
+<Link
+  to="/contact"
+  className={cn(
+    "relative rounded-full px-3 py-2 text-[13px] font-medium transition-colors",
+    isContactActive
+      ? "text-foreground"
+      : "text-muted-foreground hover:text-foreground",
+  )}
+>
+  Contact
 
-              {pathname === "/contact" ? (
-                <motion.span
-                  layoutId="nav-pill"
-                  className="absolute inset-0 -z-10 rounded-full bg-muted/80"
-                  transition={{
-                    type: "spring",
-                    stiffness: 340,
-                    damping: 30,
-                  }}
-                />
-              ) : null}
-            </Link>
+  {isContactActive ? (
+    <motion.span
+      layoutId="nav-pill"
+      className="absolute inset-0 -z-10 rounded-full bg-muted/80"
+      transition={{
+        type: "spring",
+        stiffness: 340,
+        damping: 30,
+      }}
+    />
+  ) : null}
+</Link>
           </nav>
 
           {/* RIGHT SIDE */}

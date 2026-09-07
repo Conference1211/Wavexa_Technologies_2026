@@ -36,7 +36,7 @@ export function Loader() {
               />
             </div>
             <p className="numeric text-[10px] tracking-[0.4em] text-muted-foreground uppercase">
-              Geneva · 2026
+               2026
             </p>
           </div>
         </motion.div>

@@ -305,15 +305,99 @@ export default function Tracks() {
                             "
                           >
                             <p
-                              className="
-                                text-[15px]
-                                leading-relaxed
-                                text-muted-foreground
-                                sm:text-base
-                              "
-                            >
-                              {track.body}
-                            </p>
+  className="
+    text-[15px]
+    leading-relaxed
+    text-muted-foreground
+    sm:text-base
+  "
+>
+  {track.body}
+</p>
+
+{/* =================================================
+    SUB-TRACKS
+================================================= */}
+{track.subTracks && track.subTracks.length > 0 && (
+  <div className="mt-7">
+    <h4
+      className="
+        mb-4
+        font-heading
+        text-base
+        font-semibold
+        text-foreground
+        sm:text-lg
+      "
+    >
+      Sub-Tracks
+    </h4>
+
+    <div className="grid gap-3 sm:grid-cols-2">
+      {track.subTracks.map((subTrack, subIndex) => (
+        <motion.div
+          key={subTrack}
+          initial={{
+            opacity: 0,
+            x: -10,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          transition={{
+            duration: 0.25,
+            delay: subIndex * 0.04,
+          }}
+          className="
+            flex
+            items-start
+            gap-3
+            rounded-xl
+            border
+            border-border/60
+            bg-muted/30
+            px-4
+            py-3
+            transition-all
+            duration-200
+            hover:border-primary/30
+            hover:bg-primary/5
+          "
+        >
+          <span
+            className="
+              mt-0.5
+              flex
+              h-6
+              w-6
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              bg-primary/10
+              text-xs
+              font-semibold
+              text-primary
+            "
+          >
+            {subIndex + 1}
+          </span>
+
+          <span
+            className="
+              text-sm
+              leading-relaxed
+              text-muted-foreground
+            "
+          >
+            {subTrack}
+          </span>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+)}
                           </motion.div>
                         </div>
                       </motion.div>

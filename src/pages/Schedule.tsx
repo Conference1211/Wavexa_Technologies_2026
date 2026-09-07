@@ -14,25 +14,34 @@ export default function Schedule() {
   return (
     <>
       <Helmet>
-        <title>Schedule — Wavexa Technologies 2026, 12–15 October</title>
+        <title>
+          Schedule — Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026
+        </title>
+
         <meta
           name="description"
-          content="The full four-day Wavexa Technologies 2026 agenda: keynotes, deep dives, labs, the investor floor and evening programme in Geneva."
+          content="Explore the full two-day scientific programme for the Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026, taking place on 02–03 December 2026."
         />
-        <meta property="og:title" content="Schedule — Wavexa Technologies 2026" />
+
+        <meta
+          property="og:title"
+          content="Schedule — Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026"
+        />
+
         <meta
           property="og:description"
-          content="Four days, six stages, one hundred sessions. See the full agenda."
+          content="Explore the two-day scientific programme featuring expert sessions on diabetes, cardiology, cardiometabolic health, emerging therapies, digital health and integrated care."
         />
+
         <meta property="og:url" content="/schedule" />
         <link rel="canonical" href="/schedule" />
       </Helmet>
 
       <PageHero
         eyebrow="Schedule"
-        title="Four days,"
-        accent="built for decisions"
-        body="Main-stage keynotes in the morning, parallel tracks and labs through the afternoon, and an evening programme designed for the conversations that actually close deals."
+        title="Two days,"
+        accent="of scientific exchange"
+        body="A focused two-day scientific programme bringing together experts to explore diabetes, cardiology, cardiometabolic health, emerging therapies, digital innovation and integrated care."
       />
 
       <Section className="pt-0">
@@ -43,28 +52,40 @@ export default function Schedule() {
               onClick={() => setDay(i)}
               className={cn(
                 "relative rounded-2xl border px-5 py-3.5 text-left transition-colors",
-                day === i ? "border-transparent" : "border-border/70 hover:border-primary/40",
+                day === i
+                  ? "border-transparent"
+                  : "border-border/70 hover:border-primary/40",
               )}
             >
               {day === i ? (
                 <motion.span
                   layoutId="day-pill"
                   className="absolute inset-0 -z-10 rounded-2xl [background-image:var(--gradient-brand)]"
-                  transition={{ type: "spring", stiffness: 320, damping: 30 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 320,
+                    damping: 30,
+                  }}
                 />
               ) : null}
+
               <span
                 className={cn(
                   "numeric block text-xs tracking-[0.2em]",
-                  day === i ? "text-primary-foreground/80" : "text-muted-foreground",
+                  day === i
+                    ? "text-primary-foreground/80"
+                    : "text-muted-foreground",
                 )}
               >
                 {d.day}
               </span>
+
               <span
                 className={cn(
                   "font-heading text-xl font-semibold",
-                  day === i ? "text-primary-foreground" : "text-foreground",
+                  day === i
+                    ? "text-primary-foreground"
+                    : "text-foreground",
                 )}
               >
                 {d.date}
@@ -77,12 +98,19 @@ export default function Schedule() {
           key={active.day}
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="mt-12"
         >
           <p className="mb-8 font-display text-3xl font-semibold tracking-tight">
-            Theme — <span className="text-gradient italic">{active.theme}</span>
+            Theme —{" "}
+            <span className="text-gradient italic">
+              {active.theme}
+            </span>
           </p>
+
           <Timeline items={active.items} />
         </motion.div>
 

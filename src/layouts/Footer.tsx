@@ -16,8 +16,7 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              {CONFERENCE.tagline}. Four days in {CONFERENCE.city} where medicine, technology and
-              policy meet.
+              {CONFERENCE.tagline}. Two days where medicine, technology and policy meet.
             </p>
             <div className="mt-6 flex gap-2">
               {[Linkedin, Twitter, Youtube].map((Icon, i) => (
@@ -69,7 +68,7 @@ export function Footer() {
             <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                <span>{CONFERENCE.address}</span>
+                <span>{CONFERENCE.venue}</span>
               </li>
               <li className="flex gap-3">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
@@ -101,7 +100,7 @@ export function Footer() {
             © {new Date().getFullYear()} {CONFERENCE.name}. {CONFERENCE.edition}.
           </p>
           <p className="numeric tracking-[0.18em] uppercase">
-            {CONFERENCE.dates} · {CONFERENCE.city}
+            {CONFERENCE.dates}
           </p>
         </div>
       </Container>
