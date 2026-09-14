@@ -43,7 +43,7 @@ export default function Home() {
 
         <meta
           name="description"
-          content="Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026 — a two-day international webinar on December 2–3, 2026, bringing together global experts in diabetes, cardiology and cardiometabolic health."
+          content="Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026 — a two-day international webinar on December 9-10, 2026, bringing together global experts in diabetes, cardiology and cardiometabolic health."
         />
 
         <meta name="author" content="Wavexa Conferences" />
@@ -62,7 +62,7 @@ export default function Home() {
 
         <meta
           property="og:description"
-          content="Join the Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026 on December 2–3, 2026 — a two-day international webinar focused on innovation and integrated care."
+          content="Join the Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026 on December 9-10, 2026 — a two-day international webinar focused on innovation and integrated care."
         />
 
         <meta property="og:url" content="/" />
@@ -80,8 +80,8 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "Event",
             name: CONFERENCE.name,
-            startDate: "2026-12-02",
-            endDate: "2026-12-03",
+            startDate: "2026-12-09",
+            endDate: "2026-12-10",
             eventAttendanceMode:
               "https://schema.org/OnlineEventAttendanceMode",
             location: {
@@ -283,7 +283,7 @@ export default function Home() {
 
             <div className="relative">
               <Badge tone="gold">
-                December 2–3, 2026
+                December 9-10, 2026
               </Badge>
 
               <h2 className="mt-6 font-display text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl">

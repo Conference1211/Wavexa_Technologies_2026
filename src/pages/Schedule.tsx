@@ -2,6 +2,7 @@ import * as React from "react";
 import { Helmet } from "@/components/Seo";
 import { motion } from "framer-motion";
 import { PageHero } from "@/components/sections/Hero";
+import programmeImage from "@/assets/programme.png";
 import { Section, Reveal, ButtonLink } from "@/components/ui-kit";
 import { Timeline } from "@/components/Timeline";
 import { SCHEDULE } from "@/constants/conference";
@@ -37,12 +38,54 @@ export default function Schedule() {
         <link rel="canonical" href="/schedule" />
       </Helmet>
 
-      <PageHero
-        eyebrow="Schedule"
-        title="Two days,"
-        accent="of scientific exchange"
-        body="A focused two-day scientific programme bringing together experts to explore diabetes, cardiology, cardiometabolic health, emerging therapies, digital innovation and integrated care."
-      />
+      <div className="relative overflow-visible">
+  <PageHero
+    eyebrow="Schedule"
+    title="Two days,"
+    accent="of scientific exchange"
+    body="A focused two-day scientific programme bringing together experts to explore diabetes, cardiology, cardiometabolic health, emerging therapies, digital innovation and integrated care."
+  />
+
+  {/* HERO IMAGE */}
+  <motion.div
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{
+      duration: 0.8,
+      delay: 0.25,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+    className="
+      pointer-events-none
+      absolute
+      right-2
+      bottom-[-35px]
+      z-10
+      w-[130px]
+      sm:right-6
+      sm:bottom-[-30px]
+      sm:w-[190px]
+      md:right-8
+      md:top-[68%]
+      md:bottom-auto
+      md:w-[280px]
+      lg:right-[7%]
+      lg:top-[55%]
+      lg:bottom-auto
+      lg:w-[500px]
+      xl:right-[6%]
+      xl:top-[55%]
+      xl:w-[580px]
+      -translate-y-1/2
+    "
+  >
+    <img
+      src={programmeImage}
+      alt="Scientific conference programme"
+      className="h-auto w-full object-contain"
+    />
+  </motion.div>
+</div>
 
       <Section className="pt-0">
         <Reveal className="flex flex-wrap gap-3">

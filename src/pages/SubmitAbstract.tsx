@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Helmet } from "@/components/Seo";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "@/firebase";
 import {
   ArrowRight,
   CheckCircle2,
@@ -11,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { PageHero } from "@/components/sections/Hero";
-import abstractVideo from "@/assets/abstract.webm";
+import abstractImage from "@/assets/abstract2.png";
 
 import {
   Section,
@@ -174,9 +176,9 @@ function AbstractForm() {
      FORM SUBMIT
   ========================================================= */
 
-  const handleSubmit = (
-    e: React.FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>,
+) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -277,42 +279,123 @@ function AbstractForm() {
        FORM IS VALID
     --------------------------------------------------------- */
 
-    setIsSending(true);
+   setIsSending(true);
 
-    /*
-      Replace this timeout later with your actual
-      backend / Firebase / API submission.
-    */
+console.log("STEP 1: Submission started");
 
-    window.setTimeout(() => {
-      setIsSending(false);
-      setSent(true);
+try {
+  const formData = new FormData(form);
 
-      /*
-        Clear everything after 6 seconds
-      */
+  console.log("STEP 2: FormData created");
 
-      window.setTimeout(() => {
-        setSent(false);
+  const category = formData.get("category")?.toString() || "";
+  const track = formData.get("track")?.toString() || "";
+  const address = formData.get("address")?.toString() || "";
 
-        form.reset();
+  /*
+   * Upload abstract file to Firebase Storage
+   */
+  // FILE UPLOAD TEMPORARILY DISABLED
+// Firebase Storage requires a paid pricing plan.
+//
+// let fileUrl = "";
+// let uploadedFileName = "";
+//
+// if (file) {
+//   uploadedFileName = file.name;
+//
+//   const fileRef = ref(
+//     storage,
+//     `abstract-submissions/${Date.now()}-${file.name}`,
+//   );
+//
+//   await uploadBytes(fileRef, file);
+//   fileUrl = await getDownloadURL(fileRef);
+// }
 
-        setFileName(null);
+const fileUrl = "";
+const uploadedFileName = file?.name || "";
 
-        setCountryCode("+91");
+ 
+  /*
+   * Save submission details to Firestore
+   */
+  console.log("STEP 7: Starting Firestore save");
+  await addDoc(
+    collection(db, "abstractSubmissions"),
+    {
+      title: formData.get("title")?.toString() || "",
 
-        setAbstractWordCount(0);
+      firstName,
+      lastName,
 
-        setErrors({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          abstract: "",
-          file: "",
-        });
-      }, 6000);
-    }, 1000);
+      email,
+      country:
+        formData.get("country")?.toString() || "",
+
+      countryCode,
+      phone,
+
+      category,
+      track,
+      address,
+
+      abstract,
+
+      abstractWordCount,
+
+      fileName: uploadedFileName,
+      fileUrl,
+
+      consent,
+
+      status: "Submitted",
+
+      createdAt: serverTimestamp(),
+        },
+  );
+
+  console.log("STEP 8: Firestore save completed");
+
+  setIsSending(false);
+  setSent(true);
+
+  console.log("STEP 9: Submission successful");
+
+  /*
+   * Clear form after 6 seconds
+   */
+  window.setTimeout(() => {
+    setSent(false);
+    form.reset();
+
+    setFileName(null);
+    setCountryCode("+91");
+    setAbstractWordCount(0);
+
+    setErrors({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      abstract: "",
+      file: "",
+    });
+  }, 6000);
+
+} catch (error) {
+  console.error("ABSTRACT SUBMISSION ERROR:", error);
+
+  setIsSending(false);
+
+  alert(
+    `Submission failed:\n${
+      error instanceof Error
+        ? error.message
+        : String(error)
+    }`,
+  );
+}
   };
 
   return (
@@ -1278,106 +1361,116 @@ function SubmissionInstructions() {
 export default function SubmitAbstract() {
   return (
     <>
-      <Helmet>
-        <title>
-          Submit an Abstract — Wavexa Technologies 2026
-          Call for Papers
-        </title>
+     <Helmet>
+  <title>
+    Submit an Abstract — Wavexa Technologies 2026
+  </title>
 
-        <meta
-          name="description"
-          content="Call for papers for Wavexa Technologies 2026 in Geneva: six research categories, double-blind review, CHF 45,000 in awards. Abstracts close 31 March 2026."
-        />
+  <meta
+    name="description"
+    content="Submit your research abstract for the Wavexa Technologies 2026 Global Summit on Diabetes, Cardiology & Cardiometabolic Health, taking place on 09–10 December 2026 as a global webinar."
+  />
 
-        <meta
-          property="og:title"
-          content="Submit an Abstract — Wavexa Technologies 2026"
-        />
+  <meta
+    property="og:title"
+    content="Submit an Abstract — Wavexa Technologies 2026"
+  />
 
-        <meta
-          property="og:description"
-          content="Present your research in Geneva. Structured abstracts of up to 400 words, reviewed double-blind."
-        />
+  <meta
+    property="og:description"
+    content="Present your research at the Wavexa Technologies 2026 Global Summit on Diabetes, Cardiology & Cardiometabolic Health. Submit your abstract and share your work with a global scientific audience."
+  />
 
-        <meta
-          property="og:type"
-          content="website"
-        />
+  <meta
+    property="og:type"
+    content="website"
+  />
 
-        <meta
-          property="og:url"
-          content="/submit-abstract"
-        />
+  <meta
+    property="og:url"
+    content="/submit-abstract"
+  />
 
-        <meta
-          name="twitter:card"
-          content="summary_large_image"
-        />
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
 
-        <meta
-          name="twitter:title"
-          content="Submit an Abstract — Wavexa Technologies 2026"
-        />
+  <meta
+    name="twitter:title"
+    content="Submit an Abstract — Wavexa Technologies 2026"
+  />
 
-        <link
-          rel="canonical"
-          href="/submit-abstract"
-        />
-      </Helmet>
+  <meta
+    name="twitter:description"
+    content="Submit your research abstract for the Wavexa Technologies 2026 Global Summit on Diabetes, Cardiology & Cardiometabolic Health."
+  />
+
+  <link
+    rel="canonical"
+    href="/submit-abstract"
+  />
+</Helmet>
 
       {/* =====================================================
           HERO + VIDEO
       ===================================================== */}
 
       <div className="relative overflow-visible">
+  <PageHero
+  eyebrow="Call for papers"
+  title="Present your research to"
+  accent="a global audience"
+  body="Wavexa Technologies 2026 welcomes original research across key areas of diabetes, cardiology and cardiometabolic health. Share your findings with an international audience and contribute to meaningful scientific exchange."
+/>
 
-        <PageHero
-          eyebrow="Call for papers"
-          title="Present your research in"
-          accent="Geneva"
-          body="Wavexa Technologies 2026 accepts original work across six research categories. Every abstract is reviewed double-blind by three independent reviewers, and accepted work is published with a citable DOI."
-        />
+  {/* HERO IMAGE */}
+  <motion.div
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{
+      duration: 0.8,
+      delay: 0.25,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+    className="
+      pointer-events-none
+      absolute
+      z-10
 
-        {/* HERO VIDEO */}
+      right-2
+      bottom-[-40px]
+      w-[125px]
 
-        <video
-          src={abstractVideo}
-          autoPlay
-          loop
-          muted
-          playsInline
-          aria-label="Medical research and abstract submission"
-          className="
-            pointer-events-none
-            absolute
-            z-10
-            object-contain
+      sm:right-6
+      sm:bottom-[-30px]
+      sm:w-[180px]
 
-            right-0
-            bottom-[-130px]
-            w-[200px]
+      md:right-8
+      md:top-[68%]
+      md:bottom-auto
+      md:w-[280px]
 
-            sm:right-[-20px]
-            sm:bottom-[-110px]
-            sm:w-[300px]
+      lg:right-[8%]
+      lg:top-[56%]
+      lg:bottom-auto
+      lg:w-[540px]
 
-            md:right-[-10px]
-            md:bottom-auto
-            md:top-[68%]
-            md:w-[390px]
+      xl:right-[6%]
+      xl:top-[57%]
+      xl:bottom-auto
+      xl:w-[620px]
 
-            lg:right-[4%]
-            lg:top-[55%]
-            lg:w-[500px]
-
-            xl:right-[5%]
-            xl:top-[55%]
-            xl:w-[570px]
-
-            -translate-y-1/2
-          "
-        />
-      </div>
+      -translate-y-1/2
+    "
+  >
+    <img
+      src={abstractImage}
+      alt="Abstract submission"
+      className="h-auto w-full object-contain"
+    />
+  </motion.div>
+</div>
 
       {/* =====================================================
           SUBMISSION SECTION

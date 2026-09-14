@@ -3,6 +3,7 @@ import { Helmet } from "@/components/Seo";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { PageHero } from "@/components/sections/Hero";
+import tracksImage from "@/assets/Track.png";
 import { Section, Heading, Card, Stagger, StaggerItem } from "@/components/ui-kit";
 import { TRACKS } from "@/constants/conference";
 
@@ -44,12 +45,54 @@ export default function Tracks() {
       {/* =========================================================
           HERO
       ========================================================= */}
-      <PageHero
-        eyebrow="Scientific Sessions & Tracks"
-        title="Explore 15"
-        accent="Scientific Tracks."
-        body="Discover the latest research, clinical advancements, emerging therapies, and innovative approaches across diabetes, cardiology, cardiometabolic health, digital healthcare, precision medicine, obesity, women's health, cardiac surgery, and more."
-      />
+      <div className="relative overflow-visible">
+  <PageHero
+    eyebrow="Scientific Sessions & Tracks"
+    title="Explore 15"
+    accent="Scientific Tracks."
+    body="Discover the latest research, clinical advancements, emerging therapies, and innovative approaches across diabetes, cardiology, cardiometabolic health, digital healthcare, precision medicine, obesity, women's health, cardiac surgery, and more."
+  />
+
+  {/* HERO IMAGE */}
+  <motion.div
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{
+      duration: 0.8,
+      delay: 0.25,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+    className="
+      pointer-events-none
+      absolute
+      right-2
+      bottom-[-35px]
+      z-10
+      w-[130px]
+      sm:right-6
+      sm:bottom-[-30px]
+      sm:w-[190px]
+      md:right-8
+      md:top-[68%]
+      md:bottom-auto
+      md:w-[280px]
+      lg:right-[7%]
+      lg:top-[55%]
+      lg:bottom-auto
+      lg:w-[500px]
+      xl:right-[6%]
+      xl:top-[55%]
+      xl:w-[580px]
+      -translate-y-1/2
+    "
+  >
+    <img
+      src={tracksImage}
+      alt="Scientific conference tracks"
+      className="h-auto w-full object-contain"
+    />
+  </motion.div>
+</div>
 
       {/* =========================================================
           SCIENTIFIC TRACKS

@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Plus, Send, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui-kit";
 import { cn } from "@/lib/utils";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/firebase";
 
 export function FaqAccordion({ items }: { items: { q: string; a: string }[] }) {
   const [open, setOpen] = React.useState<number | null>(0);
@@ -207,7 +209,7 @@ export function ContactForm() {
   // -----------------------------
   const [isSending, setIsSending] = React.useState(false);
 
-const handleSubmit = (
+const handleSubmit = async (
   e: React.FormEvent<HTMLFormElement>
 ) => {
   e.preventDefault();
@@ -226,6 +228,10 @@ const handleSubmit = (
     form.elements.namedItem("phone") as HTMLInputElement
   ).value;
 
+  const message = (
+    form.elements.namedItem("message") as HTMLTextAreaElement
+  ).value;
+
   const newErrors = {
     name: validateName(name),
     email: validateEmail(email),
@@ -241,25 +247,45 @@ const handleSubmit = (
 
   setIsSending(true);
 
-  // Simulate sending
-  window.setTimeout(() => {
-    setIsSending(false);
+  try {
+    await addDoc(collection(db, "contactMessages"), {
+      name: name.trim(),
+      email: email.trim(),
+      countryCode,
+      phone: phone.trim(),
+      message: message.trim(),
+      createdAt: serverTimestamp(),
+    });
+
+    // Show success message
     setSent(true);
 
-    // Hide success message and clear form after 6 seconds
+    // Clear form
+    form.reset();
+
+    setErrors({
+      name: "",
+      email: "",
+      phone: "",
+    });
+
+    setCountryCode("+91");
+
+    // Hide success message after 6 seconds
     window.setTimeout(() => {
       setSent(false);
-      form.reset();
-
-      setErrors({
-        name: "",
-        email: "",
-        phone: "",
-      });
-
-      setCountryCode("+91");
     }, 6000);
-  }, 1000);
+
+  } catch (error) {
+    console.error("Error saving contact message:", error);
+
+    alert(
+      "Unable to send your message right now. Please try again."
+    );
+
+  } finally {
+    setIsSending(false);
+  }
 };
   return (
     <form

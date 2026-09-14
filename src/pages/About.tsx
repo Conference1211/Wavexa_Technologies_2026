@@ -1,6 +1,7 @@
 import { Helmet } from "@/components/Seo";
 import { PageHero } from "@/components/sections/Hero";
-import aboutHealthcareVideo from "@/assets/about.webm";
+import { motion } from "framer-motion";
+import aboutHealthcareImage from "@/assets/about-healthcare.png";
 
 import {
   Section,
@@ -34,7 +35,7 @@ export default function About() {
 
         <meta
           name="description"
-          content="Learn about the Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026, a two-day global virtual conference taking place on December 2–3, 2026."
+          content="Learn about the Global Summit on Diabetes, Cardiology & Cardiometabolic Health 2026, a two-day global virtual conference taking place on December 9-10, 2026."
         />
       </Helmet>
 
@@ -53,49 +54,44 @@ export default function About() {
   />
 
   {/* Healthcare Video */}
-  <Reveal
-    delay={0.3}
+  <motion.div
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{
+      duration: 0.8,
+      delay: 0.25,
+      ease: [0.22, 1, 0.36, 1],
+    }}
     className="
       pointer-events-none
       absolute
-      z-10
-
       right-2
-      bottom-[-40px]
-      w-[125px]
-
+      bottom-[-35px]
+      z-10
+      w-[130px]
       sm:right-6
       sm:bottom-[-30px]
-      sm:w-[180px]
-
+      sm:w-[190px]
       md:right-8
       md:top-[68%]
       md:bottom-auto
       md:w-[280px]
-
-      lg:right-[8%]
-      lg:top-[56%]
+      lg:right-[7%]
+      lg:top-[55%]
       lg:bottom-auto
-      lg:w-[540px]
-
+      lg:w-[500px]
       xl:right-[6%]
-      xl:top-[57%]
-      xl:bottom-auto
-      xl:w-[620px]
-
+      xl:top-[55%]
+      xl:w-[580px]
       -translate-y-1/2
     "
   >
-    <video
-      src={aboutHealthcareVideo}
-      autoPlay
-      muted
-      loop
-      playsInline
-      aria-hidden="true"
+    <img
+      src={aboutHealthcareImage}
+      alt="Healthcare conference"
       className="h-auto w-full object-contain"
     />
-  </Reveal>
+  </motion.div>
 </div>
       </div>
 
@@ -132,7 +128,7 @@ export default function About() {
                 <p>
                   Scheduled as a{" "}
                   <strong className="text-foreground">
-                    two-day global webinar conference on December 2–3, 2026
+                    two-day global webinar conference on December 09-10, 2026
                   </strong>
                   , the summit will bring together leading researchers,
                   clinicians, cardiologists, diabetologists, endocrinologists,

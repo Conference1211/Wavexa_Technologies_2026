@@ -1,6 +1,8 @@
 import { Helmet } from "@/components/Seo";
 import { PageHero } from "@/components/sections/Hero";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import upcomingImage from "@/assets/upcoming1.png";
 import Diabetes1 from "@/assets/Diabetes1.jpg";
 import cardilogy from "@/assets/cardiology.jpg";
 import gyenicology from "@/assets/gyenicology.jpeg";
@@ -31,7 +33,7 @@ const UPCOMING_CONFERENCES = [
     slug: "international-conference-on-dental-and-oral-health",
     title: "International Conference on Dental and Oral Health",
     year: "2026",
-    date: "December 3–4, 2026",
+    date: "December 20-21, 2026",
     edition: "Dental & Oral Health",
     location: "International",
     image:
@@ -157,12 +159,54 @@ export default function UpcomingConferences() {
           PAGE HERO
       ===================================================== */}
 
-      <PageHero
-        eyebrow="Upcoming Conferences"
-        title="Where healthcare."
-        accent="Meets what's next."
-        body="Explore upcoming Wavexa Technologies conferences and discover opportunities to connect, learn, collaborate and shape the future of healthcare."
-      />
+      <div className="relative overflow-visible">
+  <PageHero
+    eyebrow="Upcoming Conferences"
+    title="Where healthcare."
+    accent="Meets what's next."
+    body="Explore upcoming Wavexa Technologies conferences and discover opportunities to connect, learn, collaborate and shape the future of healthcare."
+  />
+
+  {/* HERO IMAGE */}
+  <motion.div
+    initial={{ opacity: 0, x: 40 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{
+      duration: 0.8,
+      delay: 0.25,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+    className="
+      pointer-events-none
+      absolute
+      right-2
+      bottom-[-35px]
+      z-10
+      w-[130px]
+      sm:right-6
+      sm:bottom-[-30px]
+      sm:w-[190px]
+      md:right-8
+      md:top-[68%]
+      md:bottom-auto
+      md:w-[280px]
+      lg:right-[7%]
+      lg:top-[55%]
+      lg:bottom-auto
+      lg:w-[500px]
+      xl:right-[6%]
+      xl:top-[55%]
+      xl:w-[580px]
+      -translate-y-1/2
+    "
+  >
+    <img
+      src={upcomingImage}
+      alt="Upcoming Wavexa Technologies conferences"
+      className="h-auto w-full object-contain"
+    />
+  </motion.div>
+</div>
 
       {/* =====================================================
           UPCOMING CONFERENCES

@@ -9,25 +9,32 @@ export const CONFERENCE = {
   tagline:
     "Advancing Innovation and Integrated Care in Diabetes and Cardiometabolic Health",
   edition: "2026",
-  dates: "02–03 December 2026",
-  startISO: "2026-12-02T09:00:00Z",
+  dates: "09–10 December 2026",
+  startISO: "2026-12-09T09:00:00Z",
   venue: "Webinar",
-  email: "info@wavexa.technologies",
-  phone: "+41 22 555 0184",
+  email: "info@wavexaglobal.com",
+  phone: "+91 94403 88379",
 };
 
 export const NAV_LINKS = [
   { label: "Home", to: "/" },
+
   { label: "About", to: "/about" },
-  { label: "Speakers", to: "/speakers" },
+
+  // { label: "Speakers", to: "/speakers" },
+
   { label: "Tracks", to: "/tracks" },
+
   { label: "Schedule", to: "/schedule" },
-  { label: "Sponsors", to: "/sponsors" },
+
+  // { label: "Sponsors", to: "/sponsors" },
+
   { label: "Submit Abstract", to: "/submit-abstract" },
+
   { label: "FAQ", to: "/faq" },
+
   { label: "Contact", to: "/contact" },
 ] as const;
-
 /* =========================================================
    STATS
 ========================================================= */
@@ -446,7 +453,7 @@ export const TRACKS = [
 export const SCHEDULE = [
   {
     day: "Day 01",
-    date: "02 Dec 2026",
+    date: "09 Dec 2026",
     theme: "Diabetes & Cardiometabolic Health",
     items: [
       {
@@ -496,7 +503,7 @@ export const SCHEDULE = [
 
   {
     day: "Day 02",
-    date: "03 Dec 2026",
+    date: "10 Dec 2026",
     theme: "Cardiology, Innovation & Future Healthcare",
     items: [
       {
@@ -581,7 +588,7 @@ export const TESTIMONIALS = [];
 export const FAQS = [
   {
     q: "When is the Global Summit 2026?",
-    a: "The Global Summit on Diabetes, Cardiology & Cardiometabolic Health will take place on 02–03 December 2026.",
+    a: "The Global Summit on Diabetes, Cardiology & Cardiometabolic Health will take place on 09-10 December 2026.",
   },
   {
     q: "Is the conference online?",
@@ -619,50 +626,235 @@ export const FAQS = [
 
 export const TICKETS = [
   {
-    name: "Early Registration",
-    date: "Registration Open",
-    tag: "Online",
-    featured: false,
-    color: "soft",
+    category: "Academic",
     options: [
       {
-        name: "Speaker Registration",
-        price: 0,
+        name: "Speaker",
+        prices: {
+          earlyBird: {
+            EUR: 149,
+            USD: 159,
+            GBP: 129,
+          },
+          standard: {
+            EUR: 169,
+            USD: 179,
+            GBP: 145,
+          },
+          final: {
+            EUR: 189,
+            USD: 199,
+            GBP: 159,
+          },
+        },
       },
       {
-        name: "Delegate Registration / Listener",
-        price: 0,
+        name: "Delegate",
+        prices: {
+          earlyBird: {
+            EUR: 79,
+            USD: 85,
+            GBP: 69,
+          },
+          standard: {
+            EUR: 89,
+            USD: 95,
+            GBP: 79,
+          },
+          final: {
+            EUR: 99,
+            USD: 109,
+            GBP: 89,
+          },
+        },
       },
       {
-        name: "Poster Presentation",
-        price: 0,
+        name: "Workshop Presenter",
+        prices: {
+          earlyBird: {
+            EUR: 179,
+            USD: 195,
+            GBP: 149,
+          },
+          standard: {
+            EUR: 199,
+            USD: 215,
+            GBP: 169,
+          },
+          final: {
+            EUR: 219,
+            USD: 235,
+            GBP: 185,
+          },
+        },
       },
     ],
   },
 
   {
-    name: "Regular Registration",
-    date: "02–03 December 2026",
-    tag: "Online",
-    featured: true,
-    color: "strong",
+    category: "Industry",
     options: [
       {
-        name: "Speaker Registration",
-        price: 0,
+        name: "Exhibitor",
+        prices: {
+          earlyBird: {
+            EUR: 299,
+            USD: 325,
+            GBP: 259,
+          },
+          standard: {
+            EUR: 349,
+            USD: 375,
+            GBP: 299,
+          },
+          final: {
+            EUR: 399,
+            USD: 425,
+            GBP: 339,
+          },
+        },
       },
       {
-        name: "Delegate Registration / Listener",
-        price: 0,
+        name: "Speaker",
+        prices: {
+          earlyBird: {
+            EUR: 199,
+            USD: 215,
+            GBP: 169,
+          },
+          standard: {
+            EUR: 229,
+            USD: 245,
+            GBP: 195,
+          },
+          final: {
+            EUR: 259,
+            USD: 279,
+            GBP: 219,
+          },
+        },
       },
       {
-        name: "Poster Presentation",
-        price: 0,
+        name: "Delegate",
+        prices: {
+          earlyBird: {
+            EUR: 129,
+            USD: 139,
+            GBP: 109,
+          },
+          standard: {
+            EUR: 149,
+            USD: 159,
+            GBP: 125,
+          },
+          final: {
+            EUR: 169,
+            USD: 179,
+            GBP: 139,
+          },
+        },
+      },
+    ],
+  },
+
+  {
+    category: "Student",
+    options: [
+      {
+        name: "Speaker",
+        prices: {
+          earlyBird: {
+            EUR: 69,
+            USD: 75,
+            GBP: 59,
+          },
+          standard: {
+            EUR: 79,
+            USD: 85,
+            GBP: 69,
+          },
+          final: {
+            EUR: 89,
+            USD: 95,
+            GBP: 75,
+          },
+        },
+      },
+      {
+        name: "Delegate",
+        prices: {
+          earlyBird: {
+            EUR: 39,
+            USD: 45,
+            GBP: 35,
+          },
+          standard: {
+            EUR: 49,
+            USD: 55,
+            GBP: 45,
+          },
+          final: {
+            EUR: 59,
+            USD: 65,
+            GBP: 49,
+          },
+        },
+      },
+    ],
+  },
+
+  {
+    category: "Add-on",
+    options: [
+      {
+        name: "e-Poster",
+        prices: {
+          earlyBird: {
+            EUR: 49,
+            USD: 55,
+            GBP: 45,
+          },
+          standard: {
+            EUR: 59,
+            USD: 65,
+            GBP: 49,
+          },
+          final: {
+            EUR: 69,
+            USD: 75,
+            GBP: 59,
+          },
+        },
+      },
+      {
+        name: "Video Presentation",
+        prices: {
+          earlyBird: {
+            EUR: 59,
+            USD: 65,
+            GBP: 49,
+          },
+          standard: {
+            EUR: 69,
+            USD: 75,
+            GBP: 59,
+          },
+          final: {
+            EUR: 79,
+            USD: 85,
+            GBP: 69,
+          },
+        },
       },
     ],
   },
 ];
 
+export const REGISTRATION_DEADLINES = {
+  earlyBird: "October 30, 2026",
+  standard: "November 05, 2026",
+  final: "November 30, 2026",
+};
 /* =========================================================
    GALLERY
 ========================================================= */
@@ -692,7 +884,7 @@ export const VENUE_FEATURES = [
   {
     title: "Two-Day Programme",
     body:
-      "Experience a focused two-day scientific programme taking place on 02–03 December 2026.",
+      "Experience a focused two-day scientific programme taking place on 09-10 December 2026.",
   },
 ];
 
@@ -765,7 +957,7 @@ export const ABSTRACT_DATES = [
     note: "Authors will be informed about the outcome of the review.",
   },
   {
-    date: "02–03 Dec 2026",
+    date: "09-10 Dec 2026",
     label: "Online presentation",
     note: "Selected abstracts will be presented during the virtual scientific programme.",
   },

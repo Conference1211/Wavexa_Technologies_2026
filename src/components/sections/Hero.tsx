@@ -196,7 +196,7 @@ export function Hero() {
                   Date
                 </p>
                 <p className="mt-1 text-sm font-semibold text-white">
-                  December 2–3, 2026
+                  December 9-10, 2026
                 </p>
               </div>
 
