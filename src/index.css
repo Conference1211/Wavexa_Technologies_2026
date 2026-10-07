@@ -1,0 +1,1624 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 14px);
+  --radius-3xl: calc(var(--radius) + 24px);
+
+  --font-display: "Playfair Display", serif;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+  --font-button: "Poppins", sans-serif;
+  --font-numeric: "Space Grotesk", sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.984 0.004 248);
+  --foreground: oklch(0.19 0.03 252);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.19 0.03 252);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.19 0.03 252);
+  --primary: oklch(0.505 0.196 262);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.706 0.114 183);
+  --secondary-foreground: oklch(0.16 0.03 252);
+  --muted: oklch(0.955 0.008 250);
+  --muted-foreground: oklch(0.52 0.03 252);
+  --accent: oklch(0.752 0.137 168);
+  --accent-foreground: oklch(0.16 0.03 252);
+  --gold: oklch(0.77 0.116 88);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.99 0.005 250);
+  --border: oklch(0.9 0.012 250);
+  --input: oklch(0.9 0.012 250);
+  --ring: oklch(0.505 0.196 262);
+  --surface: oklch(1 0 0 / 65%);
+  --surface-strong: oklch(1 0 0 / 88%);
+
+  --gradient-brand: linear-gradient(120deg, oklch(0.505 0.196 262), oklch(0.706 0.114 183) 55%, oklch(0.752 0.137 168));
+  --gradient-gold: linear-gradient(120deg, oklch(0.77 0.116 88), oklch(0.88 0.07 92));
+  --gradient-veil: radial-gradient(
+      1100px 600px at 12% -10%,
+      color-mix(in oklab, var(--primary) 22%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(900px 520px at 92% 8%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 62%);
+  --shadow-soft: 0 24px 60px -30px color-mix(in oklab, var(--primary) 45%, transparent);
+  --shadow-lift: 0 40px 90px -40px color-mix(in oklab, var(--primary) 60%, transparent);
+}
+
+.dark {
+  --background: oklch(0.16 0.026 252);
+  --foreground: oklch(0.97 0.006 250);
+  --card: oklch(0.21 0.03 252);
+  --card-foreground: oklch(0.97 0.006 250);
+  --popover: oklch(0.21 0.03 252);
+  --popover-foreground: oklch(0.97 0.006 250);
+  --primary: oklch(0.62 0.17 262);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.72 0.115 183);
+  --secondary-foreground: oklch(0.16 0.03 252);
+  --muted: oklch(0.26 0.03 252);
+  --muted-foreground: oklch(0.72 0.02 250);
+  --accent: oklch(0.78 0.14 168);
+  --accent-foreground: oklch(0.16 0.03 252);
+  --gold: oklch(0.82 0.12 88);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.62 0.17 262);
+  --surface: oklch(1 0 0 / 6%);
+  --surface-strong: oklch(1 0 0 / 10%);
+  --shadow-soft: 0 24px 60px -30px oklch(0 0 0 / 70%);
+  --shadow-lift: 0 40px 90px -40px oklch(0 0 0 / 80%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 30%, transparent);
+  }
+}
+
+@utility glass {
+  background: var(--surface);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid color-mix(in oklab, var(--foreground) 10%, transparent);
+}
+
+@utility glass-strong {
+  background: var(--surface-strong);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--foreground) 12%, transparent);
+}
+
+@utility gradient-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-brand);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.65;
+    pointer-events: none;
+  }
+}
+
+@utility text-gradient {
+  background: var(--gradient-brand);
+  background-size: 200% 200%;
+  animation: gradient-pan 9s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility veil {
+  background-image: var(--gradient-veil);
+}
+
+@utility numeric {
+  font-family: var(--font-numeric);
+  font-feature-settings: "tnum";
+}
+
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -22px, 0);
+  }
+}
+
+@utility float-slow {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+@keyframes pulse-line {
+  from {
+    stroke-dashoffset: 600;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@utility noise {
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: noise-shift 1.4s steps(3) infinite;
+}
+
+@keyframes noise-shift {
+  0% { transform: translate3d(0, 0, 0); }
+  33% { transform: translate3d(-2%, 1%, 0); }
+  66% { transform: translate3d(1%, -2%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility marquee-track {
+  animation: marquee 34s linear infinite;
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* =========================================================
+   WAVEXA BUSINESS WEBSITE — CONSISTENT PREMIUM SYSTEM
+   Scoped so the existing conference styling remains intact.
+========================================================= */
+.business-site {
+  --biz-navy:#062b52;
+  --biz-blue:#0a5e91;
+  --biz-teal:#00a9a3;
+  --biz-cyan:#35d5df;
+  --biz-ink:#123a62;
+  --biz-muted:#5c7288;
+  --biz-line:#dcebf3;
+  --biz-soft:#f2f9fc;
+  --biz-mint:#eaf9f7;
+  --biz-white:#fff;
+  font-family:"Inter","Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--biz-ink);
+  background:#fff;
+  overflow-x:clip;
+}
+.business-site *, .business-site *::before, .business-site *::after{box-sizing:border-box}
+.business-site a{text-decoration:none}
+.business-container{width:min(1180px,calc(100% - 44px));margin-inline:auto}
+.business-page{background:#fff}
+.business-section{padding:92px 0}
+.business-soft-section{background:linear-gradient(135deg,#f4fbfd 0%,#f8fbff 55%,#edf9f8 100%)}
+.business-kicker,.business-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:800;letter-spacing:.18em;color:#00a6a4;text-transform:uppercase}
+.business-kicker::before{content:"";width:28px;height:2px;background:linear-gradient(90deg,var(--biz-blue),var(--biz-teal));border-radius:99px}
+.business-site h1,.business-site h2,.business-site h3,.business-site p{margin-top:0}
+.business-site h2{font-size:clamp(30px,3vw,48px);line-height:1.08;letter-spacing:-.035em;color:var(--biz-navy);font-weight:800}
+.business-site p{color:var(--biz-muted);line-height:1.78}
+
+/* NAVBAR */
+.business-navbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(18px);border-bottom:1px solid #dbeaf2;box-shadow:0 7px 26px rgba(8,54,90,.07)}
+.business-nav-inner{width:min(1400px,calc(100% - 42px));min-height:88px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.business-nav-brand{display:flex;align-items:center;color:var(--biz-navy)}
+.business-logo{display:flex;align-items:center;gap:10px;min-width:max-content}
+.business-logo-video{width:72px;height:72px;overflow:hidden;display:grid;place-items:center;flex:none}
+.business-logo-video video{width:100%;height:100%;object-fit:contain;transform:scale(1.18)}
+.business-logo-copy{display:flex;flex-direction:column;gap:5px;line-height:1}
+.business-logo-copy strong{font-size:22px;letter-spacing:.18em;font-weight:900;color:var(--biz-navy)}
+.business-logo-copy span{font-size:9px;letter-spacing:.05em;font-weight:700;color:#4c6b82;white-space:nowrap}
+.business-nav-links{display:flex;align-items:center;gap:5px;height:100%;font-size:14px;font-weight:800}
+.business-nav-links>a,.business-nav-dropdown>button{position:relative;display:flex;align-items:center;gap:5px;padding:33px 15px 30px;color:#244762;transition:.25s ease;border:0;background:transparent;cursor:pointer;font:inherit}
+.business-nav-links>a::after,.business-nav-dropdown>button::after{content:"";position:absolute;left:15px;right:15px;bottom:19px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--biz-blue),var(--biz-teal));transform:scaleX(0);transform-origin:center;transition:.25s ease}
+.business-nav-links>a:hover,.business-nav-dropdown>button:hover,.business-nav-links>a.is-active,.business-nav-dropdown>button.is-active{color:#007d8b}
+.business-nav-links>a:hover::after,.business-nav-dropdown>button:hover::after,.business-nav-links>a.is-active::after,.business-nav-dropdown>button.is-active::after{transform:scaleX(1)}
+.business-nav-dropdown{position:relative;height:100%;display:flex;align-items:center}
+.business-services-menu{position:absolute;right:0;top:74px;width:280px;padding:10px;background:#fff;border:1px solid #dcecf3;border-radius:18px;box-shadow:0 22px 55px rgba(7,54,88,.16);animation:bizMenuIn .18s ease}
+.business-services-menu a{display:block;padding:13px 15px;border-radius:11px;color:#244762;font-weight:700;font-size:13px;transition:.2s ease}
+.business-services-menu a:hover{background:#eaf9f8;color:#007f8a;transform:translateX(4px)}
+.business-menu-button{display:none;border:0;background:#eef8fb;color:var(--biz-navy);width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center}
+.business-mobile-menu{display:none}
+@keyframes bizMenuIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+
+/* =========================================
+   LOADER
+   ========================================= */
+
+.business-loader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+
+  z-index: 99999;
+
+  background: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+
+/* =========================================
+   LOADER LOGO
+   ========================================= */
+
+.business-loader-logo {
+  display: block;
+
+  width: 300px;
+  max-width: 42vw;
+
+  height: auto;
+  max-height: 38vh;
+
+  object-fit: contain;
+
+  margin: 0;
+}
+
+
+/* =========================================
+   LARGE DESKTOP
+   ========================================= */
+
+@media (min-width: 1400px) {
+  .business-loader-logo {
+    width: 330px;
+    max-width: 35vw;
+    max-height: 40vh;
+  }
+}
+
+
+/* =========================================
+   DESKTOP / LAPTOP
+   ========================================= */
+
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .business-loader-logo {
+    width: 300px;
+    max-width: 40vw;
+    max-height: 38vh;
+  }
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (min-width: 601px) and (max-width: 1023px) {
+  .business-loader-logo {
+    width: 270px;
+    max-width: 50vw;
+    max-height: 36vh;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+  .business-loader-logo {
+    width: 230px;
+    max-width: 65vw;
+    max-height: 32vh;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 400px) {
+  .business-loader-logo {
+    width: 200px;
+    max-width: 70vw;
+    max-height: 30vh;
+  }
+}
+/* HERO */
+.business-home-hero{min-height:680px;background-size:cover;background-position:center;display:flex;align-items:center;position:relative}
+.business-home-hero::after{content:"";position:absolute;inset:auto 0 0;height:90px;background:linear-gradient(transparent,#fff);pointer-events:none}
+.business-home-hero-content{position:relative;z-index:1;padding:110px 0 130px}
+.business-hero-copy{max-width:720px;color:#fff}
+.business-hero-copy .business-eyebrow{color:#64edf0}
+.business-hero-copy h1{font-size:clamp(43px,5.2vw,72px);line-height:1.03;letter-spacing:-.045em;margin:18px 0;color:#fff;font-weight:850}
+.business-hero-copy p{font-size:18px;color:#dceef7;max-width:620px;margin-bottom:30px}
+.business-hero-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.business-btn,.business-outline-btn,.business-text-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font-size:13px;font-weight:800;transition:.28s ease}
+.business-btn{padding:14px 20px;border:1px solid transparent}
+.business-btn svg,.business-outline-btn svg,.business-text-link svg{width:17px;height:17px;transition:.25s ease}
+.business-btn:hover svg,.business-outline-btn:hover svg,.business-text-link:hover svg{transform:translateX(4px)}
+.business-btn-light{background:#fff;color:var(--biz-navy);box-shadow:0 15px 35px rgba(0,0,0,.14)}
+.business-btn-light:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(0,0,0,.22)}
+.business-btn-dark{background:linear-gradient(120deg,#06335f,#008e93);color:#fff;box-shadow:0 13px 30px rgba(0,72,108,.18)}
+.business-btn-dark:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(0,72,108,.27)}
+.business-text-link{color:#dffbff}
+.business-outline-btn{padding:12px 18px;color:#007c8c;border:1px solid #7ed5da;background:#fff}
+.business-outline-btn:hover{background:#eaf9f8;transform:translateY(-2px)}
+
+/* HOME */
+.business-about-split{background:#fff}
+.business-two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:start}
+.business-copy-block h2{margin:16px 0 20px}
+.business-copy-block p{margin:0 0 13px;font-size:15px}
+.business-copy-block .business-btn{margin-top:18px}
+.business-reasons-grid>h2{font-size:34px;margin:0 0 18px}
+.business-reason-card{display:flex;gap:15px;padding:18px 0;border-bottom:1px solid var(--biz-line)}
+.business-reason-card>span{width:48px;height:48px;display:grid;place-items:center;flex:none;border-radius:15px;background:linear-gradient(135deg,#e6fbf8,#eef7ff);color:#008e99}
+.business-reason-card svg{width:22px}
+.business-reason-card h3{font-size:15px;color:var(--biz-navy);margin:2px 0 4px;font-weight:800}
+.business-reason-card p{font-size:13px;line-height:1.6;margin:0}
+.business-industries-section{background:linear-gradient(135deg,#eef9fc 0%,#f9fcff 50%,#eaf8f7 100%)}
+.business-section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:32px}
+.business-section-heading h2{max-width:760px;margin:13px 0 0}
+.business-service-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.business-service-card{background:#fff;border:1px solid #dcebf2;border-radius:22px;overflow:hidden;box-shadow:0 14px 35px rgba(9,59,90,.07);transition:.35s ease}
+.business-service-card:hover{box-shadow:0 24px 55px rgba(9,59,90,.15);animation:bizCardShake .36s ease}
+@keyframes bizCardShake{0%,100%{transform:translateY(-9px) rotate(0)}25%{transform:translateY(-9px) rotate(-.35deg)}50%{transform:translateY(-9px) rotate(.35deg)}75%{transform:translateY(-9px) rotate(-.18deg)}}
+.business-service-image{height:160px;background-size:cover;background-position:center;position:relative}
+.business-service-image::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,48,79,.02),rgba(5,48,79,.48))}
+.business-service-image>span{position:absolute;z-index:1;left:16px;bottom:14px;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#fff;color:#007f8e;box-shadow:0 10px 22px rgba(0,0,0,.15)}
+.business-service-card-body{padding:20px}
+.business-service-card h3{font-size:18px;color:var(--biz-navy);margin-bottom:8px}
+.business-service-card p{font-size:13px;line-height:1.65;margin-bottom:13px}
+.business-service-card a{font-size:12px;font-weight:800;color:#007f8e;display:inline-flex;gap:6px;align-items:center}
+.business-service-card a svg{width:14px;transition:.2s}
+.business-service-card a:hover svg{transform:translateX(4px)}
+.business-industry-strip{background:#fff}
+.business-industry-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.business-industry-card{padding:24px;border:1px solid var(--biz-line);border-radius:18px;background:linear-gradient(145deg,#fff,#f6fbfd);box-shadow:0 10px 28px rgba(7,55,88,.045);transition:.3s}
+.business-industry-card:hover{transform:translateY(-5px);box-shadow:0 18px 35px rgba(7,55,88,.1)}
+.business-industry-card h3{font-size:16px;color:var(--biz-navy);margin-bottom:8px}
+.business-industry-card p{font-size:12.5px;line-height:1.65;margin:0}
+.business-home-cta{padding:80px 0;background:linear-gradient(135deg,#f0fafc 0%,#fbfdff 56%,#e8f8f6 100%)}
+.business-cta-inner{display:flex;align-items:center;justify-content:space-between;gap:35px}
+.business-cta-inner h2{margin:12px 0 8px;max-width:720px}
+.business-cta-inner p{margin:0}
+
+/* INNER HEROES */
+.business-inner-hero{padding:105px 0 100px;background:linear-gradient(115deg,#052f58,#086783 58%,#0b9b94);position:relative;overflow:hidden}
+.business-inner-hero::after{content:"";position:absolute;inset:-30% -10% auto auto;width:55%;height:160%;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 62%);transform:rotate(-13deg)}
+.business-inner-hero .business-container{position:relative;z-index:1}
+.business-inner-hero h1{color:#fff;font-size:clamp(42px,5vw,70px);line-height:1.02;letter-spacing:-.045em;max-width:820px;margin:16px 0}
+.business-inner-hero p{color:#dff4f7;max-width:760px;font-size:17px}
+.business-about-hero{background:linear-gradient(110deg,rgba(3,43,75,.96),rgba(0,120,132,.76)),url('/src/assets/about-healthcare.png') center/cover}
+.business-tech-hero{background:linear-gradient(110deg,#052d55,#087a8b 70%,#0aa49a)}
+.business-contact-hero{background:linear-gradient(110deg,#052d55,#086c87 68%,#0aa49a)}
+.business-legal-hero{background:linear-gradient(110deg,#052d55,#086c87 68%,#0aa49a)}
+
+/* ABOUT */
+.business-story-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:start}
+.business-story-grid h2{margin-top:15px}
+.business-story-grid p{font-size:15px;margin:0 0 14px}
+.business-vision-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:55px}
+.business-vision-grid article,.business-expertise-grid article{border:1px solid var(--biz-line);border-radius:22px;background:linear-gradient(145deg,#fff,#f6fbfd);padding:28px;box-shadow:0 14px 35px rgba(7,55,88,.06);transition:.3s}
+.business-vision-grid article>span,.business-expertise-grid article>span{display:grid;place-items:center;width:50px;height:50px;border-radius:15px;background:#e7faf8;color:#008e99;margin-bottom:18px}
+.business-vision-grid h3,.business-expertise-grid h3{font-size:18px;color:var(--biz-navy);margin-bottom:9px}
+.business-vision-grid p,.business-expertise-grid p{font-size:13px;margin:0}
+.business-expertise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.business-management{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+
+/* SERVICES */
+.business-service-hero{min-height:510px;background-size:cover;background-position:center;display:flex;align-items:center;position:relative}
+.business-service-hero-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;color:#fff;padding:100px 0}
+.business-service-hero h1{font-size:clamp(48px,6vw,82px);line-height:1;letter-spacing:-.05em;color:#fff;margin:16px 0 18px;max-width:850px}
+.business-service-hero p{color:#dff3f8;max-width:720px;font-size:18px}
+.business-service-icon{width:104px;height:104px;border-radius:30px;display:grid;place-items:center;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(12px);flex:none;box-shadow:0 22px 50px rgba(0,0,0,.16)}
+.business-service-icon svg{width:44px;height:44px;color:#66e7e7}
+.business-service-intro{display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;align-items:start}
+.business-service-intro h2{margin-top:15px}
+.business-service-intro p{font-size:15px;margin:0 0 13px}
+.business-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:45px}
+.business-stat-grid article{padding:23px;border-radius:18px;background:#fff;border:1px solid var(--biz-line);box-shadow:0 12px 30px rgba(7,55,88,.06);transition:.3s}
+.business-stat-grid article:hover{box-shadow:0 20px 40px rgba(7,55,88,.12)}
+.business-stat-grid svg{color:#00a3a2;width:21px;margin-bottom:12px}
+.business-stat-grid p{font-size:12.5px;line-height:1.65;margin:0}
+.business-feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.business-feature-grid article{display:flex;gap:16px;padding:23px;border-radius:20px;background:#fff;border:1px solid var(--biz-line);box-shadow:0 12px 28px rgba(7,55,88,.055);transition:.3s}
+.business-feature-grid article:hover{box-shadow:0 20px 42px rgba(7,55,88,.12)}
+.business-feature-grid article>span{width:44px;height:44px;flex:none;border-radius:13px;display:grid;place-items:center;background:#edf9f8;color:#008b96}
+.business-feature-grid h3{font-size:16px;color:var(--biz-navy);margin-bottom:6px}
+.business-feature-grid p{font-size:12.5px;line-height:1.65;margin:0}
+.business-process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.business-process-grid article{padding:27px;border:1px solid var(--biz-line);border-radius:22px;background:#fff;box-shadow:0 12px 30px rgba(7,55,88,.055);transition:.3s}
+.business-process-grid article:hover{box-shadow:0 20px 45px rgba(7,55,88,.12)}
+.business-process-icon{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#e6faf7,#eef5ff);color:#007f8e;display:grid;place-items:center;margin-bottom:17px}
+.business-process-icon svg{width:21px}
+.business-process-grid h3{font-size:16px;color:var(--biz-navy);margin-bottom:8px}
+.business-process-grid p{font-size:12.5px;line-height:1.68;margin:0}
+.business-conference-service{background:#fff}
+
+/* TECHNOLOGY */
+.business-tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.business-tech-grid article{padding:27px;border-radius:22px;border:1px solid var(--biz-line);background:linear-gradient(145deg,#fff,#f6fbfd);box-shadow:0 12px 30px rgba(7,55,88,.05);transition:.3s}
+.business-tech-grid article:hover{box-shadow:0 20px 44px rgba(7,55,88,.12)}
+.business-tech-grid article>span{display:grid;place-items:center;width:50px;height:50px;border-radius:15px;background:#eaf9f8;color:#007f8d;margin-bottom:17px}
+.business-tech-grid h3{font-size:17px;color:var(--biz-navy);margin-bottom:7px}
+.business-tech-grid p{font-size:12.5px;line-height:1.65;margin:0}
+.business-tech-story{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.business-tech-story h2{margin-top:14px}
+.business-tech-story p{font-size:15px}
+
+/* CONTACT */
+.business-contact-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start}
+.business-contact-info h2{margin:14px 0 12px}
+.business-contact-info>p{font-size:15px;max-width:580px}
+.business-contact-cards{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:30px}
+.business-contact-cards>div{display:flex;gap:13px;padding:18px;border:1px solid var(--biz-line);border-radius:18px;background:linear-gradient(145deg,#fff,#f7fbfd)}
+.business-contact-cards span{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:12px;background:#e8f9f8;color:#008a96}
+.business-contact-cards svg{width:19px}
+.business-contact-cards h3{font-size:14px;color:var(--biz-navy);margin-bottom:4px}
+.business-contact-cards p,.business-contact-cards a{font-size:12px;line-height:1.55;color:var(--biz-muted);margin:0}
+.business-contact-cards a:hover{color:#007e8c}
+.business-contact-form{padding:34px;border:1px solid var(--biz-line);border-radius:26px;background:#fff;box-shadow:0 22px 55px rgba(7,55,88,.1)}
+.business-form-heading{display:flex;gap:14px;align-items:center;margin-bottom:25px}
+.business-form-heading>span{width:48px;height:48px;border-radius:14px;background:#eaf9f8;color:#008b95;display:grid;place-items:center}
+.business-form-heading h2{font-size:28px;margin:6px 0 0}
+.business-contact-form label{display:block;font-size:12px;font-weight:800;color:#31516a;margin:0 0 16px}
+.business-contact-form input,.business-contact-form textarea{width:100%;margin-top:7px;border:1px solid #d9e8ef;border-radius:13px;padding:13px 14px;font:inherit;color:var(--biz-ink);background:#fbfdfe;outline:none;transition:.2s}
+.business-contact-form input:focus,.business-contact-form textarea:focus{border-color:#4bc9cc;box-shadow:0 0 0 4px rgba(75,201,204,.12)}
+.business-contact-form textarea{resize:vertical}
+.business-contact-form button{margin-top:2px}
+.business-contact-cta{display:flex;justify-content:space-between;align-items:center;gap:30px}
+.business-contact-cta h2{margin-top:13px}
+
+/* LEGAL */
+.business-legal-layout{display:grid;grid-template-columns:280px 1fr;gap:55px;align-items:start}
+.business-legal-side{position:sticky;top:118px;border:1px solid var(--biz-line);border-radius:22px;padding:24px;background:linear-gradient(145deg,#f7fcfd,#fff);box-shadow:0 12px 30px rgba(7,55,88,.05)}
+.business-legal-side-icon{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:#eaf9f8;color:#008b96}
+.business-legal-side h2{font-size:23px;margin:17px 0 5px}
+.business-legal-side p{font-size:12px;margin-bottom:15px}
+.business-legal-side a{font-size:12px;font-weight:800;color:#007e8b}
+.business-legal-content{padding:8px 0}
+.business-legal-content section{padding:26px 0;border-bottom:1px solid #e5eff3}
+.business-legal-content h2{font-size:23px;margin-bottom:12px}
+.business-legal-content p{font-size:13.5px;margin:6px 0;line-height:1.8}
+.business-legal-item{padding-left:15px;position:relative}
+.business-legal-item::before{content:"";width:5px;height:5px;border-radius:50%;background:#00a5a3;position:absolute;left:0;top:.7em}
+.business-legal-intro{padding:20px;border-radius:18px;background:#f2fafb;border:1px solid #d9eef1}
+
+/* FOOTER */
+.business-footer{position:relative;overflow:hidden;background:linear-gradient(118deg,#052f58 0%,#075b73 55%,#078986 100%);color:#e9fbfb;padding:66px 0 20px}
+.business-footer::before{content:"";position:absolute;width:680px;height:220px;left:-180px;bottom:-100px;border-radius:50%;background:rgba(255,255,255,.07);filter:blur(2px)}
+.business-footer::after{content:"";position:absolute;width:620px;height:240px;right:-170px;top:-130px;border-radius:50%;background:rgba(50,235,225,.08)}
+.business-footer-inner{position:relative;z-index:1;width:min(1180px,calc(100% - 44px));margin:auto;display:grid;grid-template-columns:1.4fr .75fr .95fr 1fr;gap:45px}
+.business-footer-brand p{font-size:12.5px;line-height:1.7;color:#cce9eb;max-width:320px;margin:17px 0}
+.business-footer-logo{display:flex;align-items:center;gap:9px}.business-footer-logo video{width:58px;height:58px;object-fit:contain}.business-footer-logo div{display:flex;flex-direction:column}.business-footer-logo strong{font-size:21px;letter-spacing:.18em;color:#fff}.business-footer-logo span{font-size:8px;color:#bfe7e7;margin-top:4px}
+.business-footer-socials{display:flex;gap:8px}.business-footer-socials a{width:34px;height:34px;border-radius:10px;border:1px solid rgba(255,255,255,.22);display:grid;place-items:center;color:#dffbfb;background:rgba(0,0,0,.12);transition:.25s}.business-footer-socials a:hover{transform:translateY(-3px);background:#fff;color:#07526e}.business-footer-inner h4{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8cf0eb;margin:5px 0 17px}.business-footer-inner>div:not(.business-footer-brand):not(.business-footer-contact) a{display:block;color:#d6eef0;font-size:12px;margin:10px 0;transition:.2s}.business-footer-inner>div a:hover{color:#fff;transform:translateX(3px)}
+.business-footer-contact p,.business-footer-contact a{display:flex;gap:9px;color:#d6eef0;font-size:12px;line-height:1.6;margin:10px 0}.business-footer-contact svg{width:15px;flex:none;margin-top:2px;color:#8cf0eb}.business-footer-bottom{position:relative;z-index:1;width:min(1180px,calc(100% - 44px));margin:42px auto 0;padding-top:17px;border-top:1px solid rgba(255,255,255,.16);display:flex;justify-content:space-between;gap:20px;color:#b9dfe1;font-size:10px}.business-footer-bottom div{display:flex;gap:18px}.business-footer-bottom a{color:#dffbfb}
+
+/* FLOATING CONTACT */
+.business-floating-socials{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:900;display:flex;flex-direction:column;gap:9px;padding:7px;border-radius:18px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);box-shadow:0 14px 35px rgba(7,55,88,.15);border:1px solid rgba(220,237,244,.95)}
+.business-floating-socials a{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;color:#fff;transition:.25s;box-shadow:0 7px 18px rgba(0,0,0,.12)}
+.business-floating-socials a:nth-child(1){background:#16b75b}.business-floating-socials a:nth-child(2){background:#1677d2}.business-floating-socials a:nth-child(3){background:#e84b4b}
+.business-floating-socials a:hover{transform:translateX(-4px) scale(1.06)}.business-floating-socials svg{width:20px}
+
+@media(max-width:1050px){
+  .business-nav-links{gap:0}.business-nav-links>a,.business-nav-dropdown>button{padding-inline:10px;font-size:13px}.business-logo-copy strong{font-size:19px}.business-two-col,.business-story-grid,.business-management,.business-tech-story,.business-contact-layout,.business-service-intro{gap:45px}.business-service-grid{grid-template-columns:repeat(2,1fr)}.business-industry-grid{grid-template-columns:repeat(3,1fr)}.business-inner-hero h1{max-width:760px}.business-footer-inner{grid-template-columns:1.2fr .8fr .9fr 1fr;gap:25px}
+}
+@media (max-width: 780px) {
+
+  .business-container,
+  .business-footer-inner,
+  .business-footer-bottom {
+    width: min(100% - 30px, 620px);
+  }
+
+  /* =========================
+     MOBILE NAVBAR
+     ========================= */
+
+  .business-nav-inner {
+    min-height: 78px;
+    width: calc(100% - 28px);
+  }
+
+  .business-logo-video {
+    width: 60px;
+    height: 60px;
+  }
+
+  .business-logo-copy strong {
+    font-size: 18px;
+  }
+
+  .business-logo-copy span {
+    font-size: 8px;
+  }
+
+  .business-nav-links {
+    display: none;
+  }
+
+  .business-menu-button {
+    display: flex;
+  }
+
+  /* Mobile menu */
+  .business-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 15px 20px;
+    background: #fff;
+    border-top: 1px solid #e1edf2;
+    box-shadow: 0 20px 35px rgba(7, 55, 88, 0.1);
+  }
+
+  /* Main mobile menu items */
+  .business-mobile-menu > a,
+  .business-mobile-menu > button {
+    width: 100%;
+    padding: 13px 12px;
+    border: 0;
+    background: transparent;
+    text-align: center;
+    color: #234a64;
+    font-weight: 800;
+    border-radius: 10px;
+    font: inherit;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Hover */
+  .business-mobile-menu > a:hover,
+  .business-mobile-menu > button:hover {
+    background: #edf9f8;
+    color: #00818e;
+  }
+
+  /* Services submenu */
+  .business-mobile-service {
+    width: 100%;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* =========================
+     GENERAL SECTIONS
+     ========================= */
+
+  .business-section {
+    padding: 68px 0;
+  }
+
+  /* =========================
+     HOME HERO
+     ========================= */
+
+  .business-home-hero {
+    min-height: 660px;
+    background-position: 62% center;
+  }
+
+  .business-home-hero-content {
+    padding: 100px 0 110px;
+  }
+
+  .business-hero-copy h1 {
+    font-size: 44px;
+  }
+
+  .business-hero-copy p {
+    font-size: 15px;
+  }
+
+  /* =========================
+     RESPONSIVE GRIDS
+     ========================= */
+
+  .business-two-col,
+  .business-story-grid,
+  .business-management,
+  .business-tech-story,
+  .business-contact-layout,
+  .business-service-intro {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .business-service-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .business-industry-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .business-vision-grid,
+  .business-expertise-grid,
+  .business-tech-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .business-stat-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .business-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .business-process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .business-contact-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* =========================
+     SECTION HEADINGS / CTA
+     ========================= */
+
+  .business-section-heading,
+  .business-cta-inner,
+  .business-contact-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .business-service-hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .business-service-icon {
+    display: none;
+  }
+
+  /* =========================
+     LEGAL
+     ========================= */
+
+  .business-legal-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .business-legal-side {
+    position: relative;
+    top: auto;
+  }
+
+  /* =========================
+     FOOTER
+     ========================= */
+
+  .business-footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .business-footer-bottom {
+    flex-direction: column;
+  }
+
+  .business-footer-bottom div {
+    flex-wrap: wrap;
+  }
+
+  /* =========================
+     FLOATING SOCIALS
+     ========================= */
+
+  .business-floating-socials {
+    right: 10px;
+  }
+
+  .business-floating-socials a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .business-footer {
+    padding-top: 55px;
+  }
+
+}
+@media(max-width:520px){
+  .business-hero-copy h1{font-size:37px}.business-service-grid,.business-industry-grid,.business-vision-grid,.business-expertise-grid,.business-tech-grid,.business-stat-grid,.business-process-grid,.business-footer-inner{grid-template-columns:1fr}.business-section-heading h2{font-size:31px}.business-inner-hero{padding:82px 0}.business-inner-hero h1{font-size:43px}.business-service-hero{min-height:560px}.business-service-hero h1{font-size:48px}.business-contact-form{padding:23px}.business-floating-socials{right:7px}.business-floating-socials a{width:38px;height:38px}.business-logo-copy span{display:none}
+}
+@keyframes bizCardShakeSoft{0%,100%{rotate:0deg}25%{rotate:-.25deg}50%{rotate:.25deg}75%{rotate:-.12deg}}
+.business-reason-card:hover,.business-industry-card:hover,.business-vision-grid article:hover,.business-expertise-grid article:hover,.business-stat-grid article:hover,.business-feature-grid article:hover,.business-process-grid article:hover,.business-tech-grid article:hover,.business-contact-cards>div:hover{animation:bizCardShakeSoft .38s ease}
+.business-footer-socials a:nth-child(1):hover{background:#1877f2;color:#fff}.business-footer-socials a:nth-child(2):hover{background:#e1306c;color:#fff}.business-footer-socials a:nth-child(3):hover{background:#0a66c2;color:#fff}.business-footer-socials a:nth-child(4):hover{background:#111;color:#fff}.business-footer-socials a:nth-child(5):hover{background:#ff0000;color:#fff}
+
+/* =========================================================
+   FINAL BUSINESS / CONFERENCE VISUAL ALIGNMENT
+   Matches the conference typography, spacing and logo weight.
+========================================================= */
+.business-site{font-family:"Inter","Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.business-site p{font-size:15px;line-height:1.78}
+.business-site h3{font-weight:800}
+.business-container{width:min(1220px,calc(100% - 64px))}
+
+/* Business navbar: same 72px logo row and visual scale as conference navbar. */
+.business-navbar{background:linear-gradient(90deg,#f8fcff 0%,#fff 50%,#f2f9ff 100%);box-shadow:0 5px 24px rgba(18,60,112,.07)}
+.business-nav-inner{width:min(1480px,calc(100% - 64px));min-height:72px;gap:28px}
+.business-logo{gap:16px}
+.business-logo-video{width:72px;height:72px}
+.business-logo-video video{transform:scale(1.18);object-fit:contain}
+.business-logo-copy{gap:0}
+.business-logo-copy strong{font-size:21px;letter-spacing:.18em;font-weight:800;color:#123f72}
+.business-logo-copy span{display:none}
+.business-nav-links{gap:7px;font-size:15px;font-weight:600}
+.business-nav-links>a,.business-nav-dropdown>button{padding:25px 15px 22px;color:#29486c;font-weight:600}
+.business-nav-links>a::after,.business-nav-dropdown>button::after{left:15px;right:15px;bottom:10px;background:#078ee9}
+.business-services-menu{top:66px;border-radius:14px}
+.business-services-menu a{font-size:14px;padding:13px 15px;font-weight:600}
+
+/* Business inner heroes: image is a supporting visual, not a flat block. */
+.business-inner-hero{min-height:430px;padding:100px 0 94px;background-size:cover;background-position:center;display:flex;align-items:center}
+.business-inner-hero::after{background:radial-gradient(circle at 78% 50%,rgba(91,235,229,.22),transparent 34%);width:70%;height:150%;top:-20%;right:-8%;inset:auto -8% -20% auto}
+.business-inner-hero h1{font-size:clamp(48px,5vw,72px);max-width:900px}
+.business-inner-hero p{font-size:18px;max-width:780px}
+.business-about-hero{background-position:center 42%}
+.business-tech-hero{background-position:center 38%;}
+.business-contact-hero{background-position:center 46%;}
+
+/* Balanced content: headings and copy occupy the page instead of hugging one side. */
+.business-story-grid,.business-management,.business-tech-story{grid-template-columns:1fr 1fr;align-items:center;gap:90px}
+.business-story-grid>div:last-child,.business-management>div:last-child,.business-tech-story>div:last-child{max-width:650px}
+.business-story-grid p,.business-management p,.business-tech-story p{font-size:16px}
+.business-section-heading{margin-bottom:38px}
+.business-section-heading h2{max-width:900px;font-size:clamp(34px,3.4vw,52px)}
+.business-vision-grid,.business-expertise-grid,.business-tech-grid{gap:22px}
+.business-vision-grid article,.business-expertise-grid article,.business-tech-grid article,.business-process-grid article,.business-stat-grid article,.business-feature-grid article,.business-reason-card,.business-industry-card,.business-contact-cards>div{border:1px solid #dcebf3;box-shadow:0 16px 36px rgba(7,55,88,.075);transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease}
+.business-vision-grid article:hover,.business-expertise-grid article:hover,.business-tech-grid article:hover,.business-process-grid article:hover,.business-stat-grid article:hover,.business-feature-grid article:hover,.business-reason-card:hover,.business-industry-card:hover,.business-contact-cards>div:hover{transform:translateY(-6px);box-shadow:0 24px 52px rgba(7,55,88,.14);border-color:#b9dfe7}
+.business-site .business-vision-grid p,.business-site .business-expertise-grid p,.business-site .business-tech-grid p,.business-site .business-process-grid p,.business-site .business-stat-grid p{font-size:14px}
+
+/* Service pages: stronger image framing and centered, conference-like rhythm. */
+.business-service-hero{min-height:520px;background-size:cover;background-position:center;display:flex;align-items:center;position:relative}
+.business-service-hero-inner{width:min(1220px,calc(100% - 64px));margin:auto;position:relative;z-index:1}
+.business-service-hero h1{font-size:clamp(48px,5.2vw,76px)}
+.business-service-hero p{font-size:18px;line-height:1.7}
+.business-service-intro{grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.business-service-intro>div:last-child{max-width:680px}
+.business-service-card-grid,.business-service-grid{align-items:stretch}
+.business-service-grid>article{min-height:100%}
+
+/* Contact page balances the two sides and uses the conference visual language. */
+.business-contact-layout{grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.business-contact-info>p{font-size:16px;max-width:620px}
+.business-contact-cards{gap:16px}
+.business-contact-cards>div{padding:20px}
+.business-contact-cards p,.business-contact-cards a{font-size:14px}
+.business-contact-form{box-shadow:0 24px 58px rgba(7,55,88,.11)}
+
+/* Business footer: same structural feel as conference footer, with Wavexa blue/teal palette. */
+.conference-style-business-footer{background:linear-gradient(120deg,#061a35 0%,#063f62 48%,#087d7d 100%);padding:64px 0 28px;color:#e8fbfb}
+.conference-style-business-footer::before{width:700px;height:260px;left:-220px;bottom:-150px;background:rgba(35,190,218,.11);filter:blur(4px)}
+.conference-style-business-footer::after{width:700px;height:260px;right:-220px;top:-150px;background:rgba(0,220,190,.10)}
+.conference-style-business-footer .business-footer-inner{width:min(1220px,calc(100% - 64px));grid-template-columns:1.25fr .75fr .95fr 1.05fr;gap:46px}
+.conference-style-business-footer .business-footer-brand p{font-size:13px;color:#d2edf4}
+.conference-style-business-footer .business-footer-logo video{width:72px;height:72px}
+.conference-style-business-footer .business-footer-logo strong{font-size:21px;letter-spacing:.18em}
+.conference-style-business-footer .business-footer-logo span{font-size:8px}
+.conference-style-business-footer .business-footer-inner h4{font-size:12px;color:#73e7ea}
+.conference-style-business-footer .business-footer-inner>div:not(.business-footer-brand):not(.business-footer-contact) a{font-size:14px;color:#d8eef3;margin:11px 0}
+.conference-style-business-footer .business-footer-contact p,.conference-style-business-footer .business-footer-contact a{font-size:14px;color:#d8eef3}
+.conference-style-business-footer .business-footer-contact svg{color:#55dfe0}
+.business-footer-seat{display:flex!important;align-items:center;justify-content:space-between;gap:10px;margin-top:20px!important;padding:11px 14px;border:1px solid rgba(83,225,224,.35);border-radius:12px;background:rgba(0,169,163,.12);color:#bdf8f4!important}
+.business-footer-seat svg{width:16px!important}
+.conference-style-business-footer .business-footer-socials{gap:10px;padding-top:4px}
+.conference-style-business-footer .business-footer-socials a{width:40px;height:40px;border-radius:12px;border:1px solid rgba(83,225,224,.22);background:#0b282d;color:#bfe9eb;transition:all .3s ease}
+.conference-style-business-footer .business-footer-socials a:hover{transform:translateY(-3px)}
+.conference-style-business-footer .business-footer-bottom{width:min(1220px,calc(100% - 64px));font-size:12px;color:#a9d9df;margin-top:46px}
+.conference-style-business-footer .business-footer-bottom a{color:#d9f7f8}
+
+/* Remove the old solid hover override so footer icons behave like conference footer. */
+.conference-style-business-footer .business-footer-socials a:nth-child(1):hover{background:#1877f2;color:#fff;border-color:#1877f2}
+.conference-style-business-footer .business-footer-socials a:nth-child(2):hover{background:#e1306c;color:#fff;border-color:#e1306c}
+.conference-style-business-footer .business-footer-socials a:nth-child(3):hover{background:#0a66c2;color:#fff;border-color:#0a66c2}
+.conference-style-business-footer .business-footer-socials a:nth-child(4):hover{background:#111;color:#fff;border-color:#111}
+.conference-style-business-footer .business-footer-socials a:nth-child(5):hover{background:#ff0000;color:#fff;border-color:#ff0000}
+
+/* Floating business contact rail: appears only while scrolling through the middle. */
+.business-floating-socials{right:20px;top:50%;}
+
+@media(max-width:780px){
+  .business-container,.business-footer-inner,.business-footer-bottom{width:min(100% - 30px,620px)}
+  .business-nav-inner{min-height:72px;width:calc(100% - 28px)}
+  .business-logo-video{width:60px;height:60px}
+  .business-logo-copy strong{font-size:18px}
+  .business-story-grid,.business-management,.business-tech-story,.business-contact-layout,.business-service-intro{grid-template-columns:1fr;gap:35px}
+  .conference-style-business-footer .business-footer-inner{width:min(100% - 30px,620px);grid-template-columns:1fr 1fr}
+  .conference-style-business-footer .business-footer-bottom{width:min(100% - 30px,620px)}
+}
+@media(max-width:520px){
+  .business-inner-hero{min-height:500px;padding:78px 0}
+  .business-inner-hero h1{font-size:43px}
+  .business-inner-hero p,.business-service-hero p{font-size:16px}
+  .conference-style-business-footer .business-footer-inner{grid-template-columns:1fr}
+}
+
+/* =========================================================
+   FINAL BUSINESS POLISH — matched to conference typography
+   ========================================================= */
+.business-site,
+.business-site * { box-sizing: border-box; }
+.business-site { font-family: "Inter", "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:#173f66; }
+.business-site p { font-size:16px; line-height:1.78; }
+.business-site h1,.business-site h2,.business-site h3,.business-site h4 { font-family:inherit; }
+.business-site h2 { line-height:1.15; }
+
+/* Business navbar: same logo scale/placement as conference navbar; no tagline below logo. */
+.business-navbar { min-height:0; }
+.business-nav-inner { max-width:1480px; min-height:72px; padding-left:40px; padding-right:40px; gap:28px; }
+.business-nav-brand { display:flex; align-items:center; min-height:72px; }
+.business-logo { display:flex; align-items:center; gap:16px; height:72px; }
+.business-logo-video { width:72px; height:72px; overflow:hidden; flex:none; display:flex; align-items:center; justify-content:center; }
+.business-logo-video video { width:100%; height:100%; object-fit:contain; transform:scale(1.18); display:block; }
+.business-logo-copy { display:flex; flex-direction:column; justify-content:center; line-height:1; }
+.business-logo-copy strong { font-size:21px; font-weight:800; letter-spacing:.18em; color:#123f72; }
+.business-nav-links { font-size:15px; font-weight:600; }
+.business-nav-links>a,.business-nav-dropdown>button { font-size:15px; font-weight:600; }
+
+/* =========================================================
+   HOME HERO — LEFT ALIGNED
+========================================================= */
+
+.business-home-hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 680px;
+  text-align: left;
+}
+
+.business-hero-copy {
+  width: min(930px, 100%);
+  margin: 0;
+}
+
+.business-hero-copy h1 {
+  font-size: clamp(48px, 5.2vw, 72px);
+  line-height: 1.08;
+  max-width: 930px;
+  margin: 16px 0 18px;
+  text-align: left;
+}
+
+.business-hero-copy p {
+  font-size: 19px;
+  max-width: 760px;
+  margin: 0 0 30px;
+  text-align: left;
+}
+
+.business-hero-actions {
+  justify-content: flex-start;
+}
+
+/* Inner heroes: keep imagery visible and avoid the over-zoomed crop. */
+.business-inner-hero,
+.business-service-hero { min-height:450px; padding:88px 0; background-size:cover; background-repeat:no-repeat; background-position:center center; }
+.business-inner-hero { text-align:center; }
+.business-inner-hero > .business-container,
+.business-service-hero-inner { width:min(1220px,calc(100% - 64px)); margin:0 auto; }
+.business-inner-hero > .business-container { display:flex; flex-direction:column; align-items:center; }
+.business-inner-hero h1,.business-service-hero h1 { font-size:clamp(46px,5vw,68px); line-height:1.08; max-width:980px; margin:16px auto; }
+.business-inner-hero p,.business-service-hero p { font-size:18px; max-width:800px; margin:0 auto; }
+.business-about-hero { background-position:center center; }
+.business-tech-hero { background-image:linear-gradient(110deg,rgba(3,43,75,.90),rgba(0,102,126,.62)),url('/src/assets/business-design-reference.png'); background-position:center center; }
+.business-contact-hero { background-position:center center; }
+.business-service-hero { text-align:center; }
+.business-service-hero-inner { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.business-service-hero-inner > div:first-child { max-width:980px; }
+.business-service-icon { margin-top:22px; width:70px; height:70px; display:grid; place-items:center; border-radius:22px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3); backdrop-filter:blur(8px); }
+
+/* Balanced page content instead of a left-heavy column. */
+.business-two-col,
+.business-story-grid,
+.business-management,
+.business-tech-story,
+.business-contact-layout,
+.business-service-intro { width:min(1220px,calc(100% - 64px)); margin-left:auto; margin-right:auto; }
+.business-two-col { align-items:center; }
+.business-copy-block { max-width:760px; margin:0 auto; }
+.business-reasons-grid { max-width:760px; margin:0 auto; }
+.business-story-grid,.business-management,.business-tech-story { align-items:center; }
+.business-story-grid>div:first-child,.business-management>div:first-child,.business-tech-story>div:first-child { text-align:center; }
+.business-story-grid>div:last-child,.business-management>div:last-child,.business-tech-story>div:last-child { max-width:700px; margin:0 auto; }
+.business-contact-layout { align-items:center; }
+.business-contact-info { max-width:680px; margin:0 auto; }
+.business-contact-form { max-width:680px; width:100%; margin:0 auto; }
+.business-service-intro { align-items:center; }
+.business-service-intro>div { max-width:680px; margin:0 auto; }
+.business-service-intro>div:first-child { text-align:center; }
+
+/* Premium cards: light tinted surfaces + entry animation + subtle shake on hover. */
+.business-vision-grid article,.business-expertise-grid article,.business-tech-grid article,
+.business-process-grid article,.business-stat-grid article,.business-feature-grid article,
+.business-reason-card,.business-industry-card,.business-contact-cards>div,
+.business-service-card {
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(78,166,194,.20);
+  box-shadow:0 15px 38px rgba(11,66,101,.075);
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease,background .28s ease;
+  animation:bizCardIn .65s cubic-bezier(.22,.8,.22,1) both;
+}
+.business-vision-grid article:nth-child(2n),.business-expertise-grid article:nth-child(2n),.business-tech-grid article:nth-child(2n),
+.business-process-grid article:nth-child(2n),.business-feature-grid article:nth-child(2n),.business-stat-grid article:nth-child(2n),
+.business-industry-card:nth-child(2n) { background:linear-gradient(145deg,#f5fbff 0%,#eefafa 100%); }
+.business-vision-grid article:nth-child(2n+1),.business-expertise-grid article:nth-child(2n+1),.business-tech-grid article:nth-child(2n+1),
+.business-process-grid article:nth-child(2n+1),.business-feature-grid article:nth-child(2n+1),.business-stat-grid article:nth-child(2n+1),
+.business-industry-card:nth-child(2n+1) { background:linear-gradient(145deg,#ffffff 0%,#f2f8ff 100%); }
+.business-vision-grid article:hover,.business-expertise-grid article:hover,.business-tech-grid article:hover,
+.business-process-grid article:hover,.business-stat-grid article:hover,.business-feature-grid article:hover,
+.business-reason-card:hover,.business-industry-card:hover,.business-contact-cards>div:hover,.business-service-card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 26px 56px rgba(11,66,101,.14);
+  border-color:rgba(24,167,180,.38);
+  animation:bizCardShake .34s ease;
+}
+@keyframes bizCardIn { from{opacity:0;transform:translateY(20px) scale(.985)} to{opacity:1;transform:translateY(0) scale(1)} }
+@keyframes bizCardShake { 0%,100%{transform:translateY(-8px) rotate(0)} 30%{transform:translateY(-8px) rotate(-.6deg)} 70%{transform:translateY(-8px) rotate(.6deg)} }
+.business-service-card { background:linear-gradient(145deg,#ffffff,#f0fbfb); border-radius:24px; }
+.business-service-image { min-height:190px; background-size:cover; background-position:center; }
+.business-service-card-body { padding:22px 24px 25px; }
+.business-service-card-body h3 { font-size:20px; }
+.business-service-card-body p { font-size:15px; }
+
+/* Remove footer curves: flat two-tone Wavexa background only. */
+.conference-style-business-footer { background:linear-gradient(120deg,#061a35 0%,#063f62 48%,#087d7d 100%); }
+.conference-style-business-footer::before,.conference-style-business-footer::after { display:none !important; }
+.conference-style-business-footer .business-footer-logo span { display:none !important; }
+.conference-style-business-footer .business-footer-socials a { transition:transform .3s ease,border-color .3s ease,color .3s ease,background .3s ease; }
+
+/* Footer typography aligned with conference footer. */
+.conference-style-business-footer .business-footer-inner h4 { font-weight:700; letter-spacing:.12em; }
+.conference-style-business-footer .business-footer-inner>div:not(.business-footer-brand):not(.business-footer-contact) a,
+.conference-style-business-footer .business-footer-contact p,
+.conference-style-business-footer .business-footer-contact a { font-weight:500; }
+.conference-style-business-footer .business-footer-bottom { font-weight:500; }
+
+/* Business floating contact rail: middle of page only. */
+.business-floating-socials { top:50%; transform:translateY(-50%); }
+
+@media (max-width:900px){
+  .business-nav-inner{padding-left:18px;padding-right:18px;}
+  .business-home-hero,.business-home-hero-content{min-height:610px;}
+  .business-home-hero-content{padding:70px 0;}
+  .business-hero-copy h1{font-size:43px;}
+  .business-inner-hero,.business-service-hero{min-height:420px;padding:72px 0;}
+  .business-inner-hero h1,.business-service-hero h1{font-size:46px;}
+}
+
+/* =========================================================
+   FINAL SERVICES-ONLY REDESIGN
+   Conference pages remain untouched.
+========================================================= */
+.business-service-page{background:#f8fbfd;}
+.business-service-hero--refined{
+  min-height:390px!important;
+  height:390px;
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.business-service-hero--refined::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:55px;
+  background:linear-gradient(transparent,rgba(248,251,253,.92));
+  pointer-events:none;
+}
+.business-service-hero-glow{
+  position:absolute;
+  width:360px;height:360px;
+  border-radius:50%;
+  right:8%;top:50%;transform:translateY(-50%);
+  background:radial-gradient(circle,rgba(74,231,225,.24),transparent 68%);
+  pointer-events:none;
+}
+.business-service-hero-inner{
+  width:min(1180px,calc(100% - 64px));
+  margin:auto;
+  position:relative;
+  z-index:2;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  text-align:left!important;
+  padding:45px 0!important;
+}
+.business-service-hero-copy{max-width:790px;}
+.business-service-hero--refined .business-eyebrow{color:#65e8e4;letter-spacing:.16em;font-weight:800;}
+.business-service-hero--refined h1{
+  font-size:clamp(43px,5vw,68px)!important;
+  line-height:1.04!important;
+  margin:12px 0 14px!important;
+  letter-spacing:-.045em!important;
+  color:#fff!important;
+}
+.business-service-hero--refined p{
+  font-size:18px!important;
+  line-height:1.65!important;
+  max-width:720px!important;
+  margin:0!important;
+  color:#e7f7fb!important;
+}
+.business-service-hero-rule{width:92px;height:3px;background:linear-gradient(90deg,#45e1de,#8ee9ed);margin-top:24px;border-radius:10px;}
+.business-service-hero-badge{
+  width:88px;height:88px;border-radius:24px;
+  display:grid;place-items:center;
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.32);
+  box-shadow:0 18px 45px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.25);
+  backdrop-filter:blur(10px);
+  flex:none;
+}
+.business-service-hero-badge svg{width:40px;height:40px;color:#77f0eb;}
+.business-service-overview{padding:76px 0 66px!important;background:#fff;}
+.business-service-intro--centered{display:grid!important;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)!important;gap:70px!important;align-items:center!important;max-width:1120px;margin:0 auto 42px;}
+.business-service-intro-heading h2{font-size:clamp(34px,3.7vw,52px)!important;line-height:1.08!important;letter-spacing:-.04em!important;margin-top:12px!important;}
+.business-service-intro-copy{max-width:690px;}
+.business-service-intro-copy p{font-size:17px!important;line-height:1.85!important;color:#567089!important;margin:0 0 15px!important;}
+.business-service-intro-copy p:last-child{margin-bottom:0!important;}
+.business-service-stats{grid-template-columns:repeat(4,1fr)!important;gap:16px!important;}
+.business-service-stat-card{
+  min-height:150px;padding:22px 20px!important;
+  background:linear-gradient(145deg,#ffffff,#eef9fb)!important;
+  border:1px solid #d9edf1!important;
+  border-radius:20px!important;
+  box-shadow:0 12px 35px rgba(11,75,104,.08)!important;
+  transition:box-shadow .3s ease,transform .3s ease!important;
+}
+.business-service-stat-card:hover{box-shadow:0 20px 42px rgba(11,75,104,.14)!important;}
+.business-service-stat-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#e0f7f5;color:#008c91;margin-bottom:15px;}
+.business-service-stat-icon svg{width:18px;height:18px;}
+.business-service-stat-card p{font-size:14px!important;line-height:1.55!important;color:#35566e!important;margin:0!important;font-weight:650;}
+.business-service-feature-section{background:linear-gradient(180deg,#f1f8fb 0%,#f8fcfd 100%)!important;padding:78px 0!important;}
+.business-section-heading--centered{justify-content:center!important;text-align:center!important;margin-bottom:42px!important;}
+.business-section-heading--centered>div{max-width:850px;margin:auto;}
+.business-section-heading--centered h2{font-size:clamp(34px,3.8vw,52px)!important;line-height:1.08!important;letter-spacing:-.04em!important;margin-top:12px!important;}
+.business-service-feature-grid{grid-template-columns:repeat(3,1fr)!important;gap:18px!important;}
+.business-service-feature-card{
+  position:relative;min-height:230px;padding:28px 27px!important;
+  display:flex!important;gap:17px!important;align-items:flex-start!important;
+  background:linear-gradient(145deg,#fff 0%,#f5fbfc 100%)!important;
+  border:1px solid #d8edf1!important;border-radius:24px!important;
+  box-shadow:0 10px 30px rgba(10,72,99,.07)!important;
+  overflow:hidden;
+  transition:box-shadow .3s ease,transform .3s ease,border-color .3s ease!important;
+}
+.business-service-feature-card::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#078b95,#63dcd7);opacity:.8;}
+.business-service-feature-card::after{content:"";position:absolute;width:100px;height:100px;border-radius:50%;right:-55px;bottom:-55px;background:#e7f8f7;}
+.business-service-feature-card:hover{box-shadow:0 22px 46px rgba(7,74,103,.15)!important;border-color:#bfe3e6!important;}
+.business-service-feature-icon{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;flex:none;background:linear-gradient(135deg,#e0f8f7,#edf5ff);color:#007f8d;border:1px solid #cfecee;}
+.business-service-feature-icon svg{width:23px;height:23px;}
+.business-service-feature-card h3{font-size:18px!important;line-height:1.3!important;color:#123e61!important;margin:2px 32px 9px 0!important;font-weight:850!important;}
+.business-service-feature-card p{font-size:14px!important;line-height:1.65!important;color:#60788a!important;margin:0!important;}
+.business-service-feature-arrow{position:absolute;right:22px;top:25px;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#008b91;background:#edf9f8;z-index:2;}
+.business-service-feature-arrow svg{width:15px;height:15px;}
+.business-service-process-section{background:#fff!important;padding:78px 0!important;}
+.business-service-process-grid{grid-template-columns:repeat(3,1fr)!important;gap:18px!important;}
+.business-service-process-card{
+  padding:28px 26px!important;min-height:245px;background:#fff!important;
+  border:1px solid #dfedf1!important;border-radius:22px!important;
+  box-shadow:0 9px 28px rgba(11,70,96,.055)!important;
+  transition:box-shadow .3s ease,border-color .3s ease,transform .3s ease!important;
+}
+.business-service-process-card:hover{box-shadow:0 20px 40px rgba(11,70,96,.12)!important;border-color:#b9dfe4!important;}
+.business-service-process-card h3{font-size:18px!important;color:#123e61!important;margin:18px 0 9px!important;font-weight:850!important;}
+.business-service-process-card p{font-size:14px!important;line-height:1.7!important;color:#61798a!important;margin:0!important;}
+.business-service-process-card .business-process-icon{background:linear-gradient(135deg,#e2f8f7,#eef5ff)!important;color:#00858d!important;border:1px solid #d2ecee!important;}
+.business-service-cta{background:linear-gradient(135deg,#edf9fa,#f7fbff)!important;}
+.business-service-cta h2{max-width:720px!important;}
+@media(max-width:980px){
+ .business-service-hero--refined{height:360px;min-height:360px!important;}
+ .business-service-hero-badge{width:72px;height:72px;border-radius:20px;}
+ .business-service-intro--centered{grid-template-columns:1fr!important;gap:28px!important;}
+ .business-service-stats{grid-template-columns:1fr 1fr!important;}
+ .business-service-feature-grid,.business-service-process-grid{grid-template-columns:1fr 1fr!important;}
+}
+@media(max-width:640px){
+ .business-service-hero--refined{height:390px;min-height:390px!important;}
+ .business-service-hero-inner{width:min(100% - 36px,1180px);padding:40px 0!important;}
+ .business-service-hero-copy{max-width:100%;}
+ .business-service-hero--refined h1{font-size:43px!important;}
+ .business-service-hero--refined p{font-size:15px!important;}
+ .business-service-hero-badge{display:none;}
+ .business-service-stats,.business-service-feature-grid,.business-service-process-grid{grid-template-columns:1fr!important;}
+}
+
+/* =========================================================
+   BUSINESS FINAL CARD REFINEMENT
+   Same conference typography; each business page gets its own card language.
+========================================================= */
+.business-site,
+.business-site p,
+.business-site h1,
+.business-site h2,
+.business-site h3,
+.business-site h4,
+.business-site a,
+.business-site button,
+.business-site input,
+.business-site textarea { font-family: "Inter", sans-serif; }
+
+/* Home + service pages: intentionally clean, NO card shadow. */
+.business-home-page .business-service-card,
+.business-home-page .business-reason-card,
+.business-home-page .business-industry-card,
+.business-service-page .business-stat-grid article,
+.business-service-page .business-feature-grid article,
+.business-service-page .business-process-grid article { box-shadow:none !important; }
+.business-home-page .business-service-card:hover,
+.business-home-page .business-reason-card:hover,
+.business-home-page .business-industry-card:hover,
+.business-service-page .business-stat-grid article:hover,
+.business-service-page .business-feature-grid article:hover,
+.business-service-page .business-process-grid article:hover { box-shadow:none !important; }
+
+/* =========================================================
+   HERO BACKGROUND CONTROL
+   Home page = IMAGE
+   All other pages = GRADIENT
+========================================================= */
+
+/* HOME PAGE ONLY — use the image from Home.tsx */
+.business-home-page .business-home-hero {
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
+/* ABOUT PAGE — gradient only */
+.business-about-page .business-about-hero {
+  background-image: linear-gradient(
+    120deg,
+    #062d55 0%,
+    #075d78 56%,
+    #08a09a 100%
+  ) !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+/* TECHNOLOGY PAGE — gradient only */
+.business-tech-page .business-tech-hero {
+  background-image: linear-gradient(
+    120deg,
+    #062d55 0%,
+    #075d78 56%,
+    #08a09a 100%
+  ) !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+/* CONTACT PAGE — gradient only */
+.business-contact-page .business-contact-hero {
+  background-image: linear-gradient(
+    120deg,
+    #062d55 0%,
+    #075d78 56%,
+    #08a09a 100%
+  ) !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+/* SERVICE PAGES — gradient only */
+.business-service-page .business-service-hero {
+  background-image: linear-gradient(
+    120deg,
+    #062d55 0%,
+    #075d78 56%,
+    #08a09a 100%
+  ) !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+
+/* Home: clean horizontal service cards with a Wavexa accent strip, no icons. */
+.business-home-page .business-service-card {
+  border-radius:18px;
+  background:#f7fbfd;
+  border:1px solid #d9eaf0;
+  overflow:hidden;
+  transform:none;
+  animation:bizHomeCardIn .55s ease both;
+}
+.business-home-page .business-service-card:nth-child(2){background:#f2faf9;border-radius:28px 14px 28px 14px}
+.business-home-page .business-service-card:nth-child(3){background:#f4f8ff;border-radius:14px 28px 14px 28px}
+.business-home-page .business-service-card:nth-child(4){background:#f8f8fd;border-radius:28px 14px 28px 14px}
+.business-home-page .business-service-card-accent{height:7px;background:linear-gradient(90deg,#075a86,#08aaa3)}
+.business-home-page .business-service-card:nth-child(2) .business-service-card-accent{background:linear-gradient(90deg,#08a49e,#61c9b5)}
+.business-home-page .business-service-card:nth-child(3) .business-service-card-accent{background:linear-gradient(90deg,#2867aa,#5bbbd0)}
+.business-home-page .business-service-card:nth-child(4) .business-service-card-accent{background:linear-gradient(90deg,#38558d,#0b9a9a)}
+.business-home-page .business-service-card:hover{transform:translateY(-4px);animation:none}
+.business-home-page .business-service-card-body{padding:24px 25px 26px}
+.business-home-page .business-service-card-body h3{font-size:19px}
+.business-home-page .business-service-card-body p{font-size:15px}
+
+/* Home reasons: editorial blocks, no pictograms. */
+.business-home-page .business-reason-card{border-radius:0 18px 18px 0;background:#fff;border-left:4px solid #08a5a0}
+.business-home-page .business-reason-card:nth-of-type(2){border-left-color:#2e6ea4}
+.business-home-page .business-reason-card:nth-of-type(3){border-left-color:#5baeb8}
+.business-home-page .business-reason-card:nth-of-type(4){border-left-color:#78a3ca}
+.business-home-page .business-reason-card>span{display:none}
+
+/* About: soft editorial cards with top rule, different from Home. */
+.business-about-page .business-vision-grid article,
+.business-about-page .business-expertise-grid article{
+  box-shadow:none;
+  border-radius:8px;
+  background:#f5fafc;
+  border:0;
+  border-top:3px solid #0a7188;
+}
+.business-about-page .business-vision-grid article:nth-child(2){border-top-color:#08a59f;background:#f2faf8}
+.business-about-page .business-expertise-grid article:nth-child(2n){border-radius:8px 8px 8px 24px}
+.business-about-page .business-expertise-grid article:nth-child(3n){border-radius:8px 8px 24px 8px}
+.business-about-page .business-vision-grid article:hover,
+.business-about-page .business-expertise-grid article:hover{box-shadow:none;transform:translateY(-5px)}
+.business-card-mark{display:block;width:42px;height:4px;border-radius:99px;background:linear-gradient(90deg,#075b84,#0aa7a0);margin-bottom:18px}
+.business-about-page .business-expertise-grid article:nth-child(2) .business-card-mark{background:#3d79a6}
+.business-about-page .business-expertise-grid article:nth-child(3) .business-card-mark{background:#08a59f}
+
+/* Technology: compact pill/grid cards, no icons and no shadow. */
+.business-tech-page .business-tech-grid article{
+  box-shadow:none;
+  border:1px solid #d7e8ef;
+  border-radius:30px 10px 30px 10px;
+  background:#f8fbfd;
+  padding:30px;
+}
+.business-tech-page .business-tech-grid article:nth-child(2n){border-radius:10px 30px 10px 30px;background:#f2faf9}
+.business-tech-page .business-tech-grid article:nth-child(3n){background:#f4f8ff}
+.business-tech-page .business-tech-grid article:hover{box-shadow:none;transform:translateY(-5px)}
+.business-tech-page .business-tech-grid .business-card-mark{width:52px;height:5px;margin-bottom:18px}
+
+/* Services: no generic icon cards; use a distinct numbered-free editorial edge. */
+.business-service-page .business-service-hero-badge{background:transparent!important;border:0!important;box-shadow:none!important}
+.business-service-page .business-service-hero-badge .business-card-mark{width:80px;height:6px;background:linear-gradient(90deg,#67e5dd,#fff)}
+.business-service-page .business-stat-grid article{border-radius:4px;background:#f5fafc;border-top:3px solid #0b7890;padding:25px}
+.business-service-page .business-stat-grid article:nth-child(2n){background:#f2faf8;border-top-color:#0aa39d}
+.business-service-page .business-feature-grid article{border-radius:18px 4px 18px 4px;background:#fff;border-left:4px solid #0a6c8c}
+.business-service-page .business-feature-grid article:nth-child(2n){border-left-color:#0aa39d;background:#f5fbfa}
+.business-service-page .business-process-grid article{border-radius:24px;background:#f7fafc;border:1px solid #dcecf1}
+.business-service-page .business-process-grid article:nth-child(2n){background:#eef9f7}
+.business-service-page .business-process-grid article:nth-child(3n){background:#f3f7fc}
+.business-service-page .business-feature-grid article:hover,
+.business-service-page .business-process-grid article:hover,
+.business-service-page .business-stat-grid article:hover{transform:translateY(-4px);box-shadow:none}
+.business-service-page .business-service-feature-mark,
+.business-service-page .business-process-mark,
+.business-service-page .business-service-stat-mark{display:block;width:38px;height:4px;border-radius:99px;background:#0a8493;margin-bottom:15px}
+.business-service-page .business-feature-grid article:nth-child(2n) .business-service-feature-mark{background:#08a49e}
+.business-service-page .business-process-grid article:nth-child(2n) .business-process-mark{background:#3d78a8}
+.business-service-page .business-process-grid article:nth-child(3n) .business-process-mark{background:#08a49e}
+
+/* Contact: clean information blocks without iconography. */
+.business-contact-page .business-contact-cards>div{box-shadow:none;border-radius:4px 18px 4px 18px;background:#f7fbfd}
+.business-contact-page .business-contact-cards>div:nth-child(2n){background:#f1faf8;border-radius:18px 4px 18px 4px}
+.business-contact-page .business-contact-cards>div:hover{box-shadow:none;transform:translateY(-4px)}
+.business-contact-page .business-contact-cards>div>span{display:none}
+
+/* Footer Twitter/X: actual blue hover, matching the requested social treatment. */
+.conference-style-business-footer .business-footer-socials a:nth-child(4):hover{
+  background:#1d9bf0 !important;
+  color:#fff !important;
+  border-color:#1d9bf0 !important;
+  box-shadow:0 8px 20px rgba(29,155,240,.28);
+}
+
+/* =========================================================
+   BUSINESS TYPOGRAPHY + CARD DESIGN — FINAL POLISH
+   Consistent conference-style typography across every business page.
+   No decorative mini-lines, square icon blocks, or card shadows.
+========================================================= */
+.business-site,
+.business-site * {
+  font-family: "Inter", sans-serif !important;
+}
+.business-site p,
+.business-site li,
+.business-site input,
+.business-site textarea,
+.business-site button { font-size:15px; line-height:1.72; }
+.business-site h1 { font-size:clamp(42px,5vw,68px); line-height:1.06; letter-spacing:-.035em; }
+.business-site h2 { font-size:clamp(30px,3.15vw,44px); line-height:1.12; letter-spacing:-.025em; }
+.business-site h3 { font-size:18px; line-height:1.3; letter-spacing:-.01em; }
+.business-site .business-kicker,
+.business-site .business-eyebrow { font-size:11px; letter-spacing:.15em; }
+.business-site .business-copy-block p,
+.business-site .business-story-grid p,
+.business-site .business-tech-story p,
+.business-site .business-service-intro p,
+.business-site .business-contact-info>p { font-size:15px; line-height:1.72; }
+.business-site .business-service-card-body p,
+.business-site .business-reason-card p,
+.business-site .business-industry-card p,
+.business-site .business-vision-grid p,
+.business-site .business-expertise-grid p,
+.business-site .business-tech-grid p,
+.business-site .business-service-feature-card p,
+.business-site .business-service-process-card p,
+.business-site .business-stat-grid p,
+.business-site .business-contact-cards p,
+.business-site .business-contact-cards a { font-size:14px; line-height:1.65; }
+
+/* The lower fade/shadow below the first hero is removed. */
+.business-home-page .business-home-hero::after,
+.business-service-page .business-service-hero--refined::after { display:none !important; }
+.business-service-page .business-service-hero-glow { opacity:.55; }
+
+/* Remove all the little decorative lines/strips. */
+.business-home-page .business-service-card-accent,
+.business-about-page .business-card-mark,
+.business-tech-page .business-card-mark,
+.business-service-page .business-service-feature-mark,
+.business-service-page .business-process-mark,
+.business-service-page .business-service-stat-mark,
+.business-service-page .business-service-hero-badge,
+.business-site .business-kicker::before { display:none !important; }
+
+/* HOME — layered editorial tiles, no shadows, no strips. */
+.business-home-page .business-service-grid { gap:22px; }
+.business-home-page .business-service-card {
+  position:relative;
+  min-height:245px;
+  padding:30px 28px;
+  border:1px solid #d8e9ef !important;
+  border-radius:26px !important;
+  overflow:hidden;
+  background:linear-gradient(145deg,#ffffff 0%,#f1f8fb 100%) !important;
+  box-shadow:none !important;
+  transition:transform .3s ease,border-color .3s ease,background .3s ease;
+}
+.business-home-page .business-service-card::before {
+  content:""; position:absolute; width:115px; height:115px; border-radius:50%;
+  right:-42px; top:-42px; background:rgba(0,164,164,.10);
+}
+.business-home-page .business-service-card:nth-child(2){background:linear-gradient(145deg,#fff,#eef9f7)!important;}
+.business-home-page .business-service-card:nth-child(2)::before{background:rgba(28,126,165,.10);}
+.business-home-page .business-service-card:nth-child(3){background:linear-gradient(145deg,#fff,#f1f6fc)!important;}
+.business-home-page .business-service-card:nth-child(3)::before{background:rgba(58,105,165,.10);}
+.business-home-page .business-service-card:nth-child(4){background:linear-gradient(145deg,#fff,#f5f3fb)!important;}
+.business-home-page .business-service-card:nth-child(4)::before{background:rgba(108,88,161,.10);}
+.business-home-page .business-service-card:hover{transform:translateY(-8px);border-color:#a9d7df !important;}
+.business-home-page .business-service-card-body{position:relative;z-index:1;padding:0!important;}
+.business-home-page .business-service-card-body h3{font-size:20px;margin:42px 0 12px;max-width:220px;}
+.business-home-page .business-service-card-body p{max-width:290px;margin-bottom:18px;}
+.business-home-page .business-service-card-body a{font-size:13px;}
+.business-home-page .business-reasons-grid{display:grid;gap:12px;}
+.business-home-page .business-reason-card {
+  position:relative; display:block; padding:21px 24px !important; border:1px solid #dcebef !important;
+  border-radius:18px !important; background:linear-gradient(135deg,#fff,#f6fbfd)!important;
+  border-left:1px solid #dcebef !important; box-shadow:none !important;
+  transition:transform .28s ease,border-color .28s ease,background .28s ease;
+}
+.business-home-page .business-reason-card:nth-of-type(2){background:linear-gradient(135deg,#fff,#f1faf8)!important;}
+.business-home-page .business-reason-card:nth-of-type(3){background:linear-gradient(135deg,#fff,#f2f7fc)!important;}
+.business-home-page .business-reason-card:nth-of-type(4){background:linear-gradient(135deg,#fff,#f5f3fb)!important;}
+.business-home-page .business-reason-card:hover{transform:translateX(6px);border-color:#acd7df!important;}
+.business-home-page .business-reason-card h3{font-size:17px;margin:0 0 6px;}
+.business-home-page .business-industry-grid{gap:18px;}
+.business-home-page .business-industry-card{
+  position:relative; padding:28px !important; min-height:190px; border:1px solid #dcebef !important;
+  border-radius:24px !important; background:#fff!important; box-shadow:none!important;
+  transition:transform .28s ease,border-color .28s ease;
+}
+.business-home-page .business-industry-card:nth-child(2n){border-radius:24px 10px 24px 10px!important;background:#f5fbfa!important;}
+.business-home-page .business-industry-card:nth-child(3n){border-radius:10px 24px 10px 24px!important;background:#f5f8fc!important;}
+.business-home-page .business-industry-card:hover{transform:translateY(-7px);border-color:#b6dbe1!important;box-shadow:none!important;}
+.business-home-page .business-industry-card h3{font-size:18px;}
+
+/* ABOUT — editorial framed cards with asymmetric corners. */
+.business-about-page .business-vision-grid,
+.business-about-page .business-expertise-grid { gap:22px; }
+.business-about-page .business-vision-grid article,
+.business-about-page .business-expertise-grid article {
+  position:relative; padding:31px !important; border:1px solid #d8e8ee !important;
+  border-radius:28px !important; border-top:1px solid #d8e8ee !important;
+  background:linear-gradient(150deg,#ffffff,#f3f9fb)!important; box-shadow:none!important;
+  transition:transform .3s ease,border-color .3s ease;
+}
+.business-about-page .business-vision-grid article:nth-child(2){background:linear-gradient(150deg,#fff,#eff9f6)!important;border-radius:10px 28px 28px 28px!important;border-top:1px solid #d8e8ee!important;}
+.business-about-page .business-expertise-grid article:nth-child(2n){background:linear-gradient(150deg,#f7fbff,#eef5fa)!important;border-radius:28px 10px 28px 28px!important;}
+.business-about-page .business-expertise-grid article:nth-child(3n){background:linear-gradient(150deg,#f7fcfb,#eaf8f5)!important;border-radius:10px 28px 28px 28px!important;}
+.business-about-page .business-vision-grid article:hover,
+.business-about-page .business-expertise-grid article:hover{transform:translateY(-8px);border-color:#a9d7df!important;box-shadow:none!important;}
+.business-about-page .business-vision-grid article>span,
+.business-about-page .business-expertise-grid article>span{display:none!important;}
+.business-about-page .business-vision-grid h3,
+.business-about-page .business-expertise-grid h3{font-size:19px;margin-bottom:10px;}
+
+/* TECHNOLOGY — wider showcase cards, each with a different silhouette. */
+.business-tech-page .business-tech-grid { gap:22px; }
+.business-tech-page .business-tech-grid article {
+  position:relative; min-height:205px; padding:31px !important;
+  border:1px solid #d8e8ee !important; border-radius:28px !important;
+  background:linear-gradient(145deg,#ffffff,#f2f8fb)!important; box-shadow:none!important;
+  transition:transform .3s ease,border-color .3s ease;
+}
+.business-tech-page .business-tech-grid article:nth-child(2){border-radius:10px 30px 30px 30px!important;background:linear-gradient(145deg,#fff,#eef9f7)!important;}
+.business-tech-page .business-tech-grid article:nth-child(3){border-radius:30px 10px 30px 30px!important;background:linear-gradient(145deg,#fff,#f2f6fc)!important;}
+.business-tech-page .business-tech-grid article:nth-child(4){border-radius:30px 30px 10px 30px!important;background:linear-gradient(145deg,#fff,#f5f3fb)!important;}
+.business-tech-page .business-tech-grid article:nth-child(5){border-radius:30px 30px 30px 10px!important;background:linear-gradient(145deg,#fff,#f0faf8)!important;}
+.business-tech-page .business-tech-grid article:hover{transform:translateY(-8px);border-color:#a8d6df!important;box-shadow:none!important;}
+.business-tech-page .business-tech-grid article>span{display:none!important;}
+.business-tech-page .business-tech-grid h3{font-size:20px;margin-bottom:11px;}
+
+/* SERVICES — premium bento cards; no lines, icons, square marks or shadows. */
+.business-service-page .business-stat-grid,
+.business-service-page .business-feature-grid,
+.business-service-page .business-process-grid { gap:20px; }
+.business-service-page .business-stat-grid article {
+  position:relative; min-height:150px; padding:27px !important; border:1px solid #d9e8ee !important;
+  border-radius:24px !important; background:linear-gradient(145deg,#fff,#f2f8fb)!important; box-shadow:none!important;
+  transition:transform .3s ease,border-color .3s ease;
+}
+.business-service-page .business-stat-grid article:nth-child(2n){background:linear-gradient(145deg,#fff,#eef9f6)!important;border-radius:10px 24px 24px 24px!important;}
+.business-service-page .business-stat-grid article:nth-child(3n){background:linear-gradient(145deg,#fff,#f1f5fb)!important;border-radius:24px 10px 24px 24px!important;}
+.business-service-page .business-stat-grid article:hover{transform:translateY(-7px);border-color:#a9d7df!important;box-shadow:none!important;}
+.business-service-page .business-feature-grid article {
+  position:relative; min-height:185px; padding:29px !important; display:block!important;
+  border:1px solid #d9e8ee !important; border-radius:26px !important;
+  background:linear-gradient(145deg,#fff,#f4f9fb)!important; box-shadow:none!important;
+  transition:transform .3s ease,border-color .3s ease,background .3s ease;
+}
+.business-service-page .business-feature-grid article:nth-child(2n){background:linear-gradient(145deg,#fff,#eff9f7)!important;border-radius:12px 28px 28px 28px!important;}
+.business-service-page .business-feature-grid article:nth-child(3n){background:linear-gradient(145deg,#fff,#f3f6fb)!important;border-radius:28px 12px 28px 28px!important;}
+.business-service-page .business-feature-grid article:hover{transform:translateY(-8px)!important;border-color:#a7d5de!important;box-shadow:none!important;}
+.business-service-page .business-feature-grid h3{font-size:19px;margin:0 0 10px;max-width:520px;}
+.business-service-page .business-feature-grid p{max-width:560px;}
+.business-service-page .business-service-feature-arrow{display:inline-flex!important;margin-top:18px!important;width:34px!important;height:34px!important;border-radius:50%!important;background:#e7f6f5!important;color:#087d8b!important;align-items:center!important;justify-content:center!important;}
+.business-service-page .business-process-grid article {
+  min-height:190px; padding:29px !important; border:1px solid #d9e8ee !important;
+  border-radius:30px !important; background:linear-gradient(145deg,#fff,#f4f9fb)!important; box-shadow:none!important;
+  transition:transform .3s ease,border-color .3s ease;
+}
+.business-service-page .business-process-grid article:nth-child(2n){background:linear-gradient(145deg,#fff,#eef9f6)!important;border-radius:12px 30px 30px 30px!important;}
+.business-service-page .business-process-grid article:nth-child(3n){background:linear-gradient(145deg,#fff,#f1f6fc)!important;border-radius:30px 12px 30px 30px!important;}
+.business-service-page .business-process-grid article:hover{transform:translateY(-8px)!important;border-color:#a8d6df!important;box-shadow:none!important;}
+.business-service-page .business-process-grid h3{font-size:19px;margin-bottom:10px;}
+
+/* CONTACT — clean contact tiles, distinct from every other page. */
+.business-contact-page .business-contact-cards{gap:16px;}
+.business-contact-page .business-contact-cards>div {
+  min-height:125px; padding:25px !important; display:block!important;
+  border:1px solid #d9e8ee !important; border-radius:24px !important;
+  background:linear-gradient(145deg,#fff,#f3f8fb)!important; box-shadow:none!important;
+  transition:transform .28s ease,border-color .28s ease;
+}
+.business-contact-page .business-contact-cards>div:nth-child(2n){background:linear-gradient(145deg,#fff,#eef9f6)!important;border-radius:12px 24px 24px 24px!important;}
+.business-contact-page .business-contact-cards>div:nth-child(3n){background:linear-gradient(145deg,#fff,#f2f6fc)!important;border-radius:24px 12px 24px 24px!important;}
+.business-contact-page .business-contact-cards>div:hover{transform:translateY(-7px);border-color:#a8d6df!important;box-shadow:none!important;}
+.business-contact-page .business-contact-cards>div>span{display:none!important;}
+.business-contact-page .business-contact-cards h3{font-size:18px;margin-bottom:7px;}
+
+/* Keep the contact form elegant but shadow-free too. */
+.business-contact-page .business-contact-form{box-shadow:none!important;border:1px solid #d9e8ee!important;border-radius:28px!important;background:linear-gradient(145deg,#fff,#f7fbfc)!important;}
+.business-form-error {
+  min-height: 20px;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  color: #ef4444 !important;
+  display: block;
+}
+
+.business-form-error span {
+  color: #ef4444 !important;
+}
+
+.business-input-error {
+  border-color: #ef4444 !important;
+}
+
+.business-input-error:focus {
+  border-color: #ef4444 !important;
+  outline-color: #ef4444 !important;
+}
+.business-submit-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
