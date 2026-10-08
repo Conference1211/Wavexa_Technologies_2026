@@ -1,71 +1,10 @@
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
-
-import logoVideo from "@/assets/video.webm";
+import { motion } from "framer-motion";
 
 /* =========================================================
-   LOADER
-========================================================= */
-
-export function Loader() {
-  const [isVisible, setIsVisible] = React.useState(true);
-
-  const closeLoader = () => {
-    setIsVisible(false);
-  };
-
-  return (
-    <AnimatePresence mode="wait">
-      {isVisible && (
-        <motion.div
-          key="wavexa-loader"
-          initial={{ opacity: 1 }}
-          exit={{
-            opacity: 0,
-          }}
-          transition={{
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="
-            fixed
-            inset-0
-            z-[99999]
-            flex
-            h-[100dvh]
-            w-[100vw]
-            items-center
-            justify-center
-            overflow-hidden
-            bg-black
-          "
-        >
-          <video
-            src={logoVideo}
-            autoPlay
-            muted
-            playsInline
-            preload="auto"
-            onEnded={closeLoader}
-            onError={closeLoader}
-            className="
-              block
-              h-auto
-              w-auto
-              max-h-[80dvh]
-              max-w-[90vw]
-              object-contain
-            "
-          />
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/* =========================================================
-   PAGE TRANSITION
+   PAGE TRANSITION ONLY
+   Preloader has been completely removed.
 ========================================================= */
 
 export function PageTransition({

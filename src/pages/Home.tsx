@@ -29,73 +29,70 @@ export default function Home() {
           SEO
       ========================================================= */}
       <Helmet>
-        <title>{conference.name}</title>
+  <title>
+    Wavexa Technologies | IT & Healthcare Solutions & Services
+  </title>
 
-        <meta
-          name="description"
-          content={`${conference.name} — a two-day international webinar on ${conference.dates}, bringing together global experts and healthcare professionals.`}
-        />
+  <meta
+    name="description"
+    content="Wavexa Technologies provides innovative IT and healthcare solutions and services, helping businesses transform and grow through reliable, affordable and technology-driven solutions."
+  />
 
-        <meta
-          name="author"
-          content="Wavexa Conferences"
-        />
+  <meta
+    name="author"
+    content="Wavexa Technologies"
+  />
 
-        <meta
-          property="og:site_name"
-          content="Wavexa Conferences"
-        />
+  <meta
+    name="robots"
+    content="index, follow"
+  />
 
-        <meta
-          property="og:type"
-          content="website"
-        />
+  <meta
+    property="og:site_name"
+    content="Wavexa Technologies"
+  />
 
-        <meta
-          property="og:title"
-          content={conference.name}
-        />
+  <meta
+    property="og:type"
+    content="website"
+  />
 
-        <meta
-          property="og:description"
-          content={`Join ${conference.name} on ${conference.dates}. ${conference.about.focus}`}
-        />
+  <meta
+    property="og:title"
+    content="Wavexa Technologies | IT & Healthcare Solutions & Services"
+  />
 
-        <meta
-          property="og:url"
-          content="/"
-        />
+  <meta
+    property="og:description"
+    content="Wavexa Technologies provides innovative IT and healthcare solutions and services, helping businesses transform and grow through reliable, affordable and technology-driven solutions."
+  />
 
-        <meta
-          name="twitter:card"
-          content="summary_large_image"
-        />
+  <meta
+    property="og:url"
+    content="https://www.wavexaglobal.com/"
+  />
 
-        <link
-          rel="canonical"
-          href="/"
-        />
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
 
-        {/* =========================================================
-            EVENT SCHEMA
-        ========================================================= */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Event",
-            name: conference.name,
-            startDate: "2026-12-09",
-            endDate: "2026-12-10",
-            eventAttendanceMode:
-              "https://schema.org/OnlineEventAttendanceMode",
-            location: {
-              "@type": "VirtualLocation",
-              url: "/",
-            },
-            description: conference.about.overview,
-          })}
-        </script>
-      </Helmet>
+  <meta
+    name="twitter:title"
+    content="Wavexa Technologies | IT & Healthcare Solutions & Services"
+  />
+
+  <meta
+    name="twitter:description"
+    content="Wavexa Technologies provides innovative IT and healthcare solutions and services through reliable, affordable and technology-driven solutions."
+  />
+
+  <link
+    rel="canonical"
+    href="https://www.wavexaglobal.com/"
+  />
+</Helmet>
 
       {/* =========================================================
           HERO

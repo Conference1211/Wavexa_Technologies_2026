@@ -3,14 +3,14 @@ import { Outlet, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/context/ThemeContext";
 import Navbar from "@/layouts/Navbar";
 import { Footer } from "@/layouts/Footer";
-import { Loader, PageTransition } from "@/layouts/Loader";
+import { PageTransition } from "./Loader";
 
 export function RootLayout() {
   const { pathname } = useLocation();
 
   return (
     <ThemeProvider>
-      <Loader />
+      
       
       <Navbar />
       <main className="min-h-screen">

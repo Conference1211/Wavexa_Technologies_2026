@@ -297,118 +297,22 @@
 .business-mobile-menu{display:none}
 @keyframes bizMenuIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 
-/* =========================================
-   LOADER
-   ========================================= */
 
-.business-loader {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-
-  z-index: 99999;
-
-  background: #ffffff;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  overflow: hidden;
-}
-
-
-/* =========================================
-   LOADER LOGO
-   ========================================= */
-
-.business-loader-logo {
-  display: block;
-
-  width: 300px;
-  max-width: 42vw;
-
-  height: auto;
-  max-height: 38vh;
-
-  object-fit: contain;
-
-  margin: 0;
-}
-
-
-/* =========================================
-   LARGE DESKTOP
-   ========================================= */
-
-@media (min-width: 1400px) {
-  .business-loader-logo {
-    width: 330px;
-    max-width: 35vw;
-    max-height: 40vh;
-  }
-}
-
-
-/* =========================================
-   DESKTOP / LAPTOP
-   ========================================= */
-
-@media (min-width: 1024px) and (max-width: 1399px) {
-  .business-loader-logo {
-    width: 300px;
-    max-width: 40vw;
-    max-height: 38vh;
-  }
-}
-
-
-/* =========================================
-   TABLET
-   ========================================= */
-
-@media (min-width: 601px) and (max-width: 1023px) {
-  .business-loader-logo {
-    width: 270px;
-    max-width: 50vw;
-    max-height: 36vh;
-  }
-}
-
-
-/* =========================================
-   MOBILE
-   ========================================= */
-
-@media (max-width: 600px) {
-  .business-loader-logo {
-    width: 230px;
-    max-width: 65vw;
-    max-height: 32vh;
-  }
-}
-
-
-/* =========================================
-   SMALL MOBILE
-   ========================================= */
-
-@media (max-width: 400px) {
-  .business-loader-logo {
-    width: 200px;
-    max-width: 70vw;
-    max-height: 30vh;
-  }
-}
 /* HERO */
 .business-home-hero{min-height:680px;background-size:cover;background-position:center;display:flex;align-items:center;position:relative}
 .business-home-hero::after{content:"";position:absolute;inset:auto 0 0;height:90px;background:linear-gradient(transparent,#fff);pointer-events:none}
 .business-home-hero-content{position:relative;z-index:1;padding:110px 0 130px}
 .business-hero-copy{max-width:720px;color:#fff}
 .business-hero-copy .business-eyebrow{color:#64edf0}
-.business-hero-copy h1{font-size:clamp(43px,5.2vw,72px);line-height:1.03;letter-spacing:-.045em;margin:18px 0;color:#fff;font-weight:850}
+
+.business-hero-copy h1{
+  font-size:clamp(36px,4.2vw,58px);
+  line-height:1.08;
+  letter-spacing:-.035em;
+  margin:18px 0;
+  color:#fff;
+  font-weight:750;
+}
 .business-hero-copy p{font-size:18px;color:#dceef7;max-width:620px;margin-bottom:30px}
 .business-hero-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .business-btn,.business-outline-btn,.business-text-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font-size:13px;font-weight:800;transition:.28s ease}
