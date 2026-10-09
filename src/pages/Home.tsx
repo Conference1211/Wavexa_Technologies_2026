@@ -1,4 +1,3 @@
-import { Helmet } from "@/components/Seo";
 import { ArrowRight } from "lucide-react";
 
 import { Hero } from "@/components/sections/Hero";
@@ -25,74 +24,7 @@ export default function Home() {
 
   return (
     <>
-      {/* =========================================================
-          SEO
-      ========================================================= */}
-      <Helmet>
-  <title>
-    Wavexa Technologies | IT & Healthcare Solutions & Services
-  </title>
-
-  <meta
-    name="description"
-    content="Wavexa Technologies provides innovative IT and healthcare solutions and services, helping businesses transform and grow through reliable, affordable and technology-driven solutions."
-  />
-
-  <meta
-    name="author"
-    content="Wavexa Technologies"
-  />
-
-  <meta
-    name="robots"
-    content="index, follow"
-  />
-
-  <meta
-    property="og:site_name"
-    content="Wavexa Technologies"
-  />
-
-  <meta
-    property="og:type"
-    content="website"
-  />
-
-  <meta
-    property="og:title"
-    content="Wavexa Technologies | IT & Healthcare Solutions & Services"
-  />
-
-  <meta
-    property="og:description"
-    content="Wavexa Technologies provides innovative IT and healthcare solutions and services, helping businesses transform and grow through reliable, affordable and technology-driven solutions."
-  />
-
-  <meta
-    property="og:url"
-    content="https://www.wavexaglobal.com/"
-  />
-
-  <meta
-    name="twitter:card"
-    content="summary_large_image"
-  />
-
-  <meta
-    name="twitter:title"
-    content="Wavexa Technologies | IT & Healthcare Solutions & Services"
-  />
-
-  <meta
-    name="twitter:description"
-    content="Wavexa Technologies provides innovative IT and healthcare solutions and services through reliable, affordable and technology-driven solutions."
-  />
-
-  <link
-    rel="canonical"
-    href="https://www.wavexaglobal.com/"
-  />
-</Helmet>
+      
 
       {/* =========================================================
           HERO
