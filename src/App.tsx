@@ -2,7 +2,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "@/layouts/RootLayout";
 import ScrollToTop from "@/components/ScrollToTop";
 import { DEFAULT_CONFERENCE_ID } from "@/data/conferences";
-
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
 import MainShell from "@/main/MainShell";
 import BusinessHome from "@/main/pages/Home";
 import BusinessAbout from "@/main/pages/About";
@@ -31,8 +32,12 @@ import COPDAndLungHealth from "@/pages/COPDAndLungHealth";
 import WomenHealthGynecology from "@/pages/WomenHealthGynecology";
 import NanoscienceNanotechnology from "@/pages/NanoscienceNanotechnology";
 
+
+
 export default function App() {
   return <ErrorBoundary><ScrollToTop /><Routes>
+    <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
     <Route element={<MainShell />}>
       <Route path="/" element={<BusinessHome />} />
       <Route path="/business/about" element={<BusinessAbout />} />
@@ -74,6 +79,7 @@ export default function App() {
       <Route path="/previous-conferences/international-conference-on-copd-and-lung-health" element={<COPDAndLungHealth />} />
       <Route path="/previous-conferences/world-health-congress-women-health-gynecology" element={<WomenHealthGynecology />} />
       <Route path="/previous-conferences/Technologies-summit-nanoscience-nanotechnology" element={<NanoscienceNanotechnology />} />
+      
     </Route>
   </Routes></ErrorBoundary>;
 }

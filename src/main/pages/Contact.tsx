@@ -56,7 +56,7 @@ const [successMessage, setSuccessMessage] = useState("");
   const formatEmail = (value: string) => {
     let cleaned = value
       .replace(/\s/g, "")
-      .replace(/[^A-Za-z0-9@.]/g, "")
+      .replace(/[^A-Za-z0-9.!#$%&'*+/=?^_`{|}~@-]/g, "")
       .toLowerCase();
 
     const at = cleaned.indexOf("@");
@@ -101,57 +101,81 @@ const [successMessage, setSuccessMessage] = useState("");
     return "";
   };
 
-  const validateEmail = (value: string) => {
-    const trimmed = value.trim();
+  
 
-    if (!trimmed) {
-      return "Email is required";
-    }
 
-    if (!/^[a-z0-9@.]+$/.test(trimmed)) {
-      return "Use only lowercase letters, numbers, @ and .";
-    }
+const validateEmail = (value: string): string => {
+  const email = value.trim();
 
-    if (
-      !/^[a-z0-9]+@[a-z0-9]+(?:\.[a-z0-9]+)+$/.test(
-        trimmed,
-      )
-    ) {
-      return "Please enter a valid email address";
-    }
+  if (!email) {
+    return "Email is required";
+  }
 
-    return "";
-  };
+  if (/\s/.test(email)) {
+    return "Email must not contain spaces";
+  }
+
+  const emailRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)+$/;
+
+  if (!emailRegex.test(email)) {
+    return "Please enter a valid email address";
+  }
+
+  const parts = email.split("@");
+  const localPart = parts[0] ?? "";
+  const domain = parts[1] ?? "";
+
+  if (
+    email.length > 254 ||
+    localPart.length > 64 ||
+    localPart.startsWith(".") ||
+    localPart.endsWith(".") ||
+    localPart.includes("..") ||
+    domain.includes("..")
+  ) {
+    return "Please enter a valid email address";
+  }
+
+  const extension = domain.split(".").pop() ?? "";
+
+  if (extension.length < 2) {
+    return "Please enter a valid email address";
+  }
+
+  return "";
+};
+
 
   const validatePhone = (value: string) => {
-    if (!value.trim()) {
-      return "Phone number is required";
-    }
+  if (!value.trim()) {
+    return "Phone number is required";
+  }
 
-    if (!/^[0-9]+$/.test(value)) {
-      return "Phone number should contain only numbers";
-    }
+  if (!/^[0-9]+$/.test(value)) {
+    return "Phone number should contain only numbers";
+  }
 
-    if (value.length !== 10) {
-      return "Phone number must contain exactly 10 digits";
-    }
+  if (value.length !== 10) {
+    return "Phone number must contain exactly 10 digits";
+  }
 
-    return "";
-  };
+  return "";
+};
 
-  const validateMessage = (value: string) => {
-    const trimmed = value.trim();
+const validateMessage = (value: string) => {
+  const trimmed = value.trim();
 
-    if (!trimmed) {
-      return "Message is required";
-    }
+  if (!trimmed) {
+    return "Message is required";
+  }
 
-    if (trimmed.length < 10) {
-      return "Message must contain at least 10 characters";
-    }
+  if (trimmed.length < 10) {
+    return "Message must contain at least 10 characters";
+  }
 
-    return "";
-  };
+  return "";
+};
 
   /* -----------------------------
      SUBMIT
@@ -162,24 +186,27 @@ const [successMessage, setSuccessMessage] = useState("");
   ) => {
     event.preventDefault();
 
-    const newErrors = {
-      name: validateName(name),
-      email: validateEmail(email),
-      phone: validatePhone(phone),
-      message: validateMessage(message),
-    };
+    const newErrors: {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+} = {
+  name: validateName(name),
+  email: validateEmail(email),
+  phone: validatePhone(phone),
+  message: validateMessage(message),
+};
 
-    setErrors(newErrors);
+setErrors(newErrors);
 
-    // Stop if there are validation errors
-    if (
-      Object.values(newErrors).some(
-        (error) => error !== "",
-      )
-    ) {
-      return;
-    }
-
+if (
+  Object.values(newErrors).some(
+    (error) => error.length > 0
+  )
+) {
+  return;
+}
     try {
       await addDoc(
         collection(db, "businessContactMessages"),
@@ -361,7 +388,7 @@ const [successMessage, setSuccessMessage] = useState("");
           ========================== */}
 
           <motion.form
-            className="business-contact-form"
+            className="business-contact-form relative"
             onSubmit={handleSubmit}
             noValidate
             initial={{
@@ -606,11 +633,45 @@ const [successMessage, setSuccessMessage] = useState("");
     <ArrowRight />
   </button>
 </div>
-            {successMessage && (
-  <div className="business-form-success">
-    {successMessage}
+
+{successMessage && (
+  <div className="absolute inset-0 z-50 flex items-center justify-center rounded-2xl bg-white/95 p-6 backdrop-blur-sm">
+    <div className="w-full max-w-sm rounded-2xl border border-green-100 bg-white p-8 text-center shadow-xl">
+      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+        <svg
+          className="h-9 w-9 text-green-600"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2.5}
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 13l4 4L19 7"
+          />
+        </svg>
+      </div>
+
+      <h3 className="mb-3 text-2xl font-bold text-gray-900">
+        Thank You!
+      </h3>
+
+      <p className="text-sm leading-6 text-gray-600">
+        {successMessage}
+      </p>
+
+      <button
+        type="button"
+        onClick={() => setSuccessMessage("")}
+        className="mt-6 rounded-lg bg-green-600 px-8 py-3 font-semibold text-white transition hover:bg-green-700"
+      >
+        Close
+      </button>
+    </div>
   </div>
 )}
+
 
           </motion.form>
 

@@ -78,8 +78,11 @@ function AbstractForm() {
 
   const nameRegex = /^[A-Za-zÀ-ÿ]+(?:\s[A-Za-zÀ-ÿ]+)*$/;
 
-  const emailRegex =
-  /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+
 
   const phoneRegex = /^\d{7,15}$/;
 
@@ -106,18 +109,18 @@ function AbstractForm() {
   };
 
   const validateEmail = (value: string) => {
-    const trimmedValue = value.trim();
+  const email = value.trim();
 
-    if (!trimmedValue) {
-      return "Email address is required.";
-    }
+  if (!email) {
+    return "Email address is required.";
+  }
 
-    if (!emailRegex.test(trimmedValue)) {
-      return "Please enter a valid email address.";
-    }
+  if (!emailRegex.test(email)) {
+    return "Please enter a valid email address.";
+  }
 
-    return "";
-  };
+  return "";
+};
 
   const validatePhone = (value: string) => {
     const trimmedValue = value.trim();
@@ -854,37 +857,29 @@ function AbstractForm() {
             <span className="text-destructive">*</span>
           </span>
 
-          <input
-            required
-            type="email"
-            name="email"
-            placeholder="your@email.com"
-            autoComplete="email"
-            className={cn(
-              field,
-              errors.email && inputErrorClass,
-            )}
-            onChange={(e) => {
-              let value =
-                e.target.value.toLowerCase();
+          
+<input
+  required
+  type="email"
+  name="email"
+  placeholder="your@email.com"
+  autoComplete="email"
+  className={cn(
+    field,
+    errors.email && inputErrorClass,
+  )}
+  onChange={(e) => {
+    const value = e.target.value;
 
-              value = value.replace(
-                /[^a-z0-9@.]/g,
-                "",
-              );
+    setErrors((prev) => ({
+      ...prev,
+      email: value.trim() ? validateEmail(value) : "",
+    }));
+  }}
+/>
 
-              e.target.value = value;
+<ErrorMessage name="email" />
 
-              setErrors((prev) => ({
-                ...prev,
-                email: value
-                  ? validateEmail(value)
-                  : "",
-              }));
-            }}
-          />
-
-          <ErrorMessage name="email" />
         </label>
 
         {/* =====================================================
