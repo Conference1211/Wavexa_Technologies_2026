@@ -1,0 +1,139 @@
+
+/* SignUp.css */
+
+.signup-page .signup-left {
+  padding-top: 35px;
+  padding-bottom: 30px;
+}
+
+.signup-page .signup-intro {
+  margin-bottom: 25px;
+}
+
+.signup-page .signup-intro .signin-rule {
+  margin-bottom: 25px;
+}
+
+/* Heading: single line on desktop */
+.signup-page .signup-heading {
+  font-size: clamp(28px, 2.5vw, 38px);
+  line-height: 1.3;
+  letter-spacing: -0.8px;
+  white-space: nowrap;
+}
+
+.signup-page .signup-heading span {
+  color: #18d3c6;
+}
+
+.signup-page .signup-form {
+  max-width: 680px;
+}
+
+.signup-page .signup-input {
+  min-height: 54px;
+  margin-bottom: 12px;
+  border-radius: 13px;
+  padding: 0 17px;
+  gap: 12px;
+}
+
+.signup-page .signup-input input {
+  font-size: 15px;
+}
+
+.signup-page .signup-terms {
+  margin: 10px 0 14px;
+}
+
+.signup-page .signup-terms label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #91bce0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.signup-page .signup-terms input {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: #19d2c5;
+}
+
+.signup-page .signup-terms a {
+  color: #1ed8cb;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.signup-page .signup-terms a:hover {
+  color: #8bfff5;
+}
+
+.signup-page .signup-field-error {
+  margin: -7px 0 10px 5px;
+  color: #ffb4b4;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.signup-page .signup-has-error {
+  border-color: #f87171;
+}
+
+.signup-page .signin-submit {
+  min-height: 57px;
+}
+
+.signup-page .signin-divider {
+  margin: 15px 0;
+}
+
+.signup-page .signin-copyright {
+  margin-top: 24px;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .signup-page .signup-left {
+    padding-top: 30px;
+    padding-bottom: 25px;
+  }
+
+  .signup-page .signup-intro {
+    margin-bottom: 22px;
+  }
+
+  .signup-page .signup-heading {
+    font-size: 26px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+  .signup-page .signup-left {
+    padding: 30px 24px;
+  }
+
+  .signup-page .signup-intro {
+    margin-bottom: 24px;
+  }
+
+  .signup-page .signup-heading {
+    font-size: clamp(23px, 5.5vw, 32px);
+    white-space: normal;
+    letter-spacing: -0.5px;
+  }
+
+  .signup-page .signup-input {
+    min-height: 54px;
+  }
+
+  .signup-page .signin-copyright {
+    margin-top: 25px;
+    text-align: center;
+  }
+}

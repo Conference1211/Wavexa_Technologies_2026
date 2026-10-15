@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./SignUp.css";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -16,6 +17,7 @@ import {
   LockKeyhole,
   Eye,
   EyeOff,
+  ShieldCheck,
   ArrowRight,
 } from "lucide-react";
 
@@ -192,255 +194,256 @@ export default function SignUp() {
     }
   };
 
-  return (
-    <main className="auth-page">
-      <div className="auth-brand">
-        <h1>
-          WAVE<span>XA</span>
-        </h1>
-        <p>TECHNOLOGIES</p>
+  
+return (
+  <main className="signin-page signup-page">
+    <section className="signin-left signup-left">
+      <div className="signin-intro signup-intro">
+        <p className="signin-tagline">
+          A step towards transforming and innovating every industry.
+        </p>
+        <div className="signin-rule" />
+
+<h1 className="signup-heading">
+  Create Your <span>Wavexa Account</span>
+</h1>
+
+        <p className="signin-description">
+          Manage your conferences, registrations, abstracts
+          &amp; attendees – all in one secure place.
+        </p>
       </div>
 
-      <section className="auth-card">
-        <div className="auth-heading signup-heading">
-          <h2>Create Account</h2>
-          <p>Join Wavexa Technologies to get started.</p>
-        </div>
+      <form className="signin-form signup-form" onSubmit={handleSignUp} noValidate>
+        <label className={`signin-input signup-input ${errors.fullName ? "signup-has-error" : ""}`}>
+          <UserRound size={22} />
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(event) => {
+              setFullName(event.target.value.replace(/[^A-Za-z ]/g, ""));
+              setErrors((prev) => ({ ...prev, fullName: "" }));
+              setMessage("");
+            }}
+            onBlur={() =>
+              setErrors((prev) => ({
+                ...prev,
+                fullName: validateName(fullName),
+              }))
+            }
+            autoComplete="name"
+            aria-invalid={Boolean(errors.fullName)}
+            required
+          />
+        </label>
+        {errors.fullName && <p className="signup-field-error">{errors.fullName}</p>}
 
-        <form className="auth-form" onSubmit={handleSignUp} noValidate>
-          <div className="auth-field">
-            <label htmlFor="signup-name">Full Name</label>
-            <div
-              className={`auth-input-wrap ${errors.fullName ? "has-error" : ""}`}
-            >
-              <UserRound aria-hidden="true" />
-              <input
-                id="signup-name"
-                type="text"
-                placeholder="Enter your first and last name"
-                value={fullName}
-                onChange={(event) => {
-                  const value = event.target.value.replace(/[^A-Za-z ]/g, "");
-                  setFullName(value);
-                  setErrors((previous) => ({ ...previous, fullName: "" }));
-                  setMessage("");
-                }}
-                onBlur={() =>
-                  setErrors((previous) => ({
-                    ...previous,
-                    fullName: validateName(fullName),
-                  }))
-                }
-                autoComplete="name"
-                aria-invalid={Boolean(errors.fullName)}
-                required
-              />
-            </div>
-            {errors.fullName && (
-              <p className="field-error">{errors.fullName}</p>
-            )}
-          </div>
+        <label className={`signin-input signup-input ${errors.email ? "signup-has-error" : ""}`}>
+          <Mail size={22} />
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value.toLowerCase());
+              setErrors((prev) => ({ ...prev, email: "" }));
+              setMessage("");
+            }}
+            onBlur={() =>
+              setErrors((prev) => ({ ...prev, email: validateEmail(email) }))
+            }
+            autoComplete="email"
+            aria-invalid={Boolean(errors.email)}
+            required
+          />
+        </label>
+        {errors.email && <p className="signup-field-error">{errors.email}</p>}
 
-          <div className="auth-field">
-            <label htmlFor="signup-email">Email Address</label>
-            <div
-              className={`auth-input-wrap ${errors.email ? "has-error" : ""}`}
-            >
-              <Mail aria-hidden="true" />
-              <input
-                id="signup-email"
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value.toLowerCase());
-                  setErrors((previous) => ({ ...previous, email: "" }));
-                  setMessage("");
-                }}
-                onBlur={() =>
-                  setErrors((previous) => ({
-                    ...previous,
-                    email: validateEmail(email),
-                  }))
-                }
-                autoComplete="email"
-                aria-invalid={Boolean(errors.email)}
-                required
-              />
-            </div>
-            {errors.email && <p className="field-error">{errors.email}</p>}
-          </div>
+        <label className={`signin-input signup-input ${errors.phone ? "signup-has-error" : ""}`}>
+          <Phone size={22} />
+          <input
+            type="tel"
+            inputMode="numeric"
+            placeholder="10-digit Phone Number"
+            value={phone}
+            onChange={(event) => {
+              setPhone(event.target.value.replace(/\D/g, "").slice(0, 10));
+              setErrors((prev) => ({ ...prev, phone: "" }));
+              setMessage("");
+            }}
+            onBlur={() =>
+              setErrors((prev) => ({ ...prev, phone: validatePhone(phone) }))
+            }
+            autoComplete="tel"
+            aria-invalid={Boolean(errors.phone)}
+            required
+          />
+        </label>
+        {errors.phone && <p className="signup-field-error">{errors.phone}</p>}
 
-          <div className="auth-field">
-            <label htmlFor="signup-phone">Phone Number</label>
-            <div
-              className={`auth-input-wrap ${errors.phone ? "has-error" : ""}`}
-            >
-              <Phone aria-hidden="true" />
-              <input
-                id="signup-phone"
-                type="tel"
-                inputMode="numeric"
-                placeholder="Enter your 10-digit phone number"
-                value={phone}
-                onChange={(event) => {
-                  setPhone(event.target.value.replace(/\D/g, "").slice(0, 10));
-                  setErrors((previous) => ({ ...previous, phone: "" }));
-                  setMessage("");
-                }}
-                onBlur={() =>
-                  setErrors((previous) => ({
-                    ...previous,
-                    phone: validatePhone(phone),
-                  }))
-                }
-                autoComplete="tel"
-                aria-invalid={Boolean(errors.phone)}
-                required
-              />
-            </div>
-            {errors.phone && <p className="field-error">{errors.phone}</p>}
-          </div>
-
-          <div className="auth-field">
-            <label htmlFor="signup-password">Password</label>
-            <div
-              className={`auth-input-wrap ${errors.password ? "has-error" : ""}`}
-            >
-              <LockKeyhole aria-hidden="true" />
-              <input
-                id="signup-password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Create a strong password"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                  setErrors((previous) => ({
-                    ...previous,
-                    password: "",
-                    confirmPassword: "",
-                  }));
-                  setMessage("");
-                }}
-                onBlur={() =>
-                  setErrors((previous) => ({
-                    ...previous,
-                    password: validatePassword(password),
-                  }))
-                }
-                autoComplete="new-password"
-                aria-invalid={Boolean(errors.password)}
-                required
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword((current) => !current)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? <EyeOff /> : <Eye />}
-              </button>
-            </div>
-            {errors.password && (
-              <p className="field-error">{errors.password}</p>
-            )}
-          </div>
-
-          <div className="auth-field">
-            <label htmlFor="signup-confirm-password">Confirm Password</label>
-            <div
-              className={`auth-input-wrap ${
-                errors.confirmPassword ? "has-error" : ""
-              }`}
-            >
-              <LockKeyhole aria-hidden="true" />
-              <input
-                id="signup-confirm-password"
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="Re-enter your password"
-                value={confirmPassword}
-                onChange={(event) => {
-                  setConfirmPassword(event.target.value);
-                  setErrors((previous) => ({
-                    ...previous,
-                    confirmPassword: "",
-                  }));
-                  setMessage("");
-                }}
-                onBlur={() =>
-                  setErrors((previous) => ({
-                    ...previous,
-                    confirmPassword: !confirmPassword
-                      ? "Please confirm your password."
-                      : password !== confirmPassword
-                        ? "Passwords do not match."
-                        : "",
-                  }))
-                }
-                autoComplete="new-password"
-                aria-invalid={Boolean(errors.confirmPassword)}
-                required
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() =>
-                  setShowConfirmPassword((current) => !current)
-                }
-                aria-label={
-                  showConfirmPassword ? "Hide password" : "Show password"
-                }
-              >
-                {showConfirmPassword ? <EyeOff /> : <Eye />}
-              </button>
-            </div>
-            {errors.confirmPassword && (
-              <p className="field-error">{errors.confirmPassword}</p>
-            )}
-          </div>
-
-          <div className="auth-field">
-            <label className="auth-checkbox">
-              <input
-                type="checkbox"
-                checked={acceptedTerms}
-                onChange={(event) => {
-                  setAcceptedTerms(event.target.checked);
-                  setErrors((previous) => ({ ...previous, terms: "" }));
-                }}
-              />
-              <span>
-                I agree to the{" "}
-                <Link to="/business/terms-conditions">Terms &amp; Conditions</Link>
-                {" "}and{" "}
-                <Link to="/business/privacy-policy">Privacy Policy</Link>.
-              </span>
-            </label>
-            {errors.terms && <p className="field-error">{errors.terms}</p>}
-          </div>
-
-          {message && (
-            <p className="auth-message auth-error" role="alert">
-              {message}
-            </p>
-          )}
-
-          <button className="auth-button" type="submit" disabled={loading}>
-            {loading ? "Creating Account..." : "Create Account"}
-            {!loading && <ArrowRight aria-hidden="true" />}
+        <label className={`signin-input signup-input ${errors.password ? "signup-has-error" : ""}`}>
+          <LockKeyhole size={22} />
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Create Password"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+              setErrors((prev) => ({
+                ...prev,
+                password: "",
+                confirmPassword: "",
+              }));
+              setMessage("");
+            }}
+            onBlur={() =>
+              setErrors((prev) => ({
+                ...prev,
+                password: validatePassword(password),
+              }))
+            }
+            autoComplete="new-password"
+            aria-invalid={Boolean(errors.password)}
+            required
+          />
+          <button
+            type="button"
+            className="signin-eye"
+            onClick={() => setShowPassword((prev) => !prev)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <EyeOff size={21} /> : <Eye size={21} />}
           </button>
-        </form>
+        </label>
+        {errors.password && <p className="signup-field-error">{errors.password}</p>}
 
-        <div className="auth-footer">
-          <p>
-            Already have an account? <Link to="/signin">Sign In</Link>
-          </p>
+        <label className={`signin-input signup-input ${errors.confirmPassword ? "signup-has-error" : ""}`}>
+          <LockKeyhole size={22} />
+          <input
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(event) => {
+              setConfirmPassword(event.target.value);
+              setErrors((prev) => ({ ...prev, confirmPassword: "" }));
+              setMessage("");
+            }}
+            onBlur={() =>
+              setErrors((prev) => ({
+                ...prev,
+                confirmPassword: !confirmPassword
+                  ? "Please confirm your password."
+                  : password !== confirmPassword
+                    ? "Passwords do not match."
+                    : "",
+              }))
+            }
+            autoComplete="new-password"
+            aria-invalid={Boolean(errors.confirmPassword)}
+            required
+          />
+          <button
+            type="button"
+            className="signin-eye"
+            onClick={() => setShowConfirmPassword((prev) => !prev)}
+            aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+          >
+            {showConfirmPassword ? <EyeOff size={21} /> : <Eye size={21} />}
+          </button>
+        </label>
+        {errors.confirmPassword && (
+          <p className="signup-field-error">{errors.confirmPassword}</p>
+        )}
+
+        <div className="signup-terms">
+          <label>
+            <input
+              type="checkbox"
+              checked={acceptedTerms}
+              onChange={(event) => {
+                setAcceptedTerms(event.target.checked);
+                setErrors((prev) => ({ ...prev, terms: "" }));
+              }}
+            />
+            <span>
+              I agree to the{" "}
+              <Link to="/business/terms-conditions">Terms &amp; Conditions</Link>
+              {" "}and{" "}
+              <Link to="/business/privacy-policy">Privacy Policy</Link>.
+            </span>
+          </label>
         </div>
-      </section>
+        {errors.terms && <p className="signup-field-error">{errors.terms}</p>}
 
-      <footer className="auth-copyright">
-        © {new Date().getFullYear()} Wavexa Technologies. All rights reserved.
+        {message && (
+          <p className="signin-error" role="alert">{message}</p>
+        )}
+
+        <button className="signin-submit" type="submit" disabled={loading}>
+          {loading ? "Creating Account..." : "Create Account"}
+          {!loading && <ArrowRight size={21} />}
+        </button>
+
+        <div className="signin-divider">
+          <span />
+          <p>or</p>
+          <span />
+        </div>
+
+        <p className="signin-signup">
+          Already have an account? <Link to="/signin">Sign In</Link>
+        </p>
+      </form>
+
+      <footer className="signin-copyright">
+        © {new Date().getFullYear()} Wavexa Technologies.
+        All rights reserved.
       </footer>
-    </main>
-  );
+    </section>
+
+    <section className="signin-right">
+      <div className="signin-orbit signin-orbit-one" />
+      <div className="signin-orbit signin-orbit-two" />
+
+      <div className="signin-glow">
+        <ShieldCheck size={86} strokeWidth={1.2} />
+      </div>
+
+      <div className="signin-marketing">
+        <p className="signin-brand-label">WAVEXA TECHNOLOGIES</p>
+
+        <h2>
+          Every conference
+          <br />
+          starts with a
+          <br />
+          smarter connection.
+        </h2>
+
+        <p className="signin-marketing-description">
+          One platform to manage conferences, registrations,
+          abstract submissions and attendees – built for
+          simplicity, security and scale.
+        </p>
+
+        <div className="signin-features">
+          <div className="signin-feature">
+            <strong>Easy</strong>
+            <span>Registration</span>
+          </div>
+          <div className="signin-feature">
+            <strong>Secure</strong>
+            <span>Data management</span>
+          </div>
+          <div className="signin-feature signin-feature-wide">
+            <strong>Unified</strong>
+            <span>Conference tools</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+);
+
 }

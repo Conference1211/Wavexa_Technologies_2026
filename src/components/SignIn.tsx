@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./SignIn.css";
 import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -15,9 +16,9 @@ import {
 } from "firebase/firestore";
 import {
   Mail,
-  LockKeyhole,
   Eye,
   EyeOff,
+  ShieldCheck,
   ArrowRight,
 } from "lucide-react";
 
@@ -162,121 +163,171 @@ export default function SignIn() {
     }
   };
 
-  return (
-    <main className="auth-page">
-      <div className="auth-brand">
+  
+return (
+  <main className="signin-page">
+    <section className="signin-left">
+      <div className="signin-intro">
+        <p className="signin-tagline">
+          A step towards transforming and innovating every industry.
+        </p>
+        <div className="signin-rule" />
+
         <h1>
-          WAVE<span>XA</span>
+          Welcome back to the
+          <br />
+          <span>Wavexa</span> admin portal.
         </h1>
-        <p>TECHNOLOGIES</p>
+
+       
+<p className="signin-description">
+  Manage your conferences, registrations, abstracts &amp; attendees
+  – all in one secure place.
+</p>
+
       </div>
 
-      <section className="auth-card">
-        <div className="auth-heading">
-          <h2>Welcome Back</h2>
-          <p>
-            Sign in to your account to continue
-            <br />
-            your journey with Wavexa Technologies.
-          </p>
-        </div>
+      <form className="signin-form" onSubmit={handleSignIn}>
+        <label className="signin-input">
+          <input
+            type="email"
+            placeholder="Admin E-mail Address"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              setError("");
+              setResetMessage("");
+            }}
+            autoComplete="username"
+            required
+          />
+          <Mail size={23} />
+        </label>
 
-        <form className="auth-form" onSubmit={handleSignIn}>
-          <div className="auth-field">
-            <label htmlFor="signin-email">Email Address</label>
-            <div className="auth-input-wrap">
-              <Mail aria-hidden="true" />
-              <input
-                id="signin-email"
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                  setError("");
-                  setResetMessage("");
-                }}
-                autoComplete="email"
-                required
-              />
-            </div>
-          </div>
+        <label className="signin-input">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+              setError("");
+            }}
+            autoComplete="current-password"
+            required
+          />
+          
 
-          <div className="auth-field">
-            <label htmlFor="signin-password">Password</label>
-            <div className="auth-input-wrap">
-              <LockKeyhole aria-hidden="true" />
-              <input
-                id="signin-password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                  setError("");
-                }}
-                autoComplete="current-password"
-                required
-              />
-              <button
-                type="button"
-                className="password-toggle"
-                onClick={() => setShowPassword((current) => !current)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? <EyeOff /> : <Eye />}
-              </button>
-            </div>
-          </div>
-
-          <div className="signin-options">
-            <label className="auth-checkbox">
-              <input
-                type="checkbox"
-                checked={keepSignedIn}
-                onChange={(event) => setKeepSignedIn(event.target.checked)}
-              />
-              <span>Keep me signed in</span>
-            </label>
-
-            <button
-              type="button"
-              className="forgot-password"
-              onClick={handleResetPassword}
-              disabled={resetLoading}
-            >
-              {resetLoading ? "Sending..." : "Forgot password?"}
-            </button>
-          </div>
-
-          {error && (
-            <p className="auth-message auth-error" role="alert">
-              {error}
-            </p>
-          )}
-
-          {resetMessage && (
-            <p className="auth-message auth-success" role="status">
-              {resetMessage}
-            </p>
-          )}
-
-          <button className="auth-button" type="submit" disabled={loading}>
-            {loading ? "Signing In..." : "Sign In"}
-            {!loading && <ArrowRight aria-hidden="true" />}
+          <button
+            type="button"
+            className="signin-eye"
+            onClick={() => setShowPassword((current) => !current)}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
           </button>
-        </form>
+        </label>
 
-        <div className="auth-footer">
-          <p>
-            Don't have an account? <Link to="/signup">Sign Up</Link>
-          </p>
+        <div className="signin-options">
+          <label className="signin-remember">
+            <input
+              type="checkbox"
+              checked={keepSignedIn}
+              onChange={(event) => setKeepSignedIn(event.target.checked)}
+            />
+            <span>Keep me signed in</span>
+          </label>
+
+          <button
+            type="button"
+            className="signin-forgot"
+            onClick={handleResetPassword}
+            disabled={resetLoading}
+          >
+            {resetLoading ? "Sending..." : "Forgot password?"}
+          </button>
         </div>
-      </section>
 
-      <footer className="auth-copyright">
-        © {new Date().getFullYear()} Wavexa Technologies. All rights reserved.
+        {error && (
+          <p className="signin-error" role="alert">
+            {error}
+          </p>
+        )}
+
+        {resetMessage && (
+          <p className="signin-success" role="status">
+            {resetMessage}
+          </p>
+        )}
+
+        <button
+          className="signin-submit"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Signing In..." : "Login to Dashboard"}
+          {!loading && <ArrowRight size={21} />}
+        </button>
+
+        <div className="signin-divider">
+          <span />
+          <p>or</p>
+          <span />
+        </div>
+
+        <p className="signin-signup">
+          Don't have an account? <Link to="/signup">Sign Up</Link>
+        </p>
+      </form>
+
+      <footer className="signin-copyright">
+        © {new Date().getFullYear()} Wavexa Technologies.
+        All rights reserved.
       </footer>
-    </main>
-  );
+    </section>
+
+    <section className="signin-right">
+      <div className="signin-orbit signin-orbit-one" />
+      <div className="signin-orbit signin-orbit-two" />
+
+      <div className="signin-glow">
+        <ShieldCheck size={86} strokeWidth={1.2} />
+      </div>
+
+      <div className="signin-marketing">
+        <p className="signin-brand-label">WAVEXA TECHNOLOGIES</p>
+
+        <h2>
+          Helping healthcare
+          <br />
+          organizations run 
+          <br />
+           smarter with advanced IT.
+        </h2>
+
+        <p className="signin-marketing-description">
+          One command centre for your solutions, clients and teams –
+          built for speed, security and scale.
+        </p>
+
+        <div className="signin-features">
+          <div className="signin-feature">
+            <strong>99.9%</strong>
+            <span>Uptime</span>
+          </div>
+
+          <div className="signin-feature">
+            <strong>24/7</strong>
+            <span>Support</span>
+          </div>
+
+          <div className="signin-feature signin-feature-wide">
+            <strong>Secure</strong>
+            <span>Data protection</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+);
 }
