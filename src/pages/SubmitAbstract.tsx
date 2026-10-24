@@ -2,8 +2,7 @@ import * as React from "react";
 import { Helmet } from "@/components/Seo";
 import { motion, AnimatePresence } from "framer-motion";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "@/firebase";
+import { db } from "@/firebase";
 import {
   ArrowRight,
   CheckCircle2,
@@ -34,7 +33,9 @@ import { cn } from "@/lib/utils";
    FORM FIELD STYLE
    Dark + Light mode compatible
 ========================================================= */
-
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://wavexa-backend-895027321874.asia-south1.run.app";
 const field =
   "w-full h-[46px] rounded-xl border border-border bg-background px-4 py-3 text-sm font-medium text-foreground outline-none transition-all placeholder:text-muted-foreground shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/10";
 
@@ -307,209 +308,191 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
      FORM SUBMIT
   ========================================================= */
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>,
-  ) => {
-    e.preventDefault();
+  
+const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>,
+) => {
+  e.preventDefault();
 
-    if (isSending) {
-      return;
+  if (isSending) return;
+
+  const form = e.currentTarget;
+
+  setErrors({});
+
+  const validationErrors = validateForm(form);
+
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+
+    const firstErrorField = Object.keys(validationErrors)[0];
+
+    window.setTimeout(() => {
+      const element = document.querySelector(
+        `[name="${firstErrorField}"]`,
+      );
+
+      element?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+
+      if (
+        element instanceof HTMLInputElement ||
+        element instanceof HTMLSelectElement ||
+        element instanceof HTMLTextAreaElement
+      ) {
+        element.focus();
+      }
+    }, 50);
+
+    return;
+  }
+
+  setIsSending(true);
+
+  try {
+    const formData = new FormData(form);
+
+    const firstName =
+      formData.get("firstName")?.toString().trim() || "";
+
+    const lastName =
+      formData.get("lastName")?.toString().trim() || "";
+
+    const email =
+      formData.get("email")?.toString().trim() || "";
+
+    const phone =
+      formData.get("phone")?.toString().trim() || "";
+
+    const abstract =
+      formData.get("abstract")?.toString() || "";
+
+    const category =
+      formData.get("category")?.toString() || "";
+
+    const track =
+      formData.get("track")?.toString() || "";
+
+    const address =
+      formData.get("address")?.toString() || "";
+
+    const title =
+      formData.get("title")?.toString() || "";
+
+    const country =
+      formData.get("country")?.toString() || "";
+
+    const consent = formData.get("consent") === "on";
+
+    const fileInput = form.elements.namedItem(
+      "file",
+    ) as HTMLInputElement | null;
+
+    const file = fileInput?.files?.[0];
+
+    if (!file) {
+      throw new Error("Please select your abstract file.");
     }
 
-    const form = e.currentTarget;
+    // STEP 1: Upload the file through the Python backend.
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", file);
 
-    setErrors({});
+    const uploadResponse = await fetch(
+      `${API_BASE_URL}/upload-abstract`,
+      {
+        method: "POST",
+        body: uploadFormData,
+      },
+    );
 
-    /* ---------------------------------------------------------
-       VALIDATE FORM
-    --------------------------------------------------------- */
+    const uploadResult = await uploadResponse.json().catch(() => null);
 
-    const validationErrors = validateForm(form);
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-
-      /* -----------------------------------------------
-         SCROLL + FOCUS FIRST ERROR
-      ----------------------------------------------- */
-
-      const firstErrorField =
-        Object.keys(validationErrors)[0];
-
-      setTimeout(() => {
-        const element = document.querySelector(
-          `[name="${firstErrorField}"]`,
-        );
-
-        element?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-
-        if (
-          element instanceof HTMLInputElement ||
-          element instanceof HTMLSelectElement ||
-          element instanceof HTMLTextAreaElement
-        ) {
-          element.focus();
-        }
-      }, 50);
-
-      return;
-    }
-
-    /* ---------------------------------------------------------
-       FORM IS VALID
-    --------------------------------------------------------- */
-
-    setIsSending(true);
-
-    console.log("STEP 1: Submission started");
-
-    try {
-      const formData = new FormData(form);
-
-      console.log("STEP 2: FormData created");
-
-      const firstName =
-        formData.get("firstName")?.toString().trim() || "";
-
-      const lastName =
-        formData.get("lastName")?.toString().trim() || "";
-
-      const email =
-        formData.get("email")?.toString().trim() || "";
-
-      const phone =
-        formData.get("phone")?.toString().trim() || "";
-
-      const abstract =
-        formData.get("abstract")?.toString() || "";
-
-      const category =
-        formData.get("category")?.toString() || "";
-
-      const track =
-        formData.get("track")?.toString() || "";
-
-      const address =
-        formData.get("address")?.toString() || "";
-
-      const title =
-        formData.get("title")?.toString() || "";
-
-      const country =
-        formData.get("country")?.toString() || "";
-
-      const consent =
-        formData.get("consent") === "on";
-
-      const fileInput =
-        form.elements.namedItem(
-          "file",
-        ) as HTMLInputElement;
-
-      const file = fileInput.files?.[0];
-
-      /* ---------------------------------------------------------
-         FILE UPLOAD TEMPORARILY DISABLED
-      --------------------------------------------------------- */
-
-      // Firebase Storage upload is currently disabled
-      // because Firebase Storage requires the paid pricing plan.
-
-      // let fileUrl = "";
-      // let uploadedFileName = "";
-
-      // if (file) {
-      //   uploadedFileName = file.name;
-
-      //   const fileRef = ref(
-      //     storage,
-      //     `abstract-submissions/${Date.now()}-${file.name}`,
-      //   );
-
-      //   await uploadBytes(fileRef, file);
-      //   fileUrl = await getDownloadURL(fileRef);
-      // }
-
-      const fileUrl = "";
-      const uploadedFileName = file?.name || "";
-
-      /* ---------------------------------------------------------
-         SAVE SUBMISSION DETAILS TO FIRESTORE
-      --------------------------------------------------------- */
-
-      console.log("STEP 7: Starting Firestore save");
-
-      await addDoc(
-        collection(db, "abstractSubmissions"),
-        {
-          title,
-          firstName,
-          lastName,
-          email,
-          country,
-          countryCode,
-          phone,
-          category,
-          track,
-          address,
-          abstract,
-          abstractWordCount,
-          fileName: uploadedFileName,
-          fileUrl,
-          consent,
-          status: "Submitted",
-          createdAt: serverTimestamp(),
-        },
-      );
-
-      console.log(
-        "STEP 8: Firestore save completed",
-      );
-
-      setIsSending(false);
-      setSent(true);
-
-      console.log(
-        "STEP 9: Submission successful",
-      );
-
-      /* ---------------------------------------------------------
-         CLEAR FORM AFTER 6 SECONDS
-      --------------------------------------------------------- */
-
-      window.setTimeout(() => {
-        setSent(false);
-
-        form.reset();
-
-        setFileName(null);
-
-        setCountryCode("+91");
-
-        setAbstractWordCount(0);
-
-        setErrors({});
-      }, 6000);
-    } catch (error) {
-      console.error(
-        "ABSTRACT SUBMISSION ERROR:",
-        error,
-      );
-
-      setIsSending(false);
-
-      alert(
-        `Submission failed:\n${
-          error instanceof Error
-            ? error.message
-            : String(error)
-        }`,
+    if (!uploadResponse.ok) {
+      throw new Error(
+        uploadResult?.detail ||
+          `File upload failed (HTTP ${uploadResponse.status}).`,
       );
     }
-  };
+
+    
+if (
+  uploadResult?.status !== "success" ||
+  !uploadResult?.storagePath ||
+  !uploadResult?.fileUrl
+) {
+  throw new Error(
+    "The server did not return a valid file URL and storage path.",
+  );
+}
+
+
+    
+const uploadedFileName =
+  uploadResult.fileName || file.name;
+
+const storagePath: string = uploadResult.storagePath;
+const fileUrl: string = uploadResult.fileUrl;
+
+// STEP 2: Save submission details in Firestore.
+const submissionRef = await addDoc(
+  collection(db, "abstractSubmissions"),
+  {
+    title,
+    firstName,
+    lastName,
+    email,
+    country,
+    countryCode,
+    phone,
+    category,
+    track,
+    address,
+    abstract,
+    abstractWordCount,
+    fileName: uploadedFileName,
+    fileUrl: fileUrl,
+    storagePath: storagePath,
+    consent,
+    status: "Submitted",
+    createdAt: serverTimestamp(),
+  },
+);
+
+console.log(
+  "FIRESTORE DOCUMENT CREATED:",
+  submissionRef.id,
+);
+
+
+    // STEP 3: Show success only after both operations succeed.
+    setSent(true);
+
+    window.setTimeout(() => {
+      setSent(false);
+      form.reset();
+      setFileName(null);
+      setCountryCode("+91");
+      setAbstractWordCount(0);
+      setErrors({});
+    }, 6000);
+  } catch (error) {
+    console.error("ABSTRACT SUBMISSION ERROR:", error);
+
+    alert(
+      `Submission failed: ${
+        error instanceof Error
+          ? error.message
+          : String(error)
+      }`,
+    );
+  } finally {
+    setIsSending(false);
+  }
+};
+
 
   return (
     <form

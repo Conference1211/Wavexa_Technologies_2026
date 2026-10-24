@@ -7,3 +7,7 @@ dist
 npm-debug.log*
 .firebase
 .eslintcache
+backend/.env
+backend/.venv/
+backend/__pycache__/
+backend/serviceAccountKey.json

@@ -260,27 +260,7 @@ return (
         </label>
         {errors.email && <p className="signup-field-error">{errors.email}</p>}
 
-        <label className={`signin-input signup-input ${errors.phone ? "signup-has-error" : ""}`}>
-          <Phone size={22} />
-          <input
-            type="tel"
-            inputMode="numeric"
-            placeholder="10-digit Phone Number"
-            value={phone}
-            onChange={(event) => {
-              setPhone(event.target.value.replace(/\D/g, "").slice(0, 10));
-              setErrors((prev) => ({ ...prev, phone: "" }));
-              setMessage("");
-            }}
-            onBlur={() =>
-              setErrors((prev) => ({ ...prev, phone: validatePhone(phone) }))
-            }
-            autoComplete="tel"
-            aria-invalid={Boolean(errors.phone)}
-            required
-          />
-        </label>
-        {errors.phone && <p className="signup-field-error">{errors.phone}</p>}
+       
 
         <label className={`signin-input signup-input ${errors.password ? "signup-has-error" : ""}`}>
           <LockKeyhole size={22} />

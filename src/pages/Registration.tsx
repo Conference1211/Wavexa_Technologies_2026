@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { Helmet } from "@/components/Seo";
 import { motion } from "framer-motion";
 
@@ -128,6 +128,8 @@ const currencySymbols: Record<Currency, string> = {
   USD: "$",
   GBP: "£",
 };
+const BACKEND_URL =
+  "https://wavexa-backend-895027321874.asia-south1.run.app";
 
 const periodLabels: Record<RegistrationPeriod, string> = {
   earlyBird: "Early Bird Registration",
@@ -208,6 +210,7 @@ export default function Registration() {
   const [participantId, setParticipantId] = React.useState<string | null>(null);
   const [registrationId, setRegistrationId] = React.useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [paypalError, setPaypalError] = React.useState("");
 
   /* =======================================================
      CURRENCY
@@ -255,6 +258,7 @@ export default function Registration() {
   });
 
   const [confirmed, setConfirmed] = React.useState(false);
+  const [paymentReady, setPaymentReady] = React.useState(false);
   const [agreed, setAgreed] = React.useState(false);
   const [sameBilling, setSameBilling] = React.useState(false);
   const [errors, setErrors] = React.useState<FormErrors>({});
@@ -401,44 +405,35 @@ export default function Registration() {
     ? currentOption.prices[selectedPeriod][currency]
     : undefined;
 
-  let discountPercent = 0;
-  let discountAmount = 0;
-  let discountType: string | null = null;
-  let discountValue = 0;
-  let discountAssignedId: string | null = null;
-  let currencyMismatch = false;
+  
+const discountPercent = 0;
+const discountAmount = 0;
+const discountType: string | null = null;
+const discountValue = 0;
+const discountAssignedId: string | null = null;
+const currencyMismatch = false;
 
-  if (adminDiscount && basePrice !== undefined) {
-    if (adminDiscount.discountType === "percent") {
-      discountType = "percent";
-      discountValue = adminDiscount.discountValue;
-      discountPercent = discountValue;
-      discountAmount = (basePrice * discountPercent) / 100;
-      discountAssignedId = adminDiscount.id;
-    } else if (adminDiscount.discountType === "fixed") {
-      if (!adminDiscount.currency || adminDiscount.currency === currency) {
-        discountType = "fixed";
-        discountValue = adminDiscount.discountValue;
-        discountAmount = Math.min(basePrice, discountValue);
-        discountAssignedId = adminDiscount.id;
-      } else {
-        currencyMismatch = true;
-      }
-    }
-  }
+const finalAmount = basePrice;
 
-  const finalAmount = basePrice !== undefined ? Math.max(0, basePrice - discountAmount) : undefined;
+const formattedBasePrice =
+  basePrice !== undefined
+    ? `${currencySymbol}${basePrice.toFixed(2)}`
+    : null;
 
-  const formattedBasePrice = basePrice !== undefined ? `${currencySymbol}${basePrice.toFixed(2)}` : null;
-  const formattedDiscountAmount = discountAmount > 0 ? `${currencySymbol}${discountAmount.toFixed(2)}` : null;
-  const formattedFinalAmount = finalAmount !== undefined ? `${currencySymbol}${finalAmount.toFixed(2)}` : null;
+const formattedDiscountAmount: string | null = null;
 
-  const discCurrency = adminDiscount?.currency;
-  const discSymbol = (discCurrency && ["EUR", "USD", "GBP"].includes(discCurrency))
+const formattedFinalAmount =
+  finalAmount !== undefined
+    ? `${currencySymbol}${finalAmount.toFixed(2)}`
+    : null;
+
+const discCurrency = adminDiscount?.currency;
+const discSymbol =
+  discCurrency && ["EUR", "USD", "GBP"].includes(discCurrency)
     ? currencySymbols[discCurrency as Currency]
     : currencySymbol;
 
-  const selectedPeriodLabel = periodLabels[selectedPeriod];
+const selectedPeriodLabel = periodLabels[selectedPeriod];
 
   /* =======================================================
      SCROLL TO FORM
@@ -464,6 +459,8 @@ export default function Registration() {
      CATEGORY & OPTION CHANGE HANDLERS
   ======================================================= */
   const handleCategoryChange = (categoryName: string) => {
+    setPaymentReady(false);
+    setPaypalError("");
     const category = TICKETS.find((item) => item.category === categoryName);
     if (!category) {
       setSelectedCategory("");
@@ -477,6 +474,8 @@ export default function Registration() {
   };
 
   const handleOptionChange = (optionName: string) => {
+    setPaymentReady(false);
+    setPaypalError("");
     const option = currentCategory?.options.find((item) => item.name === optionName);
     if (!option) return;
     setSelectedOptionName(option.name);
@@ -490,6 +489,8 @@ export default function Registration() {
 
   const handlePeriodChange = (period: RegistrationPeriod) => {
     if (!isPeriodAvailable(period, REGISTRATION_DEADLINES)) return;
+    setPaymentReady(false);
+    setPaypalError("");
     setSelectedPeriod(period);
     setConfirmed(false);
   };
@@ -500,6 +501,8 @@ export default function Registration() {
     period: RegistrationPeriod
   ) => {
     if (!isPeriodAvailable(period, REGISTRATION_DEADLINES)) return;
+    setPaymentReady(false);
+    setPaypalError("");
     setSelectedCategory(category);
     setSelectedOptionName(optionName);
     setSelectedPeriod(period);
@@ -791,8 +794,9 @@ export default function Registration() {
         finalPayload
       );
 
-      setConfirmed(true);
-      scrollToForm();
+      setPaymentReady(true);
+setPaypalError("");
+scrollToForm();
     } catch (error) {
       console.error("Error finalizing registration:", error);
       alert("Unable to submit your registration right now. Please try again.");
@@ -842,7 +846,19 @@ export default function Registration() {
      RENDER
   ======================================================= */
   return (
-    <>
+
+
+<PayPalScriptProvider
+  key={currency}
+  options={{
+    clientId: import.meta.env.VITE_PAYPAL_CLIENT_ID as string,
+    currency: currency as "EUR" | "USD" | "GBP",
+    intent: "capture",
+  }}
+>
+
+
+
       <Helmet>
         <title>{`Registration & Passes — ${conference.name}`}</title>
         <meta
@@ -1402,30 +1418,162 @@ export default function Registration() {
                           <ErrorMessage name="terms" />
                         </div>
 
-                        {/* NAVIGATION BUTTONS */}
-                        <div className="flex items-center justify-between pt-4">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => {
-                              setStep(1);
-                              scrollToForm();
-                            }}
-                            className="inline-flex items-center gap-2"
-                          >
-                            <ArrowLeft className="h-4 w-4" />
-                            <span>Back</span>
-                          </Button>
+                        
+{/* NAVIGATION BUTTONS */}
+<div className="flex items-center justify-between gap-4 pt-4">
+  <Button
+    type="button"
+    variant="outline"
+    onClick={() => {
+      setStep(1);
+      setPaymentReady(false);
+      setPaypalError("");
+      scrollToForm();
+    }}
+    className="inline-flex items-center gap-2"
+  >
+    <ArrowLeft className="h-4 w-4" />
+    <span>Back</span>
+  </Button>
 
-                          <Button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="inline-flex items-center gap-2"
-                          >
-                            <span>{isSubmitting ? "Submitting..." : "Submit Registration"}</span>
-                            <Check className="h-4 w-4" />
-                          </Button>
-                        </div>
+  {!paymentReady ? (
+    <Button
+      type="submit"
+      disabled={isSubmitting}
+      className="inline-flex items-center gap-2"
+    >
+      <span>
+        {isSubmitting ? "Saving Registration..." : "Continue to PayPal"}
+      </span>
+      <CreditCard className="h-4 w-4" />
+    </Button>
+  ) : (
+    <div className="w-full max-w-sm space-y-3">
+      <p className="text-sm font-semibold text-foreground">
+        Complete your payment securely with PayPal
+      </p>
+
+      {paypalError && (
+        <p className="text-sm text-red-500">{paypalError}</p>
+      )}
+
+      <PayPalButtons
+        style={{ layout: "vertical", label: "pay" }}
+        disabled={!registrationId || !finalAmount || finalAmount <= 0}
+        
+createOrder={async () => {
+  try {
+    if (!registrationId) {
+      throw new Error("Registration ID is missing.");
+    }
+
+    const response = await fetch(
+      `${BACKEND_URL}/create-paypal-order`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ registrationId }),
+      }
+    );
+
+    const data = await response.json();
+
+    console.log("PAYPAL CREATE ORDER RESPONSE:", data);
+    console.log("PAYPAL HTTP STATUS:", response.status);
+
+    if (!response.ok) {
+      throw new Error(
+        typeof data.detail === "string"
+          ? data.detail
+          : JSON.stringify(data.detail || data)
+      );
+    }
+    if (data.currency && data.currency !== currency) {
+  throw new Error(
+    `Currency mismatch: selected ${currency}, backend returned ${data.currency}. Please save the registration again.`
+  );
+}
+    const orderID = data.orderID || data.id;
+
+    if (!orderID) {
+      throw new Error("Backend did not return a PayPal order ID.");
+    }
+
+    return orderID;
+  } catch (error) {
+    console.error("PAYPAL CREATE ORDER FAILED:", error);
+    setPaypalError(
+      error instanceof Error ? error.message : String(error)
+    );
+    throw error;
+  }
+}}
+
+onApprove={async (data) => {
+  try {
+    setPaypalError("");
+
+    if (!registrationId) {
+      throw new Error("Registration ID is missing.");
+    }
+
+    const response = await fetch(
+      `${BACKEND_URL}/capture-paypal-order`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          registrationId,
+          orderId: data.orderID,
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        typeof result.detail === "string"
+          ? result.detail
+          : JSON.stringify(result.detail || result)
+      );
+    }
+
+    if (result.status !== "paid") {
+      throw new Error(
+        "Payment could not be confirmed. Please contact support."
+      );
+    }
+
+    setPaymentReady(false);
+    setConfirmed(true);
+    setPaypalError("");
+  } catch (error) {
+    console.error("PAYPAL CAPTURE FAILED:", error);
+
+    setPaypalError(
+      error instanceof Error
+        ? error.message
+        : "Payment confirmation failed. Please check your payment status before retrying."
+    );
+  }
+}}
+
+onError={(error) => {
+  console.error("PAYPAL CHECKOUT ERROR:", error);
+  setPaypalError(
+    "PayPal checkout encountered an error. Please try again."
+  );
+}}
+
+
+      />
+    </div>
+  )}
+</div>
+
                       </div>
                     </div>
 
@@ -1494,6 +1642,6 @@ export default function Registration() {
           </div>
         </Section>
       )}
-    </>
+    </PayPalScriptProvider>
   );
 }
