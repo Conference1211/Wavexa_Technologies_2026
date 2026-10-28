@@ -336,53 +336,89 @@ export default function Registration() {
   };
 
   /* =======================================================
-     ADMIN-ASSIGNED PARTICIPANT DISCOUNT STATE
-  ======================================================= */
-  const [adminDiscount, setAdminDiscount] = React.useState<any | null>(null);
-  const [isDiscountLoading, setIsDiscountLoading] = React.useState(false);
+   ADMIN-ASSIGNED REGISTRATION DISCOUNT STATE
+======================================================= */
 
-  React.useEffect(() => {
-    if (!participantId || step !== 2) {
-      setAdminDiscount(null);
-      setIsDiscountLoading(false);
-      return;
-    }
+const [adminDiscount, setAdminDiscount] =
+  React.useState<any | null>(null);
 
-    setIsDiscountLoading(true);
-    const discountRef = doc(db, "participantDiscounts", participantId);
-    const unsubscribe = onSnapshot(
-      discountRef,
-      (docSnap) => {
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          const isValidStatus = data.status === "active";
-          const isValidType = data.discountType === "percent" || data.discountType === "fixed";
-          const val = Number(data.discountValue);
-          const isValidValue = Number.isFinite(val) && val > 0;
+const [isDiscountLoading, setIsDiscountLoading] =
+  React.useState(false);
 
-          if (isValidStatus && isValidType && isValidValue) {
-            if (data.discountType === "percent" && val > 100) {
-              setAdminDiscount(null);
-            } else {
-              setAdminDiscount({ id: docSnap.id, ...data, discountValue: val });
-            }
-          } else {
-            setAdminDiscount(null);
-          }
-        } else {
-          setAdminDiscount(null);
-        }
-        setIsDiscountLoading(false);
-      },
-      (error) => {
-        console.error("Error fetching participant discount:", error);
+React.useEffect(() => {
+  if (!registrationId || step !== 2) {
+    setAdminDiscount(null);
+    setIsDiscountLoading(false);
+    return;
+  }
+
+  setIsDiscountLoading(true);
+
+  const registrationRef = doc(
+    db,
+    "registrations",
+    registrationId
+  );
+
+  const unsubscribe = onSnapshot(
+    registrationRef,
+    (docSnap) => {
+      if (!docSnap.exists()) {
         setAdminDiscount(null);
         setIsDiscountLoading(false);
+        return;
       }
-    );
 
-    return () => unsubscribe();
-  }, [participantId, step]);
+      const data = docSnap.data();
+
+      const type = data.adminDiscountType;
+      const value = Number(data.adminDiscountValue);
+      const status = data.adminDiscountStatus;
+      const discountCurrency = data.adminDiscountCurrency;
+
+      const validType =
+        type === "percent" || type === "fixed";
+
+      const validValue =
+        Number.isFinite(value) &&
+        value > 0 &&
+        (type !== "percent" || value <= 100);
+
+      const validCurrency =
+        type !== "fixed" ||
+        ["EUR", "USD", "GBP"].includes(discountCurrency);
+
+      if (
+        status === "active" &&
+        validType &&
+        validValue &&
+        validCurrency
+      ) {
+        setAdminDiscount({
+          id: docSnap.id,
+          discountType: type,
+          discountValue: value,
+          currency: discountCurrency,
+        });
+      } else {
+        setAdminDiscount(null);
+      }
+
+      setIsDiscountLoading(false);
+    },
+    (error) => {
+      console.error(
+        "Error fetching registration discount:",
+        error
+      );
+
+      setAdminDiscount(null);
+      setIsDiscountLoading(false);
+    }
+  );
+
+  return () => unsubscribe();
+}, [registrationId, step]);
 
   const ErrorMessage = ({ name }: { name: string }) => {
     const message = errors[name];
@@ -391,36 +427,73 @@ export default function Registration() {
   };
 
   /* =======================================================
-     DERIVED PRICING & ADMIN DISCOUNT CALCULATIONS
-  ======================================================= */
-  const currentCategory = TICKETS.find(
-    (cat) => cat.category === selectedCategory
-  );
+   DERIVED PRICING & ADMIN DISCOUNT CALCULATIONS
+======================================================= */
 
-  const currentOption = currentCategory?.options.find(
-    (opt) => opt.name === selectedOptionName
-  );
+const currentCategory = TICKETS.find(
+  (cat) => cat.category === selectedCategory
+);
 
-  const basePrice = currentOption
-    ? currentOption.prices[selectedPeriod][currency]
+const currentOption = currentCategory?.options.find(
+  (opt) => opt.name === selectedOptionName
+);
+
+const basePrice = currentOption
+  ? currentOption.prices[selectedPeriod][currency]
+  : undefined;
+
+let discountPercent = 0;
+let discountAmount = 0;
+let discountType: string | null = null;
+let discountValue = 0;
+let discountAssignedId: string | null = null;
+let currencyMismatch = false;
+
+if (
+  adminDiscount &&
+  basePrice !== undefined &&
+  !isDiscountLoading
+) {
+  if (adminDiscount.discountType === "percent") {
+    discountType = "percent";
+    discountValue = adminDiscount.discountValue;
+    discountPercent = discountValue;
+
+    discountAmount =
+      (basePrice * discountPercent) / 100;
+
+    discountAssignedId = adminDiscount.id;
+  } else if (adminDiscount.discountType === "fixed") {
+    if (adminDiscount.currency === currency) {
+      discountType = "fixed";
+      discountValue = adminDiscount.discountValue;
+
+      discountAmount = Math.min(
+        basePrice,
+        discountValue
+      );
+
+      discountAssignedId = adminDiscount.id;
+    } else {
+      currencyMismatch = true;
+    }
+  }
+}
+
+const finalAmount =
+  basePrice !== undefined
+    ? Math.max(0, basePrice - discountAmount)
     : undefined;
-
-  
-const discountPercent = 0;
-const discountAmount = 0;
-const discountType: string | null = null;
-const discountValue = 0;
-const discountAssignedId: string | null = null;
-const currencyMismatch = false;
-
-const finalAmount = basePrice;
 
 const formattedBasePrice =
   basePrice !== undefined
     ? `${currencySymbol}${basePrice.toFixed(2)}`
     : null;
 
-const formattedDiscountAmount: string | null = null;
+const formattedDiscountAmount =
+  discountAmount > 0
+    ? `${currencySymbol}${discountAmount.toFixed(2)}`
+    : null;
 
 const formattedFinalAmount =
   finalAmount !== undefined
@@ -428,8 +501,10 @@ const formattedFinalAmount =
     : null;
 
 const discCurrency = adminDiscount?.currency;
+
 const discSymbol =
-  discCurrency && ["EUR", "USD", "GBP"].includes(discCurrency)
+  discCurrency &&
+  ["EUR", "USD", "GBP"].includes(discCurrency)
     ? currencySymbols[discCurrency as Currency]
     : currencySymbol;
 
@@ -1282,7 +1357,7 @@ scrollToForm();
 
                           {isDiscountLoading ? (
                             <div className="mb-4 rounded-xl bg-card border border-border/60 p-3 text-xs text-muted-foreground animate-pulse">
-                              Checking assigned participant discounts...
+                              Checking assigned registration discount...
                             </div>
                           ) : currencyMismatch ? (
                             <div className="mb-4 rounded-xl bg-amber-500/10 border border-amber-500/20 p-3 text-xs text-amber-800 dark:text-amber-300">

@@ -1,0 +1,413 @@
+/* =========================================
+   WAVEXA ADMIN — SETTINGS PAGE
+   Dark Navy + Teal + Purple Theme
+========================================= */
+
+.admin-settings-page {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  color: #e8f0fc;
+  animation: settingsPageEnter 0.35s ease;
+}
+
+@keyframes settingsPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+
+.admin-settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 26px;
+}
+
+.admin-settings-eyebrow {
+  display: inline-block;
+  margin-bottom: 9px;
+  color: #65e4d1;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.admin-settings-header h1 {
+  margin: 0;
+  color: #f4f7fc;
+  font-size: clamp(27px, 3vw, 33px);
+  font-weight: 750;
+  letter-spacing: -0.8px;
+}
+
+.admin-settings-header p {
+  margin: 9px 0 0;
+  color: #9aacc4;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.admin-settings-header-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(45, 212, 191, 0.25);
+  border-radius: 17px;
+  background: linear-gradient(145deg, #183e43, #172a40);
+  color: #65e4d1;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-settings-header-icon:hover {
+  transform: translateY(-3px) rotate(-3deg);
+  box-shadow: 0 12px 25px rgba(45, 212, 191, 0.12);
+}
+
+/* Information notice */
+
+.admin-settings-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 18px 21px;
+  border: 1px solid rgba(45, 212, 191, 0.22);
+  border-left: 4px solid #2dd4bf;
+  border-radius: 13px;
+  background: linear-gradient(120deg, #17383d, #17283c);
+  color: #b9ccdc;
+}
+
+.admin-settings-notice > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #65e4d1;
+}
+
+.admin-settings-notice p {
+  margin: 0;
+  color: #b9ccdc;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* Settings cards */
+
+.admin-settings-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-settings-card {
+  position: relative;
+  overflow: hidden;
+  padding: 25px;
+  border: 1px solid #293a50;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #19283d, #121f32);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.13);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-settings-card:hover {
+  border-color: rgba(45, 212, 191, 0.3);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* Card headings */
+
+.admin-settings-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.admin-settings-card-heading > div:last-child {
+  min-width: 0;
+}
+
+.admin-settings-card-heading h2 {
+  margin: 0;
+  color: #f2f6ff;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.admin-settings-card-heading p {
+  margin: 6px 0 0;
+  color: #9aacc4;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Section icons */
+
+.admin-settings-section-icon {
+  display: flex;
+  flex: 0 0 46px;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+}
+
+.admin-settings-section-icon.profile-icon {
+  border: 1px solid rgba(101, 228, 209, 0.18);
+  background: rgba(45, 212, 191, 0.13);
+  color: #65e4d1;
+}
+
+.admin-settings-section-icon.notification-icon {
+  border: 1px solid rgba(112, 147, 255, 0.2);
+  background: rgba(112, 147, 255, 0.13);
+  color: #a8bdff;
+}
+
+.admin-settings-section-icon.security-icon {
+  border: 1px solid rgba(185, 154, 255, 0.2);
+  background: rgba(185, 154, 255, 0.13);
+  color: #c8b0ff;
+}
+
+/* Profile fields */
+
+.admin-settings-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.admin-settings-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  color: #dce6f4;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-settings-fields input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid #35465b;
+  border-radius: 9px;
+  outline: none;
+  background: #0e1929;
+  color: #f0f5fc;
+  font-family: inherit;
+  font-size: 13px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-settings-fields input::placeholder {
+  color: #8192aa;
+}
+
+.admin-settings-fields input:hover {
+  border-color: #52677f;
+}
+
+.admin-settings-fields input:focus {
+  border-color: #2dd4bf;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1);
+}
+
+/* Notification preference */
+
+.admin-settings-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px;
+  border: 1px solid #2c3d52;
+  border-radius: 12px;
+  background: #152338;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-settings-toggle:hover {
+  border-color: rgba(45, 212, 191, 0.3);
+  background: #192b40;
+}
+
+.admin-settings-toggle > span {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-settings-toggle strong {
+  color: #eaf1fb;
+  font-size: 13px;
+}
+
+.admin-settings-toggle small {
+  color: #9aacc4;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.admin-settings-toggle input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  margin: 0;
+  accent-color: #2dd4bf;
+  cursor: pointer;
+}
+
+/* Security information */
+
+.admin-settings-security-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 18px;
+  border: 1px solid rgba(185, 154, 255, 0.17);
+  border-radius: 12px;
+  background: linear-gradient(120deg, #262541, #1c263d);
+}
+
+.admin-settings-security-info > svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: #c8b0ff;
+}
+
+.admin-settings-security-info strong {
+  display: block;
+  margin-bottom: 7px;
+  color: #eee8ff;
+  font-size: 13px;
+}
+
+.admin-settings-security-info p {
+  margin: 0;
+  color: #b2bad0;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* Bottom actions */
+
+.admin-settings-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 5px 0 10px;
+}
+
+.admin-settings-message {
+  flex: 1;
+  min-width: 200px;
+  margin: 0;
+  color: #f4cd78;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.admin-settings-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 45px;
+  padding: 0 20px;
+  border: 1px solid #13b8a6;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #14b8a6, #0d9488);
+  color: #061b24;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: 0 7px 20px rgba(20, 184, 166, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-settings-save:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(20, 184, 166, 0.23);
+}
+
+.admin-settings-save:active {
+  transform: translateY(0);
+}
+
+.admin-settings-save:focus-visible {
+  outline: 3px solid rgba(45, 212, 191, 0.4);
+  outline-offset: 3px;
+}
+
+/* Responsive */
+
+@media (max-width: 760px) {
+  .admin-settings-header {
+    align-items: flex-start;
+  }
+
+  .admin-settings-fields {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .admin-settings-card {
+    padding: 20px;
+  }
+
+  .admin-settings-card-heading {
+    gap: 12px;
+  }
+
+  .admin-settings-toggle,
+  .admin-settings-security-info {
+    padding: 15px;
+  }
+
+  .admin-settings-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-settings-save {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-settings-page,
+  .admin-settings-header-icon,
+  .admin-settings-card,
+  .admin-settings-toggle,
+  .admin-settings-save {
+    animation: none;
+    transition: none;
+  }
+
+  .admin-settings-header-icon:hover,
+  .admin-settings-save:hover {
+    transform: none;
+  }
+}

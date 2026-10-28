@@ -4,6 +4,7 @@ import uuid
 from pathlib import Path
 from urllib.parse import quote
 from dotenv import load_dotenv
+import math
 import requests
 import firebase_admin
 from firebase_admin import credentials, storage, firestore
@@ -216,13 +217,18 @@ def normalize_period(value):
     cleaned = value.strip().lower().replace("_", "").replace("-", "")
     cleaned = cleaned.replace(" ", "")
 
+    
     aliases = {
         "earlybird": "earlyBird",
+        "earlybirdregistration": "earlyBird",
         "standard": "standard",
+        "standardregistration": "standard",
         "final": "final",
+        "finalregistration": "final",
     }
 
     return aliases.get(cleaned)
+
 
 
 def get_server_price(registration):
@@ -263,6 +269,111 @@ def get_server_price(registration):
 
     return amount, currency
 
+
+
+def get_server_pricing(registration):
+    """
+    Calculate the original ticket price and the valid
+    admin-assigned discount on the backend.
+
+    Never trust discount or final amount values sent by
+    the frontend.
+    """
+    original_amount, currency = get_server_price(registration)
+
+    discount_type = registration.get("adminDiscountType")
+    discount_status = registration.get("adminDiscountStatus")
+    raw_discount_value = registration.get("adminDiscountValue")
+    discount_currency = registration.get("adminDiscountCurrency")
+
+    discount_value = 0.0
+    discount_amount = 0.0
+    applied_discount_type = None
+
+    # No active admin discount: charge the original price.
+    if discount_status != "active":
+        return {
+            "original_amount": float(original_amount),
+            "currency": currency,
+            "discount_type": None,
+            "discount_value": 0.0,
+            "discount_amount": 0.0,
+            "final_amount": float(original_amount),
+        }
+
+    # An active discount must have valid configuration.
+    if discount_type not in {"percent", "fixed"}:
+        raise HTTPException(
+            status_code=409,
+            detail="The assigned discount type is invalid.",
+        )
+
+    if isinstance(raw_discount_value, bool):
+        raise HTTPException(
+            status_code=409,
+            detail="The assigned discount value is invalid.",
+        )
+
+    try:
+        discount_value = float(raw_discount_value)
+    except (TypeError, ValueError):
+        raise HTTPException(
+            status_code=409,
+            detail="The assigned discount value is invalid.",
+        )
+
+    if not math.isfinite(discount_value) or discount_value <= 0:
+        raise HTTPException(
+            status_code=409,
+            detail="The assigned discount value is invalid.",
+        )
+
+    if discount_type == "percent":
+        if discount_value > 100:
+            raise HTTPException(
+                status_code=409,
+                detail="The percentage discount cannot exceed 100%.",
+            )
+
+        discount_amount = (
+            float(original_amount) * discount_value / 100
+        )
+        applied_discount_type = "percent"
+
+    elif discount_type == "fixed":
+        if discount_currency not in {"EUR", "USD", "GBP"}:
+            raise HTTPException(
+                status_code=409,
+                detail="The fixed discount currency is invalid.",
+            )
+
+        # Match the frontend: a fixed discount applies only
+        # when its currency matches the selected registration currency.
+        if discount_currency == currency:
+            discount_amount = min(
+                float(original_amount),
+                discount_value,
+            )
+            applied_discount_type = "fixed"
+        else:
+            # Currency mismatch: do not apply the fixed discount.
+            discount_amount = 0.0
+            applied_discount_type = None
+            discount_value = 0.0
+
+    final_amount = max(
+        0.0,
+        float(original_amount) - discount_amount,
+    )
+
+    return {
+        "original_amount": float(original_amount),
+        "currency": currency,
+        "discount_type": applied_discount_type,
+        "discount_value": discount_value,
+        "discount_amount": discount_amount,
+        "final_amount": final_amount,
+    }
 
 def paypal_access_token():
     if not PAYPAL_CLIENT_ID or not PAYPAL_CLIENT_SECRET:
@@ -473,12 +584,12 @@ def create_paypal_order(request: CreateOrderRequest):
             detail="This registration has already been paid.",
         )
 
-    amount, currency = get_server_price(registration)
+    
+    pricing = get_server_pricing(registration)
 
-    # Discounts are intentionally not applied here yet.
-    # Verify the participant's identity and admin assignment
-    # on the backend before enabling discounted payments.
-    final_amount = amount
+    currency = pricing["currency"]
+    final_amount = pricing["final_amount"]
+
 
     token = paypal_access_token()
 
@@ -524,6 +635,8 @@ def create_paypal_order(request: CreateOrderRequest):
    
 
     # Save the server-calculated amount and the PayPal order ID.
+    
+    # Save the server-calculated final amount and discount audit details.
     registration_ref.update(
         {
             "paymentStatus": "pending",
@@ -531,9 +644,18 @@ def create_paypal_order(request: CreateOrderRequest):
             "paypalMode": PAYPAL_MODE,
             "paypalAmount": money_string(final_amount),
             "paypalCurrency": currency,
+            "paypalOriginalAmount": money_string(
+                pricing["original_amount"]
+            ),
+            "paypalDiscountType": pricing["discount_type"],
+            "paypalDiscountValue": pricing["discount_value"],
+            "paypalDiscountAmount": money_string(
+                pricing["discount_amount"]
+            ),
             "paypalOrderCreatedAt": firestore.SERVER_TIMESTAMP,
         }
     )
+
 
     return {
         "status": "success",
@@ -574,10 +696,13 @@ def capture_paypal_order(request: CaptureOrderRequest):
             detail="PayPal order does not match this registration.",
         )
 
-    amount, currency = get_server_price(registration)
+    
+    # Recalculate pricing from the trusted registration record.
+    pricing = get_server_pricing(registration)
 
-    # Compare against the server's expected price, not browser data.
-    expected_amount = money_string(amount)
+    currency = pricing["currency"]
+    expected_amount = money_string(pricing["final_amount"])
+
 
     if registration.get("paypalAmount") != expected_amount:
         raise HTTPException(

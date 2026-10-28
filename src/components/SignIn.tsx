@@ -70,7 +70,7 @@ export default function SignIn() {
         });
       }
 
-      navigate("/");
+      navigate("/admin", { replace: true });
     } catch (err: unknown) {
       const firebaseError = err as { code?: string };
 

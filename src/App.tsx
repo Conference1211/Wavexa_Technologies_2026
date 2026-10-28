@@ -2,8 +2,16 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { ErrorBoundary } from "@/layouts/RootLayout";
 import ScrollToTop from "@/components/ScrollToTop";
 import { DEFAULT_CONFERENCE_ID } from "@/data/conferences";
+
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import AdminLayout from "@/admin/AdminLayout";
+import AdminDashboard from "@/admin/AdminDashboard";
+import AdminConferences from "@/admin/AdminConferences";
+import WebsiteForms from "@/admin/WebsiteForms";
+import AdminSettings from "@/admin/AdminSettings";
+
+
 import MainShell from "@/main/MainShell";
 import BusinessHome from "@/main/pages/Home";
 import BusinessAbout from "@/main/pages/About";
@@ -38,6 +46,26 @@ export default function App() {
   return <ErrorBoundary><ScrollToTop /><Routes>
     <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      
+<Route path="/admin" element={<AdminLayout />}>
+  <Route index element={<AdminDashboard />} />
+
+  <Route
+    path="conferences"
+    element={<AdminConferences />}
+  />
+
+  <Route
+  path="forms"
+  element={<WebsiteForms />}
+/>
+
+  <Route
+    path="settings"
+    element={<AdminSettings />}
+  />
+</Route>
+
     <Route element={<MainShell />}>
       <Route path="/" element={<BusinessHome />} />
       <Route path="/business/about" element={<BusinessAbout />} />
